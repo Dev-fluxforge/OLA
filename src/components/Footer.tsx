@@ -1,7 +1,20 @@
 import React from 'react';
 import { Mail, Phone, MapPin, Facebook, Twitter, Instagram, Youtube } from 'lucide-react';
+import { type Page } from '../types';
 
-export const Footer: React.FC = () => {
+interface FooterProps {
+  onPageChange: (page: Page) => void;
+}
+
+export const Footer: React.FC<FooterProps> = ({ onPageChange }) => {
+  const quickLinks: { label: string; page: Page }[] = [
+    { label: 'About Us', page: 'about' },
+    { label: 'Academic Calendar', page: 'calendar' },
+    { label: 'Scholarships', page: 'scholarships' },
+    { label: 'Student Portal', page: 'home' }, // Student Portal is excluded from content generation but kept as a link for now
+    { label: 'News & Events', page: 'news' },
+  ];
+
   return (
     <footer className="bg-surface-container-lowest border-t border-white/5 pt-20 pb-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -31,9 +44,14 @@ export const Footer: React.FC = () => {
           <div>
             <h4 className="font-serif font-bold text-lg mb-6">Quick Links</h4>
             <ul className="space-y-4">
-              {['About Us', 'Academic Calendar', 'Scholarships', 'Student Portal', 'News & Events'].map((link) => (
-                <li key={link}>
-                  <a href="#" className="text-on-surface/60 hover:text-primary text-sm transition-colors">{link}</a>
+              {quickLinks.map((link) => (
+                <li key={link.label}>
+                  <button 
+                    onClick={() => onPageChange(link.page)}
+                    className="text-on-surface/60 hover:text-primary text-sm transition-colors text-left"
+                  >
+                    {link.label}
+                  </button>
                 </li>
               ))}
             </ul>
@@ -44,7 +62,12 @@ export const Footer: React.FC = () => {
             <ul className="space-y-4">
               {['Islamic Jurisprudence', 'Theology & Creed', 'Hadith Sciences', 'Arabic Linguistics', 'Quranic Exegesis'].map((link) => (
                 <li key={link}>
-                  <a href="#" className="text-on-surface/60 hover:text-primary text-sm transition-colors">{link}</a>
+                  <button 
+                    onClick={() => onPageChange('programs')}
+                    className="text-on-surface/60 hover:text-primary text-sm transition-colors text-left"
+                  >
+                    {link}
+                  </button>
                 </li>
               ))}
             </ul>
@@ -58,12 +81,22 @@ export const Footer: React.FC = () => {
                 <span>123 Scholarly Way, Academic District, Knowledge City</span>
               </li>
               <li className="flex gap-3 text-sm text-on-surface/60">
-                <Phone size={18} className="text-primary shrink-0" />
-                <span>+1 (555) 123-4567</span>
+                <button 
+                  onClick={() => onPageChange('contact')}
+                  className="flex gap-3 hover:text-primary transition-colors text-left"
+                >
+                  <Phone size={18} className="text-primary shrink-0" />
+                  <span>+1 (555) 123-4567</span>
+                </button>
               </li>
               <li className="flex gap-3 text-sm text-on-surface/60">
-                <Mail size={18} className="text-primary shrink-0" />
-                <span>admissions@daarulfalaah.edu</span>
+                <button 
+                  onClick={() => onPageChange('contact')}
+                  className="flex gap-3 hover:text-primary transition-colors text-left"
+                >
+                  <Mail size={18} className="text-primary shrink-0" />
+                  <span>admissions@daarulfalaah.edu</span>
+                </button>
               </li>
             </ul>
           </div>
@@ -74,8 +107,18 @@ export const Footer: React.FC = () => {
             © 2026 Daarul Falaah Islamic Institution. All rights reserved.
           </p>
           <div className="flex gap-8">
-            <a href="#" className="text-on-surface/40 hover:text-primary text-xs transition-colors">Privacy Policy</a>
-            <a href="#" className="text-on-surface/40 hover:text-primary text-xs transition-colors">Terms of Service</a>
+            <button 
+              onClick={() => onPageChange('privacy')}
+              className="text-on-surface/40 hover:text-primary text-xs transition-colors"
+            >
+              Privacy Policy
+            </button>
+            <button 
+              onClick={() => onPageChange('terms')}
+              className="text-on-surface/40 hover:text-primary text-xs transition-colors"
+            >
+              Terms of Service
+            </button>
           </div>
         </div>
       </div>

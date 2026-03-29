@@ -11,4 +11,4 @@ export interface Course {
   prerequisites: string[];
 }
 
-export type Page = 'home' | 'programs' | 'apply' | 'contact' | 'course-detail';
+export type Page = 'home' | 'programs' | 'apply' | 'contact' | 'course-detail' | 'about' | 'calendar' | 'scholarships' | 'news' | 'privacy' | 'terms';

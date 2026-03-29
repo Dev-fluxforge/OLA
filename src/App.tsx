@@ -6,6 +6,12 @@ import { Programs } from './pages/Programs';
 import { Apply } from './pages/Apply';
 import { Contact } from './pages/Contact';
 import { CourseDetail } from './pages/CourseDetail';
+import { About } from './pages/About';
+import { Calendar } from './pages/Calendar';
+import { Scholarships } from './pages/Scholarships';
+import { News } from './pages/News';
+import { Privacy } from './pages/Privacy';
+import { Terms } from './pages/Terms';
 import { type Page, type Course } from './types';
 import { motion, AnimatePresence } from 'motion/react';
 
@@ -34,6 +40,18 @@ export default function App() {
         return <Apply />;
       case 'contact':
         return <Contact />;
+      case 'about':
+        return <About />;
+      case 'calendar':
+        return <Calendar />;
+      case 'scholarships':
+        return <Scholarships />;
+      case 'news':
+        return <News />;
+      case 'privacy':
+        return <Privacy />;
+      case 'terms':
+        return <Terms />;
       case 'course-detail':
         return selectedCourse ? (
           <CourseDetail 
@@ -67,7 +85,7 @@ export default function App() {
         </AnimatePresence>
       </main>
 
-      <Footer />
+      <Footer onPageChange={handlePageChange} />
     </div>
   );
 }
