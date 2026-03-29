@@ -1,0 +1,59 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Noto+Serif:ital,wght@0,400;0,700;1,400&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --font-serif: "Noto Serif", serif;
+  
+  --color-surface: #0d1322;
+  --color-primary: #98da27;
+  --color-on-surface: #dde2f8;
+  --color-surface-container-low: #151b2b;
+  --color-surface-container-high: #242a3a;
+  --color-surface-container-highest: #2f3445;
+  --color-surface-container-lowest: #080e1d;
+  --color-error: #ffb4ab;
+}
+
+@layer base {
+  body {
+    @apply bg-surface text-on-surface font-sans antialiased;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-serif;
+  }
+}
+
+.glass {
+  @apply bg-surface-container-high/50 backdrop-blur-md border border-white/10;
+}
+
+.btn-primary {
+  @apply bg-primary text-surface font-semibold px-6 py-3 rounded-full transition-all hover:scale-105 active:scale-95;
+}
+
+.btn-outline {
+  @apply border border-on-surface/20 text-on-surface font-semibold px-6 py-3 rounded-full transition-all hover:bg-white/5;
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-surface;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-surface-container-highest rounded-full border-2 border-surface;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-on-surface/20;
+}
