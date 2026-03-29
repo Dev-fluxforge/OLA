@@ -277,6 +277,78 @@ export const CourseDetail: React.FC<CourseDetailProps> = ({ course, onBack, onAp
             </div>
           </aside>
         </div>
+
+        {/* Student Reviews Section */}
+        <div className="mt-24 space-y-12">
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+            <div className="space-y-4">
+              <h2 className="text-3xl font-serif font-bold">Student Reviews</h2>
+              <div className="flex items-center gap-4">
+                <div className="flex items-center gap-1 text-primary">
+                  {[...Array(5)].map((_, i) => <Star key={i} size={16} fill="currentColor" />)}
+                </div>
+                <span className="text-sm font-bold">4.9 Average Rating</span>
+              </div>
+            </div>
+            <button className="text-primary text-sm font-bold uppercase tracking-widest hover:underline">Write a Review</button>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {[
+              { name: 'Abdullah Hassan', date: '2 months ago', text: 'This course provided the clarity I was looking for in my studies of Fiqh. The instructor\'s depth of knowledge is unparalleled.', rating: 5 },
+              { name: 'Mariam Yusuf', date: '3 months ago', text: 'The structured approach to classical texts made it easy to follow along, even for someone at an intermediate level.', rating: 5 },
+            ].map((review, i) => (
+              <div key={i} className="glass p-8 rounded-3xl space-y-4">
+                <div className="flex justify-between items-start">
+                  <div className="flex items-center gap-4">
+                    <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary font-bold">
+                      {review.name[0]}
+                    </div>
+                    <div>
+                      <div className="text-sm font-bold">{review.name}</div>
+                      <div className="text-[10px] text-on-surface/40 uppercase tracking-widest">{review.date}</div>
+                    </div>
+                  </div>
+                  <div className="flex gap-0.5 text-primary">
+                    {[...Array(review.rating)].map((_, i) => <Star key={i} size={12} fill="currentColor" />)}
+                  </div>
+                </div>
+                <p className="text-sm text-on-surface/70 leading-relaxed italic">"{review.text}"</p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Related Courses Section */}
+        <div className="mt-24 space-y-12">
+          <h2 className="text-3xl font-serif font-bold">Related Courses</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              { title: 'Advanced Fiqh Studies', level: 'Advanced', duration: '12 Weeks' },
+              { title: 'Principles of Hadith', level: 'Intermediate', duration: '8 Weeks' },
+              { title: 'Islamic Ethics', level: 'Beginner', duration: '6 Weeks' },
+            ].map((related, i) => (
+              <div key={i} className="glass p-6 rounded-3xl space-y-4 group cursor-pointer hover:border-primary/30 transition-all">
+                <div className="aspect-video rounded-2xl overflow-hidden bg-surface-container-high">
+                  <img 
+                    src={`https://picsum.photos/seed/related-${i}/400/300`} 
+                    alt={related.title} 
+                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all"
+                    referrerPolicy="no-referrer"
+                  />
+                </div>
+                <div className="space-y-2">
+                  <div className="text-[10px] font-bold uppercase tracking-widest text-primary">{related.level}</div>
+                  <h4 className="font-serif font-bold text-lg group-hover:text-primary transition-colors">{related.title}</h4>
+                  <div className="flex items-center gap-2 text-xs text-on-surface/40">
+                    <Clock size={12} />
+                    <span>{related.duration}</span>
+                  </div>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );

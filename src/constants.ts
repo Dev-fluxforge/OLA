@@ -23,6 +23,27 @@ export const COURSES: Course[] = [
     ]
   },
   {
+    id: 'arabic-101',
+    title: 'Classical Arabic Linguistics',
+    description: 'Master the foundational rules of Arabic grammar (Nahw) and morphology (Sarf) to unlock the depths of classical Islamic texts.',
+    level: 'Beginner',
+    duration: '16 Weeks',
+    instructor: 'Ustadha Fatima Al-Zahra',
+    category: 'Arabic Linguistics',
+    image: 'https://picsum.photos/seed/arabic/800/600',
+    syllabus: [
+      'Introduction to Arabic Parts of Speech',
+      'The System of I\'rab (Inflection)',
+      'Verb Conjugation and Root Systems',
+      'Sentence Structure and Syntax',
+      'Reading Classical Texts'
+    ],
+    prerequisites: [
+      'Ability to read Arabic script',
+      'Basic vocabulary'
+    ]
+  },
+  {
     id: 'aqidah-201',
     title: 'Classical Islamic Creed',
     description: 'An in-depth study of the essential beliefs of Islam as preserved by the scholarly tradition, addressing theological nuances and historical developments.',
@@ -44,6 +65,27 @@ export const COURSES: Course[] = [
     ]
   },
   {
+    id: 'tafsir-201',
+    title: 'Quranic Exegesis (Tafsir)',
+    description: 'Explore the methodologies of Quranic interpretation, studying key verses through the lens of classical commentaries and linguistic analysis.',
+    level: 'Intermediate',
+    duration: '14 Weeks',
+    instructor: 'Shaykh Ibrahim Mansour',
+    category: 'Quranic Sciences',
+    image: 'https://picsum.photos/seed/tafsir/800/600',
+    syllabus: [
+      'History of Tafsir Literature',
+      'Principles of Exegesis (Usul al-Tafsir)',
+      'Linguistic Miracles of the Quran',
+      'Thematic Study of Selected Surahs',
+      'Modern Challenges in Interpretation'
+    ],
+    prerequisites: [
+      'Intermediate Arabic',
+      'Foundations of Fiqh'
+    ]
+  },
+  {
     id: 'hadith-301',
     title: 'Hadith Methodology',
     description: 'Master the science of Hadith criticism and classification (Mustalah al-Hadith), exploring the rigorous standards of classical scholarship.',
@@ -62,6 +104,26 @@ export const COURSES: Course[] = [
     prerequisites: [
       'Advanced Arabic',
       'Classical Islamic Creed'
+    ]
+  },
+  {
+    id: 'history-101',
+    title: 'Islamic Intellectual History',
+    description: 'A journey through the golden ages of Islamic scholarship, tracing the development of major schools of thought and their impact on the world.',
+    level: 'Beginner',
+    duration: '10 Weeks',
+    instructor: 'Dr. Omar Farooq',
+    category: 'History',
+    image: 'https://picsum.photos/seed/history/800/600',
+    syllabus: [
+      'The Prophetic Era and the Rightly Guided Caliphs',
+      'The Rise of the Great Madhahib',
+      'The Translation Movement and Scientific Advancements',
+      'The Mongol Invasion and the Post-Classical Period',
+      'Islamic Thought in the Modern Era'
+    ],
+    prerequisites: [
+      'None'
     ]
   }
 ];

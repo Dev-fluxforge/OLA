@@ -88,6 +88,22 @@ export const Programs: React.FC<ProgramsProps> = ({ onPageChange, onCourseSelect
                 Book a Consultation
               </button>
             </div>
+
+            <div className="glass p-6 rounded-3xl space-y-6">
+              <h4 className="font-serif font-bold text-lg">Why Choose Us?</h4>
+              <div className="space-y-4">
+                {[
+                  { title: 'Authenticity', desc: 'Curriculum based on classical texts.' },
+                  { title: 'Flexibility', desc: 'Self-paced and live sessions available.' },
+                  { title: 'Community', desc: 'Global network of students.' },
+                ].map((item, i) => (
+                  <div key={i} className="space-y-1">
+                    <div className="text-xs font-bold uppercase tracking-widest text-primary">{item.title}</div>
+                    <p className="text-[10px] text-on-surface/60">{item.desc}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
           </aside>
 
           {/* Course List */}

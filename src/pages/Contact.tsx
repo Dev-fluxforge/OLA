@@ -96,6 +96,27 @@ export const Contact: React.FC = () => {
             </form>
           </div>
         </div>
+
+        {/* FAQ Section */}
+        <div className="mt-32 max-w-4xl mx-auto space-y-12">
+          <div className="text-center space-y-4">
+            <h2 className="text-3xl font-serif font-bold">Frequently Asked Questions</h2>
+            <p className="text-on-surface/60">Find quick answers to common questions about our institution.</p>
+          </div>
+          <div className="grid grid-cols-1 gap-6">
+            {[
+              { q: "What are the admission requirements?", a: "Applicants must have a high school diploma or equivalent. Previous Islamic education is recommended but not mandatory for beginner courses." },
+              { q: "Are scholarships available?", a: "Yes, we offer need-based and merit-based scholarships. Please indicate your interest in the application form." },
+              { q: "Is the curriculum available online?", a: "We offer both on-campus and remote learning options for most of our programs." },
+              { q: "What is the duration of the programs?", a: "Program duration varies from 10 to 20 weeks depending on the discipline and level." }
+            ].map((faq, i) => (
+              <div key={i} className="glass p-8 rounded-3xl space-y-4">
+                <h4 className="font-serif font-bold text-lg text-primary italic">Q: {faq.q}</h4>
+                <p className="text-on-surface/70 leading-relaxed">{faq.a}</p>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );

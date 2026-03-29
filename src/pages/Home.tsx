@@ -30,10 +30,10 @@ export const Home: React.FC<HomeProps> = ({ onPageChange }) => {
               <span>Enrollment Open for Fall 2026</span>
             </div>
             <h1 className="text-5xl md:text-7xl font-serif font-bold leading-[1.1] text-balance">
-              Master the <span className="text-primary italic">Classical</span> Islamic Sciences
+              Preserving the <span className="text-primary italic">Sacred</span> Scholarly Tradition
             </h1>
             <p className="text-lg text-on-surface/70 leading-relaxed max-w-xl text-balance">
-              Join a prestigious institution dedicated to the preservation and mastery of the scholarly manuscript. Our curriculum bridges timeless wisdom with contemporary relevance.
+              Daarul Falaah is a sanctuary for seekers of knowledge, dedicated to the rigorous study of classical Islamic sciences through an unbroken chain of transmission.
             </p>
             <div className="flex flex-wrap gap-4 pt-4">
               <button 
@@ -216,21 +216,188 @@ export const Home: React.FC<HomeProps> = ({ onPageChange }) => {
                   referrerPolicy="no-referrer"
                 />
               </div>
-              <div className="absolute -bottom-10 -left-10 glass p-8 rounded-3xl max-w-xs space-y-4 hidden md:block">
-                <div className="flex gap-1 text-primary">
-                  {[...Array(5)].map((_, i) => <Star key={i} size={16} fill="currentColor" />)}
-                </div>
-                <p className="italic text-sm text-on-surface/80">
-                  "The depth of knowledge and the spiritual atmosphere at Daarul Falaah is truly transformative."
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Scholarly Tradition & History Section */}
+      <section className="py-24 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-20 items-center">
+            <div className="order-2 lg:order-1 relative">
+              <div className="aspect-[4/5] rounded-3xl overflow-hidden glass p-4">
+                <img 
+                  src="https://picsum.photos/seed/tradition/800/1000" 
+                  alt="Ancient Manuscripts" 
+                  className="w-full h-full object-cover rounded-2xl grayscale"
+                  referrerPolicy="no-referrer"
+                />
+              </div>
+              <div className="absolute -bottom-10 -right-10 glass p-8 rounded-3xl max-w-xs space-y-4 hidden md:block">
+                <div className="text-primary font-serif font-bold text-4xl italic">1400+</div>
+                <p className="text-xs text-on-surface/60 leading-relaxed">
+                  Years of preserved scholarly tradition, passed down through generations of dedicated seekers.
                 </p>
-                <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-primary/20" />
+              </div>
+            </div>
+
+            <div className="order-1 lg:order-2 space-y-8">
+              <div className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-widest border border-primary/20">
+                Our Heritage
+              </div>
+              <h2 className="text-4xl md:text-5xl font-serif font-bold">A Legacy of Light</h2>
+              <div className="space-y-6 text-on-surface/70 leading-relaxed">
+                <p>
+                  Daarul Falaah was founded on the principle that true knowledge is a light that must be carefully tended. Our institution traces its pedagogical roots back to the great centers of learning in Baghdad, Cordoba, and Timbuktu.
+                </p>
+                <p>
+                  We believe that the study of the sacred sciences requires more than just intellectual rigor; it requires a transformation of the heart. Our curriculum is designed to facilitate this holistic growth, ensuring that our students emerge not just as scholars, but as beacons of guidance for their communities.
+                </p>
+                <div className="pt-4 space-y-4">
+                  {[
+                    'Unbroken chains of transmission (Isnad)',
+                    'Emphasis on character development (Adab)',
+                    'Integration of classical wisdom with modern context',
+                    'A sanctuary for focused spiritual and intellectual growth'
+                  ].map((item, i) => (
+                    <div key={i} className="flex items-center gap-3">
+                      <div className="w-1.5 h-1.5 rounded-full bg-primary shrink-0" />
+                      <span className="text-sm">{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Testimonials Section */}
+      <section className="py-24 px-4 sm:px-6 lg:px-8 bg-surface-container-lowest">
+        <div className="max-w-7xl mx-auto">
+          <div className="text-center mb-16 space-y-4">
+            <h2 className="text-3xl md:text-5xl font-serif font-bold">Student Voices</h2>
+            <p className="text-on-surface/60 max-w-2xl mx-auto">
+              Hear from our global community of students who have embarked on this transformative journey.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            {[
+              { 
+                name: 'Zaid Al-Mansour', 
+                role: 'Graduate Student', 
+                text: 'The depth of knowledge and the spiritual atmosphere at Daarul Falaah is truly transformative. It is not just an academic institution, but a community of growth.',
+                seed: 'student1'
+              },
+              { 
+                name: 'Aisha Rahman', 
+                role: 'Intermediate Scholar', 
+                text: 'The focus on classical texts and the direct connection with scholars who hold authentic ijazahs is what sets this institution apart. My understanding of Fiqh has reached new heights.',
+                seed: 'student2'
+              },
+              { 
+                name: 'Omar Khalid', 
+                role: 'Arabic Linguistics Student', 
+                text: 'Mastering the Arabic language was always a dream. The methodology used here made the complex rules of Nahw and Sarf accessible and deeply engaging.',
+                seed: 'student3'
+              }
+            ].map((testimonial, i) => (
+              <div key={i} className="glass p-8 rounded-3xl space-y-6 flex flex-col justify-between hover:border-primary/30 transition-all">
+                <div className="space-y-4">
+                  <div className="flex gap-1 text-primary">
+                    {[...Array(5)].map((_, i) => <Star key={i} size={14} fill="currentColor" />)}
+                  </div>
+                  <p className="italic text-on-surface/80 leading-relaxed">
+                    "{testimonial.text}"
+                  </p>
+                </div>
+                <div className="flex items-center gap-4 pt-6 border-t border-white/5">
+                  <div className="w-12 h-12 rounded-full overflow-hidden bg-primary/20">
+                    <img 
+                      src={`https://picsum.photos/seed/${testimonial.seed}/100/100`} 
+                      alt={testimonial.name} 
+                      className="w-full h-full object-cover grayscale"
+                      referrerPolicy="no-referrer"
+                    />
+                  </div>
                   <div>
-                    <div className="text-sm font-bold">Zaid Al-Mansour</div>
-                    <div className="text-[10px] uppercase tracking-widest text-on-surface/40">Graduate Student</div>
+                    <div className="text-sm font-bold">{testimonial.name}</div>
+                    <div className="text-[10px] uppercase tracking-widest text-on-surface/40">{testimonial.role}</div>
                   </div>
                 </div>
               </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Mission & Vision Section */}
+      <section className="py-24 px-4 sm:px-6 lg:px-8 bg-surface-container-low">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-16 items-center">
+            <div className="space-y-8">
+              <div className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-widest border border-primary/20">
+                Our Foundation
+              </div>
+              <h2 className="text-4xl md:text-5xl font-serif font-bold">Mission & Vision</h2>
+              <div className="space-y-6 text-on-surface/70 leading-relaxed">
+                <p>
+                  At Daarul Falaah, our mission is to cultivate a new generation of scholars who are deeply rooted in the classical Islamic tradition while being fully engaged with the complexities of the modern world.
+                </p>
+                <p>
+                  We envision an intellectual landscape where the sacred sciences are not merely historical artifacts, but living, breathing traditions that provide guidance, clarity, and spiritual nourishment to humanity.
+                </p>
+              </div>
+              <div className="grid grid-cols-2 gap-8 pt-4">
+                <div className="space-y-2">
+                  <div className="text-primary font-serif font-bold text-2xl italic">Authenticity</div>
+                  <p className="text-xs text-on-surface/50">Preserving the chain of transmission (Isnad) in every discipline.</p>
+                </div>
+                <div className="space-y-2">
+                  <div className="text-primary font-serif font-bold text-2xl italic">Excellence</div>
+                  <p className="text-xs text-on-surface/50">Striving for the highest academic and spiritual standards.</p>
+                </div>
+              </div>
+            </div>
+            <div className="relative aspect-video rounded-3xl overflow-hidden glass p-4">
+              <img 
+                src="https://picsum.photos/seed/library/1200/800" 
+                alt="Classical Library" 
+                className="w-full h-full object-cover rounded-2xl grayscale"
+                referrerPolicy="no-referrer"
+              />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Newsletter Section */}
+      <section className="py-24 px-4 sm:px-6 lg:px-8 bg-surface-container-lowest">
+        <div className="max-w-7xl mx-auto">
+          <div className="glass rounded-[40px] p-12 md:p-20 flex flex-col lg:flex-row items-center gap-12 relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-1/2 h-full bg-primary/5 pointer-events-none" />
+            <div className="space-y-6 lg:w-1/2">
+              <h2 className="text-3xl md:text-5xl font-serif font-bold">Stay Connected</h2>
+              <p className="text-on-surface/60 max-w-md leading-relaxed">
+                Join our newsletter to receive scholarly insights, academic updates, and information about upcoming events and seminars.
+              </p>
+            </div>
+            <div className="lg:w-1/2 w-full">
+              <form className="flex flex-col sm:flex-row gap-4" onSubmit={(e) => e.preventDefault()}>
+                <input 
+                  type="email" 
+                  placeholder="Enter your email address" 
+                  className="flex-grow bg-white/5 border border-white/10 rounded-2xl py-4 px-6 text-sm focus:outline-none focus:border-primary/50"
+                  required
+                />
+                <button type="submit" className="btn-primary whitespace-nowrap">
+                  Subscribe Now
+                </button>
+              </form>
+              <p className="text-[10px] text-on-surface/40 mt-4 uppercase tracking-widest">
+                We respect your privacy. Unsubscribe at any time.
+              </p>
             </div>
           </div>
         </div>
