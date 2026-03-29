@@ -1,7 +1,8 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { ChevronLeft, Clock, User, BookOpen, CheckCircle, ArrowRight, Shield, Star, Share2 } from 'lucide-react';
+import { ChevronLeft, Clock, User, BookOpen, CheckCircle, ArrowRight, Shield, Star, Share2, PlayCircle } from 'lucide-react';
 import { type Page, type Course } from '../types';
+import { cn } from '../lib/utils';
 
 interface CourseDetailProps {
   course: Course;
@@ -10,6 +11,24 @@ interface CourseDetailProps {
 }
 
 export const CourseDetail: React.FC<CourseDetailProps> = ({ course, onBack, onApply }) => {
+  const [isEnrolled, setIsEnrolled] = React.useState(false);
+  const [completedModules, setCompletedModules] = React.useState<number[]>([]);
+
+  const toggleModule = (index: number) => {
+    setCompletedModules(prev => 
+      prev.includes(index) 
+        ? prev.filter(i => i !== index) 
+        : [...prev, index]
+    );
+  };
+
+  const progress = Math.round((completedModules.length / course.syllabus.length) * 100);
+
+  const handleEnroll = () => {
+    setIsEnrolled(true);
+    // In a real app, this would also call onApply or a separate enrollment service
+  };
+
   return (
     <div className="pt-32 pb-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
@@ -73,15 +92,63 @@ export const CourseDetail: React.FC<CourseDetailProps> = ({ course, onBack, onAp
 
             {/* Detailed Syllabus */}
             <div className="space-y-8">
-              <h2 className="text-3xl font-serif font-bold">Course Syllabus</h2>
+              <div className="flex flex-col md:flex-row md:items-end justify-between gap-4">
+                <h2 className="text-3xl font-serif font-bold">Course Syllabus</h2>
+                {isEnrolled && (
+                  <div className="space-y-2 w-full md:w-64">
+                    <div className="flex justify-between text-xs font-bold uppercase tracking-widest text-on-surface/40">
+                      <span>Course Progress</span>
+                      <span className="text-primary">{progress}%</span>
+                    </div>
+                    <div className="h-2 bg-white/5 rounded-full overflow-hidden">
+                      <motion.div 
+                        initial={{ width: 0 }}
+                        animate={{ width: `${progress}%` }}
+                        className="h-full bg-primary"
+                      />
+                    </div>
+                  </div>
+                )}
+              </div>
+
               <div className="space-y-4">
                 {course.syllabus.map((item, i) => (
-                  <div key={i} className="glass p-6 rounded-2xl flex items-start gap-6 group hover:border-primary/30 transition-all">
-                    <div className="w-10 h-10 rounded-xl bg-surface-container-high flex items-center justify-center text-primary font-serif font-bold group-hover:bg-primary group-hover:text-surface transition-all">
-                      {i + 1}
+                  <div 
+                    key={i} 
+                    className={cn(
+                      "glass p-6 rounded-2xl flex items-start gap-6 group transition-all",
+                      isEnrolled && completedModules.includes(i) ? "border-primary/30 bg-primary/5" : "hover:border-primary/30"
+                    )}
+                  >
+                    <div 
+                      onClick={() => isEnrolled && toggleModule(i)}
+                      className={cn(
+                        "w-10 h-10 rounded-xl flex items-center justify-center font-serif font-bold transition-all shrink-0",
+                        isEnrolled && completedModules.includes(i) 
+                          ? "bg-primary text-surface" 
+                          : "bg-surface-container-high text-primary group-hover:bg-primary group-hover:text-surface",
+                        isEnrolled && "cursor-pointer"
+                      )}
+                    >
+                      {isEnrolled && completedModules.includes(i) ? <CheckCircle size={20} /> : i + 1}
                     </div>
-                    <div className="space-y-2">
-                      <h4 className="font-serif font-bold text-lg">{item}</h4>
+                    <div className="space-y-2 flex-grow">
+                      <div className="flex justify-between items-start gap-4">
+                        <h4 className="font-serif font-bold text-lg">{item}</h4>
+                        {isEnrolled && (
+                          <button 
+                            onClick={() => toggleModule(i)}
+                            className={cn(
+                              "text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full border transition-all",
+                              completedModules.includes(i) 
+                                ? "bg-primary/10 border-primary/20 text-primary" 
+                                : "border-white/10 text-on-surface/40 hover:border-primary/30 hover:text-primary"
+                            )}
+                          >
+                            {completedModules.includes(i) ? 'Completed' : 'Mark Complete'}
+                          </button>
+                        )}
+                      </div>
                       <p className="text-sm text-on-surface/60 leading-relaxed">
                         Detailed exploration of the foundational concepts and scholarly debates surrounding this topic.
                       </p>
@@ -153,12 +220,24 @@ export const CourseDetail: React.FC<CourseDetailProps> = ({ course, onBack, onAp
                   </div>
 
                   <div className="space-y-4">
-                    <button 
-                      onClick={onApply}
-                      className="btn-primary w-full py-4 flex items-center justify-center gap-2"
-                    >
-                      Enroll in Course <ArrowRight size={18} />
-                    </button>
+                    {isEnrolled ? (
+                      <div className="space-y-4">
+                        <div className="p-4 rounded-2xl bg-primary/10 border border-primary/20 flex items-center gap-3">
+                          <CheckCircle className="text-primary" size={20} />
+                          <span className="text-sm font-bold text-primary">You are enrolled</span>
+                        </div>
+                        <button className="btn-primary w-full py-4 flex items-center justify-center gap-2">
+                          Continue Learning <PlayCircle size={18} />
+                        </button>
+                      </div>
+                    ) : (
+                      <button 
+                        onClick={handleEnroll}
+                        className="btn-primary w-full py-4 flex items-center justify-center gap-2"
+                      >
+                        Enroll in Course <ArrowRight size={18} />
+                      </button>
+                    )}
                     <button className="btn-outline w-full py-4 flex items-center justify-center gap-2">
                       Save for Later <Share2 size={18} />
                     </button>
