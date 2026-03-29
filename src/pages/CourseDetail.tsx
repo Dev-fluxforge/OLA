@@ -1,8 +1,9 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { ChevronLeft, Clock, User, BookOpen, CheckCircle, ArrowRight, Shield, Star, Share2, PlayCircle } from 'lucide-react';
+import { ChevronLeft, Clock, User, BookOpen, CheckCircle, ArrowRight, Shield, Star, Share2, PlayCircle, Download, Award } from 'lucide-react';
 import { type Page, type Course } from '../types';
 import { cn } from '../lib/utils';
+import { jsPDF } from 'jspdf';
 
 interface CourseDetailProps {
   course: Course;
@@ -11,10 +12,36 @@ interface CourseDetailProps {
 }
 
 export const CourseDetail: React.FC<CourseDetailProps> = ({ course, onBack, onApply }) => {
-  const [isEnrolled, setIsEnrolled] = React.useState(false);
-  const [completedModules, setCompletedModules] = React.useState<number[]>([]);
+  const [isEnrolled, setIsEnrolled] = React.useState(() => {
+    const saved = localStorage.getItem(`enrolled_${course.id}`);
+    return saved === 'true';
+  });
+  
+  const [completedModules, setCompletedModules] = React.useState<number[]>(() => {
+    const saved = localStorage.getItem(`progress_${course.id}`);
+    return saved ? JSON.parse(saved) : [];
+  });
+
+  const [studentName, setStudentName] = React.useState(() => {
+    return localStorage.getItem('student_name') || '';
+  });
+
+  const [isEditingName, setIsEditingName] = React.useState(false);
+
+  React.useEffect(() => {
+    localStorage.setItem(`enrolled_${course.id}`, isEnrolled.toString());
+  }, [isEnrolled, course.id]);
+
+  React.useEffect(() => {
+    localStorage.setItem(`progress_${course.id}`, JSON.stringify(completedModules));
+  }, [completedModules, course.id]);
+
+  React.useEffect(() => {
+    localStorage.setItem('student_name', studentName);
+  }, [studentName]);
 
   const toggleModule = (index: number) => {
+    if (!isEnrolled) return;
     setCompletedModules(prev => 
       prev.includes(index) 
         ? prev.filter(i => i !== index) 
@@ -23,10 +50,93 @@ export const CourseDetail: React.FC<CourseDetailProps> = ({ course, onBack, onAp
   };
 
   const progress = Math.round((completedModules.length / course.syllabus.length) * 100);
+  const isComplete = progress === 100;
 
   const handleEnroll = () => {
     setIsEnrolled(true);
-    // In a real app, this would also call onApply or a separate enrollment service
+  };
+
+  const handleUnenroll = () => {
+    if (window.confirm('Are you sure you want to unenroll? Your progress will be reset.')) {
+      setIsEnrolled(false);
+      setCompletedModules([]);
+    }
+  };
+
+  const generateCertificate = () => {
+    if (!studentName) {
+      setIsEditingName(true);
+      return;
+    }
+
+    const doc = new jsPDF({
+      orientation: 'landscape',
+      unit: 'mm',
+      format: 'a4'
+    });
+
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const pageHeight = doc.internal.pageSize.getHeight();
+
+    // Background border
+    doc.setDrawColor(184, 158, 101); // Primary color (approx)
+    doc.setLineWidth(2);
+    doc.rect(10, 10, pageWidth - 20, pageHeight - 20);
+    doc.setLineWidth(0.5);
+    doc.rect(12, 12, pageWidth - 24, pageHeight - 24);
+
+    // Header
+    doc.setTextColor(184, 158, 101);
+    doc.setFont('times', 'bold');
+    doc.setFontSize(40);
+    doc.text('CERTIFICATE', pageWidth / 2, 45, { align: 'center' });
+    doc.setFontSize(20);
+    doc.text('OF COMPLETION', pageWidth / 2, 55, { align: 'center' });
+
+    // Body
+    doc.setTextColor(40, 40, 40);
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(16);
+    doc.text('This is to certify that', pageWidth / 2, 80, { align: 'center' });
+
+    doc.setFontSize(32);
+    doc.setFont('times', 'bold');
+    doc.text(studentName.toUpperCase(), pageWidth / 2, 100, { align: 'center' });
+
+    doc.setFontSize(16);
+    doc.setFont('helvetica', 'normal');
+    doc.text('has successfully completed the course', pageWidth / 2, 120, { align: 'center' });
+
+    doc.setFontSize(24);
+    doc.setFont('times', 'bold');
+    doc.text(course.title, pageWidth / 2, 135, { align: 'center' });
+
+    doc.setFontSize(14);
+    doc.setFont('helvetica', 'normal');
+    doc.text(`Completed on: ${new Date().toLocaleDateString()}`, pageWidth / 2, 155, { align: 'center' });
+
+    // Footer
+    doc.setFontSize(18);
+    doc.setFont('times', 'bold');
+    doc.setTextColor(184, 158, 101);
+    doc.text('AL-HIKMAH INSTITUTE', pageWidth / 2, 175, { align: 'center' });
+
+    doc.setFontSize(12);
+    doc.setFont('helvetica', 'italic');
+    doc.setTextColor(120, 120, 120);
+    doc.text('Classical Knowledge for the Modern World', pageWidth / 2, 182, { align: 'center' });
+
+    // Signatures
+    doc.setDrawColor(200, 200, 200);
+    doc.line(40, 170, 100, 170);
+    doc.line(pageWidth - 100, 170, pageWidth - 40, 170);
+
+    doc.setFontSize(10);
+    doc.setFont('helvetica', 'normal');
+    doc.text(course.instructor, 70, 175, { align: 'center' });
+    doc.text('Registrar', pageWidth - 70, 175, { align: 'center' });
+
+    doc.save(`${course.title.replace(/\s+/g, '_')}_Certificate.pdf`);
   };
 
   return (
@@ -226,8 +336,25 @@ export const CourseDetail: React.FC<CourseDetailProps> = ({ course, onBack, onAp
                           <CheckCircle className="text-primary" size={20} />
                           <span className="text-sm font-bold text-primary">You are enrolled</span>
                         </div>
-                        <button className="btn-primary w-full py-4 flex items-center justify-center gap-2">
-                          Continue Learning <PlayCircle size={18} />
+                        
+                        {isComplete ? (
+                          <button 
+                            onClick={generateCertificate}
+                            className="btn-primary w-full py-4 flex items-center justify-center gap-2 bg-primary text-surface hover:bg-primary/90"
+                          >
+                            Download Certificate <Download size={18} />
+                          </button>
+                        ) : (
+                          <button className="btn-primary w-full py-4 flex items-center justify-center gap-2">
+                            Continue Learning <PlayCircle size={18} />
+                          </button>
+                        )}
+                        
+                        <button 
+                          onClick={handleUnenroll}
+                          className="text-xs text-on-surface/40 hover:text-destructive transition-colors w-full text-center font-bold uppercase tracking-widest"
+                        >
+                          Unenroll from Course
                         </button>
                       </div>
                     ) : (
@@ -350,6 +477,60 @@ export const CourseDetail: React.FC<CourseDetailProps> = ({ course, onBack, onAp
           </div>
         </div>
       </div>
+
+      {/* Name Input Modal */}
+      {isEditingName && (
+        <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
+          <motion.div 
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={{ opacity: 1, scale: 1 }}
+            className="glass max-w-md w-full p-8 rounded-[32px] space-y-6 border-primary/20"
+          >
+            <div className="text-center space-y-2">
+              <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center text-primary mx-auto mb-4">
+                <Award size={32} />
+              </div>
+              <h3 className="text-2xl font-serif font-bold">Certificate Details</h3>
+              <p className="text-sm text-on-surface/60">Please enter your full name as you would like it to appear on your certificate of completion.</p>
+            </div>
+
+            <div className="space-y-4">
+              <div className="space-y-2">
+                <label className="text-[10px] font-bold uppercase tracking-widest text-on-surface/40 ml-1">Full Name</label>
+                <input 
+                  type="text" 
+                  value={studentName}
+                  onChange={(e) => setStudentName(e.target.value)}
+                  placeholder="e.g. Abdullah Ibn Yusuf"
+                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-primary/50 transition-colors"
+                  autoFocus
+                />
+              </div>
+
+              <div className="flex gap-3 pt-2">
+                <button 
+                  onClick={() => setIsEditingName(false)}
+                  className="flex-1 px-4 py-3 rounded-xl border border-white/10 text-xs font-bold uppercase tracking-widest hover:bg-white/5 transition-colors"
+                >
+                  Cancel
+                </button>
+                <button 
+                  onClick={() => {
+                    if (studentName.trim()) {
+                      setIsEditingName(false);
+                      generateCertificate();
+                    }
+                  }}
+                  disabled={!studentName.trim()}
+                  className="flex-1 px-4 py-3 rounded-xl bg-primary text-surface text-xs font-bold uppercase tracking-widest hover:bg-primary/90 transition-colors disabled:opacity-50"
+                >
+                  Generate
+                </button>
+              </div>
+            </div>
+          </motion.div>
+        </div>
+      )}
     </div>
   );
 };
