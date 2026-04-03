@@ -74,14 +74,14 @@ export const News: React.FC = () => {
         {/* Featured Post */}
         <div className="glass rounded-[40px] overflow-hidden group cursor-pointer hover:border-primary/30 transition-all">
           <div className="grid grid-cols-1 lg:grid-cols-2">
-            <div className="aspect-video lg:aspect-auto overflow-hidden">
-              <img 
-                src="https://images.unsplash.com/photo-1585032226651-759b368d7246?auto=format&fit=crop&q=80&w=1200&h=800" 
-                alt="Featured News" 
-                className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700"
-                referrerPolicy="no-referrer"
-              />
-            </div>
+              <div className="aspect-video lg:aspect-auto overflow-hidden">
+                <img 
+                  src="https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&q=80&w=1200&h=800" 
+                  alt="Featured News" 
+                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 group-hover:brightness-75 transition-all duration-700"
+                  referrerPolicy="no-referrer"
+                />
+              </div>
             <div className="p-12 md:p-20 flex flex-col justify-center space-y-8">
               <div className="flex items-center gap-4">
                 <span className="px-4 py-1.5 rounded-full bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-widest border border-primary/20">
@@ -155,11 +155,11 @@ export const News: React.FC = () => {
           <div className="lg:col-span-3 space-y-8">
             {newsItems.map((news, i) => {
               const newsImages = [
-                'photo-1591604129939-f1efa4d9f7fa',
-                'photo-1585032226651-759b368d7246',
-                'photo-1542816417-0983c9c9ad53',
-                'photo-1518998053574-53ee79b1f914',
-                'photo-1609599006341-152768462462'
+                'photo-1584551246679-0daf3d275d0f',
+                'photo-1519817650390-64a93db51149',
+                'photo-1506197603052-3cc9c3a201bd',
+                'photo-1597933534024-16492b96324d',
+                'photo-1566121317354-69b23183f26f'
               ];
               return (
                 <div key={i} className="glass p-8 rounded-3xl flex flex-col md:flex-row gap-8 group cursor-pointer hover:border-primary/30 transition-all">
@@ -167,7 +167,7 @@ export const News: React.FC = () => {
                     <img 
                       src={`https://images.unsplash.com/${newsImages[i % newsImages.length]}?auto=format&fit=crop&q=80&w=600&h=400`} 
                       alt={news.title} 
-                      className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700"
+                      className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 group-hover:brightness-75 transition-all duration-700"
                       referrerPolicy="no-referrer"
                     />
                   </div>

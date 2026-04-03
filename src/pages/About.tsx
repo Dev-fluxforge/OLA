@@ -36,14 +36,14 @@ export const About: React.FC<AboutProps> = ({ onPageChange }) => {
             </div>
           </div>
           <div className="relative">
-            <div className="aspect-square rounded-3xl overflow-hidden glass p-4">
-              <img 
-                src="https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?auto=format&fit=crop&q=80&w=1000&h=1000" 
-                alt="Institution Grounds" 
-                className="w-full h-full object-cover rounded-2xl grayscale"
-                referrerPolicy="no-referrer"
-              />
-            </div>
+              <div className="aspect-square rounded-3xl overflow-hidden glass p-4">
+                <img 
+                  src="https://images.unsplash.com/photo-1519817650390-64a93db51149?auto=format&fit=crop&q=80&w=1000&h=1000" 
+                  alt="Institution Grounds" 
+                  className="w-full h-full object-cover rounded-2xl grayscale hover:grayscale-0 transition-all duration-700"
+                  referrerPolicy="no-referrer"
+                />
+              </div>
           </div>
         </div>
 
@@ -145,7 +145,7 @@ export const About: React.FC<AboutProps> = ({ onPageChange }) => {
                     <img 
                       src={`https://images.unsplash.com/${leaderImages[i % leaderImages.length]}?auto=format&fit=crop&q=80&w=400&h=400`} 
                       alt={leader.name} 
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
                       referrerPolicy="no-referrer"
                     />
                   </div>

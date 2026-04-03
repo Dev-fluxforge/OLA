@@ -101,7 +101,7 @@ export const Home: React.FC<HomeProps> = ({ onPageChange }) => {
             <div className="md:col-span-2 glass rounded-3xl p-8 flex flex-col justify-end relative overflow-hidden group cursor-pointer">
               <img 
                 src="https://images.unsplash.com/photo-1583321503611-13f9f03086ee?auto=format&fit=crop&q=80&w=800&h=600" 
-                className="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:scale-110 transition-transform duration-700" 
+                className="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:scale-110 group-hover:brightness-75 transition-all duration-700" 
                 alt="Jurisprudence"
                 referrerPolicy="no-referrer"
               />
@@ -122,7 +122,7 @@ export const Home: React.FC<HomeProps> = ({ onPageChange }) => {
             <div className="glass rounded-3xl p-8 flex flex-col justify-end relative overflow-hidden group cursor-pointer">
               <img 
                 src="https://images.unsplash.com/photo-1585032226651-759b368d7246?auto=format&fit=crop&q=80&w=400&h=600" 
-                className="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:scale-110 transition-transform duration-700" 
+                className="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:scale-110 group-hover:brightness-75 transition-all duration-700" 
                 alt="Theology"
                 referrerPolicy="no-referrer"
               />
@@ -140,7 +140,7 @@ export const Home: React.FC<HomeProps> = ({ onPageChange }) => {
             <div className="glass rounded-3xl p-8 flex flex-col justify-end relative overflow-hidden group cursor-pointer">
               <img 
                 src="https://images.unsplash.com/photo-1542816417-0983c9c9ad53?auto=format&fit=crop&q=80&w=400&h=600" 
-                className="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:scale-110 transition-transform duration-700" 
+                className="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:scale-110 group-hover:brightness-75 transition-all duration-700" 
                 alt="Hadith"
                 referrerPolicy="no-referrer"
               />
@@ -158,7 +158,7 @@ export const Home: React.FC<HomeProps> = ({ onPageChange }) => {
             <div className="md:col-span-2 glass rounded-3xl p-8 flex flex-col justify-end relative overflow-hidden group cursor-pointer">
               <img 
                 src="https://images.unsplash.com/photo-1564121211835-e88c852648ab?auto=format&fit=crop&q=80&w=800&h=600" 
-                className="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:scale-110 transition-transform duration-700" 
+                className="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:scale-110 group-hover:brightness-75 transition-all duration-700" 
                 alt="Arabic"
                 referrerPolicy="no-referrer"
               />

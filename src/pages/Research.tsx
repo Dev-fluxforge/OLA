@@ -111,7 +111,7 @@ export const Research: React.FC = () => {
                     <img 
                       src={`https://images.unsplash.com/${pubImages[i % pubImages.length]}?auto=format&fit=crop&q=80&w=400&h=600`} 
                       alt={pub.title} 
-                      className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700"
+                      className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 group-hover:brightness-75 transition-all duration-700"
                       referrerPolicy="no-referrer"
                     />
                     <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
@@ -174,16 +174,16 @@ export const Research: React.FC = () => {
               ))}
             </div>
           </div>
-          <div className="lg:w-1/2 w-full relative">
-            <div className="aspect-video rounded-3xl overflow-hidden glass p-4">
-              <img 
-                src="https://images.unsplash.com/photo-1526772662000-3f88f10405ff?auto=format&fit=crop&q=80&w=1200&h=800" 
-                alt="Research Collaboration" 
-                className="w-full h-full object-cover rounded-2xl grayscale"
-                referrerPolicy="no-referrer"
-              />
+            <div className="lg:w-1/2 w-full relative">
+              <div className="aspect-video rounded-3xl overflow-hidden glass p-4">
+                <img 
+                  src="https://images.unsplash.com/photo-1584281729155-3c99bb4990ca?auto=format&fit=crop&q=80&w=1200&h=800" 
+                  alt="Research Collaboration" 
+                  className="w-full h-full object-cover rounded-2xl grayscale hover:grayscale-0 transition-all duration-700"
+                  referrerPolicy="no-referrer"
+                />
+              </div>
             </div>
-          </div>
         </div>
       </div>
     </div>
