@@ -16,6 +16,7 @@ import { LiveQA } from './pages/LiveQA';
 import { Faculty } from './pages/Faculty';
 import { Research } from './pages/Research';
 import { Verify } from './pages/Verify';
+import { NotFound } from './pages/NotFound';
 import { type Page, type Course } from './types';
 import { motion, AnimatePresence } from 'motion/react';
 
@@ -71,6 +72,8 @@ export default function App() {
         return <Research />;
       case 'verify':
         return <Verify />;
+      case 'not-found':
+        return <NotFound onPageChange={handlePageChange} />;
       case 'course-detail':
         return selectedCourse ? (
           <CourseDetail 
@@ -82,7 +85,7 @@ export default function App() {
           <Programs onPageChange={handlePageChange} onCourseSelect={handleCourseSelect} />
         );
       default:
-        return <Home onPageChange={handlePageChange} />;
+        return <NotFound onPageChange={handlePageChange} />;
     }
   };
 

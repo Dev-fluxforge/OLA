@@ -223,7 +223,7 @@ export const Programs: React.FC<ProgramsProps> = ({ onPageChange, onCourseSelect
                         <img 
                           src={course.image} 
                           alt={course.title} 
-                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                          className="w-full h-full object-cover group-hover:scale-110 group-hover:brightness-75 transition-all duration-700"
                           referrerPolicy="no-referrer"
                         />
                         {isEnrolled && (
