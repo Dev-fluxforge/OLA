@@ -9,9 +9,10 @@ interface FooterProps {
 export const Footer: React.FC<FooterProps> = ({ onPageChange }) => {
   const quickLinks: { label: string; page: Page }[] = [
     { label: 'About Us', page: 'about' },
+    { label: 'Our Faculty', page: 'faculty' },
+    { label: 'Research & Publications', page: 'research' },
     { label: 'Academic Calendar', page: 'calendar' },
     { label: 'Scholarships', page: 'scholarships' },
-    { label: 'Student Portal', page: 'home' }, // Student Portal is excluded from content generation but kept as a link for now
     { label: 'News & Events', page: 'news' },
   ];
 
@@ -29,8 +30,8 @@ export const Footer: React.FC<FooterProps> = ({ onPageChange }) => {
                 <span className="text-[10px] uppercase tracking-[0.2em] text-primary font-semibold">Islamic Institution</span>
               </div>
             </div>
-            <p className="text-on-surface/60 text-sm leading-relaxed max-w-xs">
-              Preserving the classical Islamic scholarly tradition through rigorous academic excellence and spiritual cultivation.
+            <p className="text-on-surface/60 text-sm leading-relaxed max-w-xs italic">
+              "When Allah wishes good for anyone, He bestows upon him the fiqh (Comprehension) of the religion."
             </p>
             <div className="flex gap-4">
               {[Facebook, Twitter, Instagram, Youtube].map((Icon, i) => (
@@ -81,22 +82,22 @@ export const Footer: React.FC<FooterProps> = ({ onPageChange }) => {
                 <span>123 Scholarly Way, Academic District, Knowledge City</span>
               </li>
               <li className="flex gap-3 text-sm text-on-surface/60">
-                <button 
-                  onClick={() => onPageChange('contact')}
+                <a 
+                  href="tel:+2347047594864"
                   className="flex gap-3 hover:text-primary transition-colors text-left"
                 >
                   <Phone size={18} className="text-primary shrink-0" />
-                  <span>+1 (555) 123-4567</span>
-                </button>
+                  <span>+234 704 759 4864</span>
+                </a>
               </li>
               <li className="flex gap-3 text-sm text-on-surface/60">
-                <button 
-                  onClick={() => onPageChange('contact')}
+                <a 
+                  href="mailto:ismailabdulazeez536@gmail.com"
                   className="flex gap-3 hover:text-primary transition-colors text-left"
                 >
                   <Mail size={18} className="text-primary shrink-0" />
-                  <span>admissions@daarulfalaah.edu</span>
-                </button>
+                  <span>ismailabdulazeez536@gmail.com</span>
+                </a>
               </li>
             </ul>
           </div>

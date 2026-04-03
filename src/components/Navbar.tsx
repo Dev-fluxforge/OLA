@@ -1,5 +1,5 @@
 import React from 'react';
-import { Menu, X, BookOpen, GraduationCap, Phone, Info, ChevronRight } from 'lucide-react';
+import { Menu, X, BookOpen, GraduationCap, Phone, Info, ChevronRight, Video } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import { cn } from '../lib/utils';
 import { type Page } from '../types';
@@ -15,6 +15,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage, onPageChange }) => 
   const navItems = [
     { id: 'home', label: 'Home', icon: Info },
     { id: 'programs', label: 'Programs', icon: BookOpen },
+    { id: 'live-qa', label: 'Live Q&A', icon: Video },
     { id: 'apply', label: 'Apply', icon: GraduationCap },
     { id: 'contact', label: 'Contact', icon: Phone },
   ];

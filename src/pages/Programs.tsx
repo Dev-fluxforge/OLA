@@ -13,8 +13,17 @@ interface ProgramsProps {
 export const Programs: React.FC<ProgramsProps> = ({ onPageChange, onCourseSelect }) => {
   const [selectedLevel, setSelectedLevel] = React.useState<string>('All');
   const [searchQuery, setSearchQuery] = React.useState('');
+  const [isLoading, setIsLoading] = React.useState(true);
 
   const levels = ['All', 'Beginner', 'Intermediate', 'Advanced'];
+
+  React.useEffect(() => {
+    setIsLoading(true);
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, 600);
+    return () => clearTimeout(timer);
+  }, [selectedLevel, searchQuery]);
 
   const filteredCourses = COURSES.filter(course => {
     const matchesLevel = selectedLevel === 'All' || course.level === selectedLevel;
@@ -22,6 +31,34 @@ export const Programs: React.FC<ProgramsProps> = ({ onPageChange, onCourseSelect
                           course.description.toLowerCase().includes(searchQuery.toLowerCase());
     return matchesLevel && matchesSearch;
   });
+
+  const CourseSkeleton = () => (
+    <div className="glass rounded-3xl overflow-hidden animate-pulse">
+      <div className="flex flex-col md:flex-row">
+        <div className="md:w-64 h-48 md:h-auto bg-white/5 shrink-0" />
+        <div className="p-8 flex flex-col justify-between flex-grow gap-6">
+          <div className="space-y-4">
+            <div className="flex items-center gap-3">
+              <div className="w-20 h-6 bg-white/5 rounded-full" />
+              <div className="w-24 h-4 bg-white/5 rounded-full" />
+            </div>
+            <div className="w-3/4 h-8 bg-white/5 rounded-lg" />
+            <div className="space-y-2">
+              <div className="w-full h-4 bg-white/5 rounded" />
+              <div className="w-5/6 h-4 bg-white/5 rounded" />
+            </div>
+          </div>
+          <div className="flex items-center justify-between pt-4 border-t border-white/5">
+            <div className="flex gap-6">
+              <div className="w-20 h-4 bg-white/5 rounded" />
+              <div className="w-20 h-4 bg-white/5 rounded" />
+            </div>
+            <div className="w-24 h-4 bg-white/5 rounded" />
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 
   return (
     <div className="pt-32 pb-24 px-4 sm:px-6 lg:px-8">
@@ -108,62 +145,102 @@ export const Programs: React.FC<ProgramsProps> = ({ onPageChange, onCourseSelect
 
           {/* Course List */}
           <div className="lg:col-span-3 space-y-6">
-            {filteredCourses.length > 0 ? (
-              filteredCourses.map((course, i) => (
-                <motion.div
-                  key={course.id}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: i * 0.1 }}
-                  className="glass rounded-3xl overflow-hidden group cursor-pointer hover:border-primary/30 transition-all"
-                  onClick={() => onCourseSelect(course)}
-                >
-                  <div className="flex flex-col md:flex-row">
-                    <div className="md:w-64 h-48 md:h-auto overflow-hidden shrink-0">
-                      <img 
-                        src={course.image} 
-                        alt={course.title} 
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
-                        referrerPolicy="no-referrer"
-                      />
-                    </div>
-                    <div className="p-8 flex flex-col justify-between flex-grow gap-6">
-                      <div className="space-y-4">
-                        <div className="flex flex-wrap items-center gap-3">
-                          <span className="px-3 py-1 rounded-full bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-widest border border-primary/20">
-                            {course.level}
-                          </span>
-                          <span className="text-[10px] uppercase tracking-widest text-on-surface/40 font-bold">
-                            {course.category}
-                          </span>
-                        </div>
-                        <h3 className="text-2xl font-serif font-bold group-hover:text-primary transition-colors">
-                          {course.title}
-                        </h3>
-                        <p className="text-on-surface/60 text-sm leading-relaxed line-clamp-2">
-                          {course.description}
-                        </p>
-                      </div>
+            {isLoading ? (
+              Array.from({ length: 3 }).map((_, i) => <CourseSkeleton key={i} />)
+            ) : filteredCourses.length > 0 ? (
+              filteredCourses.map((course, i) => {
+                const isEnrolled = localStorage.getItem(`enrolled_${course.id}`) === 'true';
+                const completedModules = JSON.parse(localStorage.getItem(`progress_${course.id}`) || '[]');
+                const progress = Math.round((completedModules.length / course.syllabus.length) * 100);
 
-                      <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-white/5">
-                        <div className="flex items-center gap-6">
-                          <div className="flex items-center gap-2 text-xs text-on-surface/40">
-                            <Clock size={14} className="text-primary" />
-                            <span>{course.duration}</span>
+                return (
+                  <motion.div
+                    key={course.id}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: i * 0.1 }}
+                    className="glass rounded-3xl overflow-hidden group cursor-pointer hover:border-primary/30 transition-all"
+                    onClick={() => onCourseSelect(course)}
+                  >
+                    <div className="flex flex-col md:flex-row">
+                      <div className="md:w-64 h-48 md:h-auto overflow-hidden shrink-0 relative">
+                        <img 
+                          src={course.image} 
+                          alt={course.title} 
+                          className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                          referrerPolicy="no-referrer"
+                        />
+                        {isEnrolled && (
+                          <div className="absolute top-4 left-4 px-3 py-1 bg-primary text-surface text-[10px] font-bold uppercase tracking-widest rounded-full shadow-lg">
+                            Enrolled
                           </div>
-                          <div className="flex items-center gap-2 text-xs text-on-surface/40">
-                            <User size={14} className="text-primary" />
-                            <span>{course.instructor}</span>
+                        )}
+                      </div>
+                      <div className="p-8 flex flex-col justify-between flex-grow gap-6">
+                        <div className="space-y-4">
+                          <div className="flex flex-wrap items-center justify-between gap-3">
+                            <div className="flex items-center gap-3">
+                              <span className="px-3 py-1 rounded-full bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-widest border border-primary/20">
+                                {course.level}
+                              </span>
+                              <span className="text-[10px] uppercase tracking-widest text-on-surface/40 font-bold">
+                                {course.category}
+                              </span>
+                            </div>
+                            {isEnrolled && (
+                              <div className="flex items-center gap-2">
+                                <span className={cn(
+                                  "text-[10px] font-bold uppercase tracking-widest",
+                                  progress === 100 ? "text-primary" : "text-on-surface/40"
+                                )}>
+                                  {progress === 100 ? 'Completed' : `${progress}% Complete`}
+                                </span>
+                              </div>
+                            )}
                           </div>
+                          <h3 className="text-2xl font-serif font-bold group-hover:text-primary transition-colors">
+                            {course.title}
+                          </h3>
+                          <p className="text-on-surface/60 text-sm leading-relaxed line-clamp-2">
+                            {course.description}
+                          </p>
+                          
+                          {isEnrolled && (
+                            <div className="space-y-2 pt-2">
+                              <div className="h-1.5 bg-white/5 rounded-full overflow-hidden">
+                                <motion.div 
+                                  initial={{ width: 0 }}
+                                  animate={{ width: `${progress}%` }}
+                                  className={cn(
+                                    "h-full transition-all duration-1000",
+                                    progress === 100 ? "bg-primary" : "bg-primary/60"
+                                  )}
+                                />
+                              </div>
+                            </div>
+                          )}
                         </div>
-                        <div className="flex items-center gap-2 text-primary font-bold text-sm">
-                          View Details <ChevronRight size={16} />
+
+                        <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-white/5">
+                          <div className="flex items-center gap-6">
+                            <div className="flex items-center gap-2 text-xs text-on-surface/40">
+                              <Clock size={14} className="text-primary" />
+                              <span>{course.duration}</span>
+                            </div>
+                            <div className="flex items-center gap-2 text-xs text-on-surface/40">
+                              <User size={14} className="text-primary" />
+                              <span>{course.instructor}</span>
+                            </div>
+                          </div>
+                          <div className="flex items-center gap-2 text-primary font-bold text-sm">
+                            {isEnrolled ? 'Continue Learning' : 'View Details'} <ChevronRight size={16} />
+                          </div>
                         </div>
                       </div>
                     </div>
-                  </div>
-                </motion.div>
-              ))
+                  </motion.div>
+                );
+              })
             ) : (
               <div className="text-center py-20 glass rounded-3xl space-y-4">
                 <BookOpen size={48} className="mx-auto text-on-surface/20" />

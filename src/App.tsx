@@ -12,12 +12,23 @@ import { Scholarships } from './pages/Scholarships';
 import { News } from './pages/News';
 import { Privacy } from './pages/Privacy';
 import { Terms } from './pages/Terms';
+import { LiveQA } from './pages/LiveQA';
+import { Faculty } from './pages/Faculty';
+import { Research } from './pages/Research';
+import { Verify } from './pages/Verify';
 import { type Page, type Course } from './types';
 import { motion, AnimatePresence } from 'motion/react';
 
 export default function App() {
   const [currentPage, setCurrentPage] = React.useState<Page>('home');
   const [selectedCourse, setSelectedCourse] = React.useState<Course | null>(null);
+
+  React.useEffect(() => {
+    const searchParams = new URLSearchParams(window.location.search);
+    if (searchParams.get('page') === 'verify') {
+      setCurrentPage('verify');
+    }
+  }, []);
 
   const handlePageChange = (page: Page) => {
     setCurrentPage(page);
@@ -41,7 +52,7 @@ export default function App() {
       case 'contact':
         return <Contact />;
       case 'about':
-        return <About />;
+        return <About onPageChange={handlePageChange} />;
       case 'calendar':
         return <Calendar />;
       case 'scholarships':
@@ -52,6 +63,14 @@ export default function App() {
         return <Privacy />;
       case 'terms':
         return <Terms />;
+      case 'live-qa':
+        return <LiveQA />;
+      case 'faculty':
+        return <Faculty />;
+      case 'research':
+        return <Research />;
+      case 'verify':
+        return <Verify />;
       case 'course-detail':
         return selectedCourse ? (
           <CourseDetail 

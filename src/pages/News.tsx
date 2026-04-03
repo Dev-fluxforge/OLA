@@ -76,7 +76,7 @@ export const News: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2">
             <div className="aspect-video lg:aspect-auto overflow-hidden">
               <img 
-                src="https://picsum.photos/seed/featured-news/1200/800" 
+                src="https://picsum.photos/seed/islamic-symposium/1200/800" 
                 alt="Featured News" 
                 className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700"
                 referrerPolicy="no-referrer"
@@ -157,7 +157,7 @@ export const News: React.FC = () => {
               <div key={i} className="glass p-8 rounded-3xl flex flex-col md:flex-row gap-8 group cursor-pointer hover:border-primary/30 transition-all">
                 <div className="md:w-64 h-48 md:h-auto overflow-hidden rounded-2xl shrink-0">
                   <img 
-                    src={`https://picsum.photos/seed/${news.seed}/600/400`} 
+                    src={`https://picsum.photos/seed/islamic-news-${i}/600/400`} 
                     alt={news.title} 
                     className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700"
                     referrerPolicy="no-referrer"

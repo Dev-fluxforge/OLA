@@ -32,8 +32,8 @@ export const Home: React.FC<HomeProps> = ({ onPageChange }) => {
             <h1 className="text-5xl md:text-7xl font-serif font-bold leading-[1.1] text-balance">
               Preserving the <span className="text-primary italic">Sacred</span> Scholarly Tradition
             </h1>
-            <p className="text-lg text-on-surface/70 leading-relaxed max-w-xl text-balance">
-              Daarul Falaah is a sanctuary for seekers of knowledge, dedicated to the rigorous study of classical Islamic sciences through an unbroken chain of transmission.
+            <p className="text-lg text-on-surface/70 leading-relaxed max-w-xl text-balance italic">
+              "When Allah wishes good for anyone, He bestows upon him the fiqh (Comprehension) of the religion."
             </p>
             <div className="flex flex-wrap gap-4 pt-4">
               <button 
@@ -74,7 +74,7 @@ export const Home: React.FC<HomeProps> = ({ onPageChange }) => {
           >
             <div className="aspect-square rounded-3xl overflow-hidden glass p-4">
               <img 
-                src="https://picsum.photos/seed/islamic-art/1000/1000" 
+                src="https://picsum.photos/seed/islamic-calligraphy-art/1000/1000" 
                 alt="Classical Manuscript" 
                 className="w-full h-full object-cover rounded-2xl grayscale hover:grayscale-0 transition-all duration-700"
                 referrerPolicy="no-referrer"
@@ -100,7 +100,7 @@ export const Home: React.FC<HomeProps> = ({ onPageChange }) => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 h-auto md:h-[600px]">
             <div className="md:col-span-2 glass rounded-3xl p-8 flex flex-col justify-end relative overflow-hidden group cursor-pointer">
               <img 
-                src="https://picsum.photos/seed/jurisprudence/800/600" 
+                src="https://picsum.photos/seed/islamic-jurisprudence/800/600" 
                 className="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:scale-110 transition-transform duration-700" 
                 alt="Jurisprudence"
                 referrerPolicy="no-referrer"
@@ -121,7 +121,7 @@ export const Home: React.FC<HomeProps> = ({ onPageChange }) => {
 
             <div className="glass rounded-3xl p-8 flex flex-col justify-end relative overflow-hidden group cursor-pointer">
               <img 
-                src="https://picsum.photos/seed/theology/400/600" 
+                src="https://picsum.photos/seed/islamic-theology/400/600" 
                 className="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:scale-110 transition-transform duration-700" 
                 alt="Theology"
                 referrerPolicy="no-referrer"
@@ -139,7 +139,7 @@ export const Home: React.FC<HomeProps> = ({ onPageChange }) => {
 
             <div className="glass rounded-3xl p-8 flex flex-col justify-end relative overflow-hidden group cursor-pointer">
               <img 
-                src="https://picsum.photos/seed/hadith/400/600" 
+                src="https://picsum.photos/seed/hadith-manuscript/400/600" 
                 className="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:scale-110 transition-transform duration-700" 
                 alt="Hadith"
                 referrerPolicy="no-referrer"
@@ -157,7 +157,7 @@ export const Home: React.FC<HomeProps> = ({ onPageChange }) => {
 
             <div className="md:col-span-2 glass rounded-3xl p-8 flex flex-col justify-end relative overflow-hidden group cursor-pointer">
               <img 
-                src="https://picsum.photos/seed/arabic/800/600" 
+                src="https://picsum.photos/seed/arabic-calligraphy/800/600" 
                 className="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:scale-110 transition-transform duration-700" 
                 alt="Arabic"
                 referrerPolicy="no-referrer"
@@ -210,7 +210,7 @@ export const Home: React.FC<HomeProps> = ({ onPageChange }) => {
             <div className="relative">
               <div className="aspect-[4/5] rounded-3xl overflow-hidden glass p-4">
                 <img 
-                  src="https://picsum.photos/seed/scholar/800/1000" 
+                  src="https://picsum.photos/seed/islamic-scholar/800/1000" 
                   alt="Scholar studying" 
                   className="w-full h-full object-cover rounded-2xl"
                   referrerPolicy="no-referrer"
@@ -228,7 +228,7 @@ export const Home: React.FC<HomeProps> = ({ onPageChange }) => {
             <div className="order-2 lg:order-1 relative">
               <div className="aspect-[4/5] rounded-3xl overflow-hidden glass p-4">
                 <img 
-                  src="https://picsum.photos/seed/tradition/800/1000" 
+                  src="https://picsum.photos/seed/islamic-tradition/800/1000" 
                   alt="Ancient Manuscripts" 
                   className="w-full h-full object-cover rounded-2xl grayscale"
                   referrerPolicy="no-referrer"
@@ -315,7 +315,7 @@ export const Home: React.FC<HomeProps> = ({ onPageChange }) => {
                 <div className="flex items-center gap-4 pt-6 border-t border-white/5">
                   <div className="w-12 h-12 rounded-full overflow-hidden bg-primary/20">
                     <img 
-                      src={`https://picsum.photos/seed/${testimonial.seed}/100/100`} 
+                      src={`https://picsum.photos/seed/islamic-student-${i}/100/100`} 
                       alt={testimonial.name} 
                       className="w-full h-full object-cover grayscale"
                       referrerPolicy="no-referrer"
@@ -328,6 +328,45 @@ export const Home: React.FC<HomeProps> = ({ onPageChange }) => {
                 </div>
               </div>
             ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Scholarly Research Section */}
+      <section className="py-24 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto">
+          <div className="glass rounded-[40px] p-12 md:p-20 flex flex-col lg:flex-row items-center gap-16 relative overflow-hidden">
+            <div className="absolute top-0 right-0 w-1/3 h-full bg-primary/5 pointer-events-none" />
+            <div className="lg:w-1/2 space-y-8">
+              <div className="inline-block px-4 py-1.5 rounded-full bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-widest border border-primary/20">
+                Research & Publications
+              </div>
+              <h2 className="text-4xl md:text-6xl font-serif font-bold italic text-primary">Advancing Sacred Scholarship</h2>
+              <p className="text-on-surface/60 max-w-md leading-relaxed">
+                Our institution is at the forefront of contemporary Islamic research, bridging the gap between classical wisdom and modern academic rigor.
+              </p>
+              <div className="flex flex-col sm:flex-row gap-4">
+                <button 
+                  onClick={() => onPageChange('research')}
+                  className="btn-primary py-4 px-10 text-sm font-bold uppercase tracking-widest flex items-center justify-center gap-2 group"
+                >
+                  Explore Research <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                </button>
+                <button className="btn-outline py-4 px-10 text-sm font-bold uppercase tracking-widest">
+                  View Publications
+                </button>
+              </div>
+            </div>
+            <div className="lg:w-1/2 w-full relative">
+              <div className="aspect-video rounded-3xl overflow-hidden glass p-4">
+                <img 
+                  src="https://picsum.photos/seed/islamic-manuscript-study/1200/800" 
+                  alt="Scholarly Research" 
+                  className="w-full h-full object-cover rounded-2xl grayscale hover:grayscale-0 transition-all duration-700"
+                  referrerPolicy="no-referrer"
+                />
+              </div>
+            </div>
           </div>
         </div>
       </section>
@@ -362,7 +401,7 @@ export const Home: React.FC<HomeProps> = ({ onPageChange }) => {
             </div>
             <div className="relative aspect-video rounded-3xl overflow-hidden glass p-4">
               <img 
-                src="https://picsum.photos/seed/library/1200/800" 
+                src="https://picsum.photos/seed/islamic-library/1200/800" 
                 alt="Classical Library" 
                 className="w-full h-full object-cover rounded-2xl grayscale"
                 referrerPolicy="no-referrer"

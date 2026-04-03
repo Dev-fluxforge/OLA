@@ -1,6 +1,6 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { ChevronLeft, Clock, User, BookOpen, CheckCircle, ArrowRight, Shield, Star, Share2, PlayCircle, Download, Award } from 'lucide-react';
+import { ChevronLeft, Clock, User, BookOpen, CheckCircle, ArrowRight, Shield, Star, Share2, PlayCircle, Award, Eye, Type, MessageSquare, Mail, ExternalLink } from 'lucide-react';
 import { type Page, type Course } from '../types';
 import { cn } from '../lib/utils';
 import { jsPDF } from 'jspdf';
@@ -27,6 +27,8 @@ export const CourseDetail: React.FC<CourseDetailProps> = ({ course, onBack, onAp
   });
 
   const [isEditingName, setIsEditingName] = React.useState(false);
+  const [previewUrl, setPreviewUrl] = React.useState<string | null>(null);
+  const [isGenerating, setIsGenerating] = React.useState(false);
 
   React.useEffect(() => {
     localStorage.setItem(`enrolled_${course.id}`, isEnrolled.toString());
@@ -63,80 +65,181 @@ export const CourseDetail: React.FC<CourseDetailProps> = ({ course, onBack, onAp
     }
   };
 
+  const createCertificateDoc = async () => {
+    setIsGenerating(true);
+    try {
+      // Wait for fonts to load
+      await document.fonts.load('1em Amiri');
+      await document.fonts.load('1em "Noto Serif"');
+
+      const canvas = document.createElement('canvas');
+      const ctx = canvas.getContext('2d');
+      if (!ctx) return;
+
+      // A4 Landscape dimensions at 300 DPI
+      // 297mm x 210mm
+      // 3508 x 2480 pixels
+      canvas.width = 3508;
+      canvas.height = 2480;
+
+      // Background
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+      // Border
+      ctx.strokeStyle = '#98da27'; // Primary color
+      ctx.lineWidth = 40;
+      ctx.strokeRect(60, 60, canvas.width - 120, canvas.height - 120);
+      ctx.lineWidth = 10;
+      ctx.strokeRect(100, 100, canvas.width - 200, canvas.height - 200);
+
+      const centerX = canvas.width / 2;
+
+      // Header: Institution Name (English - Logo - Arabic)
+      const headerY = 350;
+      
+      // English Name
+      ctx.fillStyle = '#98da27';
+      ctx.font = 'bold 60px "Noto Serif"';
+      ctx.textAlign = 'right';
+      ctx.fillText('DAARUL FALAAH', centerX - 150, headerY - 40);
+      ctx.font = 'normal 40px "Noto Serif"';
+      ctx.fillText('Islamic Institution', centerX - 150, headerY + 10);
+
+      // Logo Placeholder (Simple geometric shape for now)
+      ctx.beginPath();
+      ctx.arc(centerX, headerY - 25, 60, 0, Math.PI * 2);
+      ctx.fillStyle = '#98da27';
+      ctx.fill();
+      ctx.fillStyle = '#ffffff';
+      ctx.font = 'bold 60px "Noto Serif"';
+      ctx.textAlign = 'center';
+      ctx.fillText('D', centerX, headerY - 5);
+
+      // Arabic Name
+      ctx.fillStyle = '#98da27';
+      ctx.font = 'bold 80px "Amiri"';
+      ctx.textAlign = 'left';
+      ctx.fillText('مؤسسة دار الفلاح', centerX + 150, headerY - 20);
+      ctx.font = 'normal 50px "Amiri"';
+      ctx.fillText('الإسلامية', centerX + 150, headerY + 40);
+
+      // Certificate Title
+      ctx.fillStyle = '#151b2b';
+      ctx.font = 'bold 160px "Noto Serif"';
+      ctx.textAlign = 'center';
+      ctx.fillText('CERTIFICATE OF COMPLETION', centerX, 650);
+      
+      ctx.font = 'bold 140px "Amiri"';
+      ctx.fillText('شهادة إتمام', centerX, 820);
+
+      // This is to certify that
+      ctx.font = 'normal 70px "Noto Serif"';
+      ctx.textAlign = 'left';
+      ctx.fillText('This is to certify that', 400, 1050);
+
+      ctx.font = 'normal 80px "Amiri"';
+      ctx.textAlign = 'right';
+      ctx.fillText('نشهد أن', canvas.width - 400, 1050);
+
+      // Student Name
+      ctx.fillStyle = '#98da27';
+      ctx.font = 'bold 180px "Amiri"';
+      ctx.textAlign = 'center';
+      ctx.fillText(studentName.toUpperCase(), centerX, 1300);
+
+      // has successfully completed
+      ctx.fillStyle = '#151b2b';
+      ctx.font = 'normal 70px "Noto Serif"';
+      ctx.textAlign = 'left';
+      ctx.fillText('has successfully completed the course', 400, 1500);
+
+      ctx.font = 'normal 80px "Amiri"';
+      ctx.textAlign = 'right';
+      ctx.fillText('قد أكمل بنجاح دورة', canvas.width - 400, 1500);
+
+      // Course Title
+      ctx.fillStyle = '#151b2b';
+      ctx.font = 'bold 120px "Noto Serif"';
+      ctx.textAlign = 'center';
+      ctx.fillText(course.title, centerX, 1700);
+
+      // Dates
+      const dateY = 2000;
+      const today = new Date();
+      const gregorianDate = today.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
+      const hijriDateEn = new Intl.DateTimeFormat('en-u-ca-islamic-uma', { day: 'numeric', month: 'long', year: 'numeric' }).format(today);
+      const hijriDateAr = new Intl.DateTimeFormat('ar-u-ca-islamic-uma', { day: 'numeric', month: 'long', year: 'numeric' }).format(today);
+
+      ctx.font = 'normal 60px "Noto Serif"';
+      ctx.textAlign = 'left';
+      ctx.fillText(`Date: ${gregorianDate} / ${hijriDateEn}`, 400, dateY);
+
+      ctx.font = 'normal 70px "Amiri"';
+      ctx.textAlign = 'right';
+      ctx.fillText(`التاريخ: ${hijriDateAr}`, canvas.width - 400, dateY);
+
+      // Signatures
+      const sigY = 2200;
+      ctx.strokeStyle = '#cccccc';
+      ctx.lineWidth = 5;
+      ctx.beginPath();
+      ctx.moveTo(400, sigY);
+      ctx.lineTo(1000, sigY);
+      ctx.stroke();
+
+      ctx.beginPath();
+      ctx.moveTo(canvas.width - 1000, sigY);
+      ctx.lineTo(canvas.width - 400, sigY);
+      ctx.stroke();
+
+      ctx.fillStyle = '#151b2b';
+      ctx.font = 'bold 50px "Noto Serif"';
+      ctx.textAlign = 'center';
+      ctx.fillText(course.instructor, 700, sigY + 80);
+      ctx.fillText('Registrar', canvas.width - 700, sigY + 80);
+
+      // Motto
+      ctx.fillStyle = '#151b2b';
+      ctx.font = 'italic 40px "Noto Serif"';
+      ctx.textAlign = 'center';
+      ctx.fillText('"When Allah wishes good for anyone, He bestows upon him the fiqh (Comprehension) of the religion."', centerX, 2320);
+      
+      ctx.font = 'italic 50px "Amiri"';
+      ctx.fillText('"مَنْ يُرِدِ اللَّهُ بِهِ خَيْرًا يُفَقِّهْهُ فِي الدِّينِ"', centerX, 2400);
+
+      // Convert to PDF
+      const imgData = canvas.toDataURL('image/jpeg', 0.95);
+      const doc = new jsPDF({
+        orientation: 'landscape',
+        unit: 'mm',
+        format: 'a4'
+      });
+
+      doc.addImage(imgData, 'JPEG', 0, 0, 297, 210);
+
+      const url = doc.output('datauristring');
+      setPreviewUrl(url);
+    } catch (error) {
+      console.error('Error generating certificate:', error);
+    } finally {
+      setIsGenerating(false);
+    }
+  };
+
+  const updatePreview = () => {
+    if (studentName) {
+      createCertificateDoc();
+    }
+  };
+
   const generateCertificate = () => {
     if (!studentName) {
       setIsEditingName(true);
       return;
     }
-
-    const doc = new jsPDF({
-      orientation: 'landscape',
-      unit: 'mm',
-      format: 'a4'
-    });
-
-    const pageWidth = doc.internal.pageSize.getWidth();
-    const pageHeight = doc.internal.pageSize.getHeight();
-
-    // Background border
-    doc.setDrawColor(184, 158, 101); // Primary color (approx)
-    doc.setLineWidth(2);
-    doc.rect(10, 10, pageWidth - 20, pageHeight - 20);
-    doc.setLineWidth(0.5);
-    doc.rect(12, 12, pageWidth - 24, pageHeight - 24);
-
-    // Header
-    doc.setTextColor(184, 158, 101);
-    doc.setFont('times', 'bold');
-    doc.setFontSize(40);
-    doc.text('CERTIFICATE', pageWidth / 2, 45, { align: 'center' });
-    doc.setFontSize(20);
-    doc.text('OF COMPLETION', pageWidth / 2, 55, { align: 'center' });
-
-    // Body
-    doc.setTextColor(40, 40, 40);
-    doc.setFont('helvetica', 'normal');
-    doc.setFontSize(16);
-    doc.text('This is to certify that', pageWidth / 2, 80, { align: 'center' });
-
-    doc.setFontSize(32);
-    doc.setFont('times', 'bold');
-    doc.text(studentName.toUpperCase(), pageWidth / 2, 100, { align: 'center' });
-
-    doc.setFontSize(16);
-    doc.setFont('helvetica', 'normal');
-    doc.text('has successfully completed the course', pageWidth / 2, 120, { align: 'center' });
-
-    doc.setFontSize(24);
-    doc.setFont('times', 'bold');
-    doc.text(course.title, pageWidth / 2, 135, { align: 'center' });
-
-    doc.setFontSize(14);
-    doc.setFont('helvetica', 'normal');
-    doc.text(`Completed on: ${new Date().toLocaleDateString()}`, pageWidth / 2, 155, { align: 'center' });
-
-    // Footer
-    doc.setFontSize(18);
-    doc.setFont('times', 'bold');
-    doc.setTextColor(184, 158, 101);
-    doc.text('AL-HIKMAH INSTITUTE', pageWidth / 2, 175, { align: 'center' });
-
-    doc.setFontSize(12);
-    doc.setFont('helvetica', 'italic');
-    doc.setTextColor(120, 120, 120);
-    doc.text('Classical Knowledge for the Modern World', pageWidth / 2, 182, { align: 'center' });
-
-    // Signatures
-    doc.setDrawColor(200, 200, 200);
-    doc.line(40, 170, 100, 170);
-    doc.line(pageWidth - 100, 170, pageWidth - 40, 170);
-
-    doc.setFontSize(10);
-    doc.setFont('helvetica', 'normal');
-    doc.text(course.instructor, 70, 175, { align: 'center' });
-    doc.text('Registrar', pageWidth - 70, 175, { align: 'center' });
-
-    doc.save(`${course.title.replace(/\s+/g, '_')}_Certificate.pdf`);
+    setIsEditingName(true);
+    updatePreview();
   };
 
   return (
@@ -342,7 +445,7 @@ export const CourseDetail: React.FC<CourseDetailProps> = ({ course, onBack, onAp
                             onClick={generateCertificate}
                             className="btn-primary w-full py-4 flex items-center justify-center gap-2 bg-primary text-surface hover:bg-primary/90"
                           >
-                            Download Certificate <Download size={18} />
+                            View & Request Certificate <Award size={18} />
                           </button>
                         ) : (
                           <button className="btn-primary w-full py-4 flex items-center justify-center gap-2">
@@ -478,54 +581,92 @@ export const CourseDetail: React.FC<CourseDetailProps> = ({ course, onBack, onAp
         </div>
       </div>
 
-      {/* Name Input Modal */}
+      {/* Name Input & Customization Modal */}
       {isEditingName && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
           <motion.div 
             initial={{ opacity: 0, scale: 0.95 }}
             animate={{ opacity: 1, scale: 1 }}
-            className="glass max-w-md w-full p-8 rounded-[32px] space-y-6 border-primary/20"
+            className="glass max-w-4xl w-full p-8 rounded-[32px] space-y-8 border-primary/20 overflow-y-auto max-h-[90vh]"
           >
-            <div className="text-center space-y-2">
-              <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center text-primary mx-auto mb-4">
-                <Award size={32} />
+            <div className="flex justify-between items-start">
+              <div className="space-y-1">
+                <h3 className="text-2xl font-serif font-bold flex items-center gap-3">
+                  <Award className="text-primary" size={28} />
+                  Customize Your Certificate
+                </h3>
+                <p className="text-sm text-on-surface/60">Personalize your achievement before downloading.</p>
               </div>
-              <h3 className="text-2xl font-serif font-bold">Certificate Details</h3>
-              <p className="text-sm text-on-surface/60">Please enter your full name as you would like it to appear on your certificate of completion.</p>
+              <button 
+                onClick={() => setIsEditingName(false)}
+                className="p-2 hover:bg-white/5 rounded-full transition-colors"
+              >
+                <ChevronLeft className="rotate-180" size={24} />
+              </button>
             </div>
 
-            <div className="space-y-4">
-              <div className="space-y-2">
-                <label className="text-[10px] font-bold uppercase tracking-widest text-on-surface/40 ml-1">Full Name</label>
-                <input 
-                  type="text" 
-                  value={studentName}
-                  onChange={(e) => setStudentName(e.target.value)}
-                  placeholder="e.g. Abdullah Ibn Yusuf"
-                  className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-primary/50 transition-colors"
-                  autoFocus
-                />
+            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
+              {/* Customization Controls */}
+              <div className="space-y-6">
+                <div className="space-y-4">
+                  <div className="space-y-2">
+                    <label className="text-[10px] font-bold uppercase tracking-widest text-on-surface/40 ml-1 flex items-center gap-2">
+                      <User size={12} /> Full Name
+                    </label>
+                    <input 
+                      type="text" 
+                      value={studentName}
+                      onChange={(e) => setStudentName(e.target.value)}
+                      placeholder="e.g. Abdullah Ibn Yusuf"
+                      className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-primary/50 transition-colors"
+                    />
+                  </div>
+                </div>
+
+                  <button 
+                    onClick={() => {
+                      const baseUrl = window.location.origin + window.location.pathname;
+                      const verificationUrl = `${baseUrl}?page=verify&name=${encodeURIComponent(studentName)}&course=${encodeURIComponent(course.title)}&date=${encodeURIComponent(new Date().toISOString())}`;
+                      const subject = encodeURIComponent(`Certificate Verification Request: ${studentName}`);
+                      const body = encodeURIComponent(`Hello DAARUL FALAAH Islamic Institution,\n\nI have successfully completed the course "${course.title}".\n\nPlease verify my certificate for ${studentName}.\n\nVerification Link: ${verificationUrl}\n\nThank you.`);
+                      window.location.href = `mailto:ismailabdulazeez536@gmail.com?subject=${subject}&body=${body}`;
+                    }}
+                    disabled={isGenerating || !studentName.trim()}
+                    className="w-full px-4 py-3 rounded-xl bg-primary text-surface text-xs font-bold uppercase tracking-widest hover:bg-primary/90 transition-colors disabled:opacity-50 flex items-center justify-center gap-2"
+                  >
+                    <Mail size={16} /> Request Official Certificate
+                  </button>
+
+                  <div className="pt-4">
+                    <button 
+                      onClick={updatePreview}
+                      disabled={isGenerating || !studentName.trim()}
+                      className="w-full px-4 py-3 rounded-xl border border-primary/30 text-primary text-xs font-bold uppercase tracking-widest hover:bg-primary/5 transition-colors flex items-center justify-center gap-2 disabled:opacity-50"
+                    >
+                      <Eye size={16} /> {isGenerating ? 'Generating...' : 'Refresh Preview'}
+                    </button>
+                  </div>
               </div>
 
-              <div className="flex gap-3 pt-2">
-                <button 
-                  onClick={() => setIsEditingName(false)}
-                  className="flex-1 px-4 py-3 rounded-xl border border-white/10 text-xs font-bold uppercase tracking-widest hover:bg-white/5 transition-colors"
-                >
-                  Cancel
-                </button>
-                <button 
-                  onClick={() => {
-                    if (studentName.trim()) {
-                      setIsEditingName(false);
-                      generateCertificate();
-                    }
-                  }}
-                  disabled={!studentName.trim()}
-                  className="flex-1 px-4 py-3 rounded-xl bg-primary text-surface text-xs font-bold uppercase tracking-widest hover:bg-primary/90 transition-colors disabled:opacity-50"
-                >
-                  Generate
-                </button>
+              {/* Preview Area */}
+              <div className="space-y-4">
+                <label className="text-[10px] font-bold uppercase tracking-widest text-on-surface/40 ml-1 flex items-center gap-2">
+                  <Eye size={12} /> Live Preview
+                </label>
+                <div className="aspect-[1.414/1] w-full glass rounded-2xl overflow-hidden border-white/10 relative bg-white/5">
+                  {previewUrl ? (
+                    <iframe 
+                      src={previewUrl} 
+                      className="w-full h-full border-none scale-[1.01]" 
+                      title="Certificate Preview"
+                    />
+                  ) : (
+                    <div className="absolute inset-0 flex flex-col items-center justify-center text-on-surface/30 space-y-4">
+                      <Award size={48} className="opacity-20" />
+                      <p className="text-xs font-bold uppercase tracking-widest">Enter name to preview</p>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           </motion.div>

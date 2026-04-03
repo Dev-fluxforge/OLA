@@ -121,7 +121,7 @@ export const Apply: React.FC = () => {
                         <label className="text-xs font-bold uppercase tracking-widest text-on-surface/40">Phone Number</label>
                         <div className="relative">
                           <Phone className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface/20" size={18} />
-                          <input type="tel" placeholder="+1 (555) 000-0000" className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-12 pr-6 text-sm focus:outline-none focus:border-primary/50" required />
+                          <input type="tel" placeholder="+234 704 759 4864" className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-12 pr-6 text-sm focus:outline-none focus:border-primary/50" required />
                         </div>
                       </div>
                       <div className="space-y-2">
@@ -235,7 +235,7 @@ export const Apply: React.FC = () => {
                   </div>
                   <div className="space-y-1">
                     <div className="text-xs font-bold uppercase tracking-widest text-on-surface/40">Call Support</div>
-                    <div className="text-sm">+1 (555) 123-4567</div>
+                    <div className="text-sm">+234 704 759 4864</div>
                   </div>
                 </div>
                 <div className="flex gap-4">
@@ -244,7 +244,7 @@ export const Apply: React.FC = () => {
                   </div>
                   <div className="space-y-1">
                     <div className="text-xs font-bold uppercase tracking-widest text-on-surface/40">Email Support</div>
-                    <div className="text-sm">support@daarulfalaah.edu</div>
+                    <div className="text-sm">ismailabdulazeez536@gmail.com</div>
                   </div>
                 </div>
               </div>

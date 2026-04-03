@@ -2,7 +2,13 @@ import React from 'react';
 import { motion } from 'motion/react';
 import { Shield, Users, Book, Globe, Star, ArrowRight } from 'lucide-react';
 
-export const About: React.FC = () => {
+import { type Page } from '../types';
+
+interface AboutProps {
+  onPageChange: (page: Page) => void;
+}
+
+export const About: React.FC<AboutProps> = ({ onPageChange }) => {
   return (
     <div className="pt-32 pb-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto space-y-24">
@@ -32,7 +38,7 @@ export const About: React.FC = () => {
           <div className="relative">
             <div className="aspect-square rounded-3xl overflow-hidden glass p-4">
               <img 
-                src="https://picsum.photos/seed/about-hero/1000/1000" 
+                src="https://picsum.photos/seed/islamic-campus/1000/1000" 
                 alt="Institution Grounds" 
                 className="w-full h-full object-cover rounded-2xl grayscale"
                 referrerPolicy="no-referrer"
@@ -59,6 +65,19 @@ export const About: React.FC = () => {
             <h2 className="text-3xl font-serif font-bold">Our Vision</h2>
             <p className="text-on-surface/60 leading-relaxed">
               To be a global beacon of classical Islamic learning, recognized for academic excellence, spiritual depth, and the cultivation of scholars who embody the prophetic tradition in the contemporary era.
+            </p>
+          </div>
+        </div>
+
+        {/* Motto Section */}
+        <div className="glass p-12 rounded-[40px] text-center space-y-8 bg-primary/5 border-primary/20">
+          <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center text-primary mx-auto">
+            <Star size={32} fill="currentColor" />
+          </div>
+          <div className="space-y-4">
+            <h2 className="text-xs font-bold uppercase tracking-[0.3em] text-primary">Our Motto</h2>
+            <p className="text-3xl md:text-5xl font-serif font-bold italic leading-tight max-w-4xl mx-auto">
+              "When Allah wishes good for anyone, He bestows upon him the fiqh (Comprehension) of the religion."
             </p>
           </div>
         </div>
@@ -93,11 +112,19 @@ export const About: React.FC = () => {
 
         {/* Leadership */}
         <div className="space-y-12">
-          <div className="text-center space-y-4">
-            <h2 className="text-3xl md:text-5xl font-serif font-bold">Our Leadership</h2>
-            <p className="text-on-surface/60 max-w-2xl mx-auto">
-              Guided by world-renowned scholars and experienced academic administrators.
-            </p>
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-8">
+            <div className="space-y-4">
+              <h2 className="text-3xl md:text-5xl font-serif font-bold">Our Leadership</h2>
+              <p className="text-on-surface/60 max-w-xl">
+                Guided by world-renowned scholars and experienced academic administrators.
+              </p>
+            </div>
+            <button 
+              onClick={() => onPageChange('faculty')}
+              className="text-primary text-xs font-bold uppercase tracking-widest flex items-center gap-2 group"
+            >
+              View All Faculty <ArrowRight size={14} className="group-hover:translate-x-1 transition-transform" />
+            </button>
           </div>
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             {[
@@ -109,7 +136,7 @@ export const About: React.FC = () => {
               <div key={i} className="glass p-6 rounded-3xl space-y-4 text-center group">
                 <div className="aspect-square rounded-2xl overflow-hidden grayscale group-hover:grayscale-0 transition-all duration-500">
                   <img 
-                    src={`https://picsum.photos/seed/${leader.seed}/400/400`} 
+                    src={`https://picsum.photos/seed/islamic-scholar-${i}/400/400`} 
                     alt={leader.name} 
                     className="w-full h-full object-cover"
                     referrerPolicy="no-referrer"

@@ -87,7 +87,7 @@ export const Privacy: React.FC = () => {
               4. Your Rights
             </h2>
             <p className="text-on-surface/60 leading-relaxed">
-              You have the right to access, correct, or request the deletion of your personal information at any time. To exercise these rights, please contact our data protection officer at privacy@daarulfalaah.edu.
+              You have the right to access, correct, or request the deletion of your personal information at any time. To exercise these rights, please contact our data protection officer at ismailabdulazeez536@gmail.com.
             </p>
           </div>
         </div>

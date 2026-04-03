@@ -88,7 +88,7 @@ export const Scholarships: React.FC = () => {
           <div className="relative">
             <div className="aspect-[4/5] rounded-3xl overflow-hidden glass p-4">
               <img 
-                src="https://picsum.photos/seed/scholarship-apply/800/1000" 
+                src="https://picsum.photos/seed/islamic-student-scholarship/800/1000" 
                 alt="Student studying" 
                 className="w-full h-full object-cover rounded-2xl grayscale"
                 referrerPolicy="no-referrer"
