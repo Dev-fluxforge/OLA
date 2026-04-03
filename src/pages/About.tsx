@@ -38,7 +38,7 @@ export const About: React.FC<AboutProps> = ({ onPageChange }) => {
           <div className="relative">
             <div className="aspect-square rounded-3xl overflow-hidden glass p-4">
               <img 
-                src="https://picsum.photos/seed/islamic-campus/1000/1000" 
+                src="https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?auto=format&fit=crop&q=80&w=1000&h=1000" 
                 alt="Institution Grounds" 
                 className="w-full h-full object-cover rounded-2xl grayscale"
                 referrerPolicy="no-referrer"
@@ -132,22 +132,30 @@ export const About: React.FC<AboutProps> = ({ onPageChange }) => {
               { name: 'Shaykha Fatima Zahra', role: 'Dean of Academic Affairs', seed: 'leader2' },
               { name: 'Prof. Yusuf Mansour', role: 'Head of Research', seed: 'leader3' },
               { name: 'Dr. Sarah Khalid', role: 'Director of Student Life', seed: 'leader4' },
-            ].map((leader, i) => (
-              <div key={i} className="glass p-6 rounded-3xl space-y-4 text-center group">
-                <div className="aspect-square rounded-2xl overflow-hidden grayscale group-hover:grayscale-0 transition-all duration-500">
-                  <img 
-                    src={`https://picsum.photos/seed/islamic-scholar-${i}/400/400`} 
-                    alt={leader.name} 
-                    className="w-full h-full object-cover"
-                    referrerPolicy="no-referrer"
-                  />
+            ].map((leader, i) => {
+              const leaderImages = [
+                'photo-1507003211169-0a1dd7228f2d',
+                'photo-1544005313-94ddf0286df2',
+                'photo-1500648767791-00dcc994a43e',
+                'photo-1554151228-14d9def656e4'
+              ];
+              return (
+                <div key={i} className="glass p-6 rounded-3xl space-y-4 text-center group">
+                  <div className="aspect-square rounded-2xl overflow-hidden grayscale group-hover:grayscale-0 transition-all duration-500">
+                    <img 
+                      src={`https://images.unsplash.com/${leaderImages[i % leaderImages.length]}?auto=format&fit=crop&q=80&w=400&h=400`} 
+                      alt={leader.name} 
+                      className="w-full h-full object-cover"
+                      referrerPolicy="no-referrer"
+                    />
+                  </div>
+                  <div>
+                    <h4 className="font-serif font-bold text-lg">{leader.name}</h4>
+                    <p className="text-xs text-on-surface/40 uppercase tracking-widest font-bold">{leader.role}</p>
+                  </div>
                 </div>
-                <div>
-                  <h4 className="font-serif font-bold text-lg">{leader.name}</h4>
-                  <p className="text-xs text-on-surface/40 uppercase tracking-widest font-bold">{leader.role}</p>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>

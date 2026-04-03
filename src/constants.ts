@@ -9,7 +9,7 @@ export const COURSES: Course[] = [
     duration: '12 Weeks',
     instructor: 'Shaykh Ahmad Al-Farsi',
     category: 'Jurisprudence',
-    image: 'https://picsum.photos/seed/islamic-law-book/800/600',
+    image: 'https://images.unsplash.com/photo-1583321503611-13f9f03086ee?auto=format&fit=crop&q=80&w=800&h=600',
     syllabus: [
       'Introduction to Usul al-Fiqh',
       'Sources of Islamic Law: Quran and Sunnah',
@@ -30,7 +30,7 @@ export const COURSES: Course[] = [
     duration: '16 Weeks',
     instructor: 'Ustadha Fatima Al-Zahra',
     category: 'Arabic Linguistics',
-    image: 'https://picsum.photos/seed/arabic-manuscript/800/600',
+    image: 'https://images.unsplash.com/photo-1564121211835-e88c852648ab?auto=format&fit=crop&q=80&w=800&h=600',
     syllabus: [
       'Introduction to Arabic Parts of Speech',
       'The System of I\'rab (Inflection)',
@@ -51,7 +51,7 @@ export const COURSES: Course[] = [
     duration: '16 Weeks',
     instructor: 'Dr. Maryam Al-Zahra',
     category: 'Theology',
-    image: 'https://picsum.photos/seed/islamic-creed/800/600',
+    image: 'https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?auto=format&fit=crop&q=80&w=800&h=600',
     syllabus: [
       'The Attributes of Allah',
       'Prophethood and Revelation',
@@ -72,7 +72,7 @@ export const COURSES: Course[] = [
     duration: '14 Weeks',
     instructor: 'Shaykh Ibrahim Mansour',
     category: 'Quranic Sciences',
-    image: 'https://picsum.photos/seed/quran-reading/800/600',
+    image: 'https://images.unsplash.com/photo-1609599006341-152768462462?auto=format&fit=crop&q=80&w=800&h=600',
     syllabus: [
       'History of Tafsir Literature',
       'Principles of Exegesis (Usul al-Tafsir)',
@@ -93,7 +93,7 @@ export const COURSES: Course[] = [
     duration: '20 Weeks',
     instructor: 'Shaykh Yusuf Al-Haddad',
     category: 'Hadith Sciences',
-    image: 'https://picsum.photos/seed/hadith-scroll/800/600',
+    image: 'https://images.unsplash.com/photo-1542816417-0983c9c9ad53?auto=format&fit=crop&q=80&w=800&h=600',
     syllabus: [
       'History of Hadith Compilation',
       'Classification of Hadith (Sahih, Hasan, Daif)',
@@ -114,7 +114,7 @@ export const COURSES: Course[] = [
     duration: '10 Weeks',
     instructor: 'Dr. Omar Farooq',
     category: 'History',
-    image: 'https://picsum.photos/seed/islamic-history-map/800/600',
+    image: 'https://images.unsplash.com/photo-1526772662000-3f88f10405ff?auto=format&fit=crop&q=80&w=800&h=600',
     syllabus: [
       'The Prophetic Era and the Rightly Guided Caliphs',
       'The Rise of the Great Madhahib',

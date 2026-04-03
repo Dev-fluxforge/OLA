@@ -1,9 +1,10 @@
 import React from 'react';
 import { motion } from 'motion/react';
-import { Search, Filter, Clock, User, ChevronRight, BookOpen } from 'lucide-react';
+import { Search, Filter, Clock, User, ChevronRight, BookOpen, Mail, CheckCircle, X } from 'lucide-react';
 import { COURSES } from '../constants';
 import { type Page, type Course } from '../types';
 import { cn } from '../lib/utils';
+import { AnimatePresence } from 'motion/react';
 
 interface ProgramsProps {
   onPageChange: (page: Page) => void;
@@ -14,8 +15,19 @@ export const Programs: React.FC<ProgramsProps> = ({ onPageChange, onCourseSelect
   const [selectedLevel, setSelectedLevel] = React.useState<string>('All');
   const [searchQuery, setSearchQuery] = React.useState('');
   const [isLoading, setIsLoading] = React.useState(true);
+  const [enrolledCourses, setEnrolledCourses] = React.useState<string[]>(() => {
+    return COURSES.filter(c => localStorage.getItem(`enrolled_${c.id}`) === 'true').map(c => c.id);
+  });
+  const [notification, setNotification] = React.useState<{message: string, type: 'success' | 'info'} | null>(null);
 
   const levels = ['All', 'Beginner', 'Intermediate', 'Advanced'];
+
+  React.useEffect(() => {
+    if (notification) {
+      const timer = setTimeout(() => setNotification(null), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [notification]);
 
   React.useEffect(() => {
     setIsLoading(true);
@@ -145,13 +157,57 @@ export const Programs: React.FC<ProgramsProps> = ({ onPageChange, onCourseSelect
 
           {/* Course List */}
           <div className="lg:col-span-3 space-y-6">
+            <AnimatePresence>
+              {notification && (
+                <motion.div
+                  initial={{ opacity: 0, y: -20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -20 }}
+                  className={cn(
+                    "p-4 rounded-2xl flex items-center justify-between gap-4 shadow-lg border",
+                    notification.type === 'success' ? "bg-primary/10 border-primary/20 text-primary" : "bg-white/5 border-white/10 text-on-surface"
+                  )}
+                >
+                  <div className="flex items-center gap-3">
+                    {notification.type === 'success' ? <CheckCircle size={20} /> : <Mail size={20} />}
+                    <span className="text-sm font-bold">{notification.message}</span>
+                  </div>
+                  <button onClick={() => setNotification(null)} className="p-1 hover:bg-white/10 rounded-full transition-colors">
+                    <X size={16} />
+                  </button>
+                </motion.div>
+              )}
+            </AnimatePresence>
+
             {isLoading ? (
               Array.from({ length: 3 }).map((_, i) => <CourseSkeleton key={i} />)
             ) : filteredCourses.length > 0 ? (
               filteredCourses.map((course, i) => {
-                const isEnrolled = localStorage.getItem(`enrolled_${course.id}`) === 'true';
+                const isEnrolled = enrolledCourses.includes(course.id);
                 const completedModules = JSON.parse(localStorage.getItem(`progress_${course.id}`) || '[]');
                 const progress = Math.round((completedModules.length / course.syllabus.length) * 100);
+                const studentName = localStorage.getItem('student_name') || '';
+
+                const handleEnroll = (e: React.MouseEvent) => {
+                  e.stopPropagation();
+                  localStorage.setItem(`enrolled_${course.id}`, 'true');
+                  setEnrolledCourses(prev => [...prev, course.id]);
+                  setNotification({ message: `Successfully enrolled in ${course.title}!`, type: 'success' });
+                };
+
+                const handleUnenroll = (e: React.MouseEvent) => {
+                  e.stopPropagation();
+                  const subject = encodeURIComponent(`Withdrawal Request: ${course.title}`);
+                  const body = encodeURIComponent(`Hello DAARUL FALAAH Islamic Institution,\n\nI would like to withdraw from the course "${course.title}".\n\nStudent Name: ${studentName || 'Not Provided'}\n\nThank you.`);
+                  window.location.href = `mailto:ismailabdulazeez536@gmail.com?subject=${subject}&body=${body}`;
+                  
+                  setTimeout(() => {
+                    localStorage.removeItem(`enrolled_${course.id}`);
+                    localStorage.removeItem(`progress_${course.id}`);
+                    setEnrolledCourses(prev => prev.filter(id => id !== course.id));
+                    setNotification({ message: `Withdrawal request sent for ${course.title}.`, type: 'info' });
+                  }, 500);
+                };
 
                 return (
                   <motion.div
@@ -221,21 +277,45 @@ export const Programs: React.FC<ProgramsProps> = ({ onPageChange, onCourseSelect
                           )}
                         </div>
 
-                        <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-white/5">
-                          <div className="flex items-center gap-6">
-                            <div className="flex items-center gap-2 text-xs text-on-surface/40">
-                              <Clock size={14} className="text-primary" />
-                              <span>{course.duration}</span>
+                          <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-white/5">
+                            <div className="flex items-center gap-6">
+                              <div className="flex items-center gap-2 text-xs text-on-surface/40">
+                                <Clock size={14} className="text-primary" />
+                                <span>{course.duration}</span>
+                              </div>
+                              <div className="flex items-center gap-2 text-xs text-on-surface/40">
+                                <User size={14} className="text-primary" />
+                                <span>{course.instructor}</span>
+                              </div>
                             </div>
-                            <div className="flex items-center gap-2 text-xs text-on-surface/40">
-                              <User size={14} className="text-primary" />
-                              <span>{course.instructor}</span>
+                            <div className="flex items-center gap-3">
+                              {isEnrolled ? (
+                                <div className="flex items-center gap-3">
+                                  <button 
+                                    onClick={handleUnenroll}
+                                    className="text-[10px] text-on-surface/40 hover:text-destructive transition-colors uppercase tracking-widest flex items-center gap-1 font-bold"
+                                  >
+                                    <Mail size={12} /> Withdraw
+                                  </button>
+                                  <div className="flex items-center gap-2 text-primary font-bold text-sm">
+                                    Continue Learning <ChevronRight size={16} />
+                                  </div>
+                                </div>
+                              ) : (
+                                <div className="flex items-center gap-3">
+                                  <button 
+                                    onClick={handleEnroll}
+                                    className="px-4 py-2 rounded-full bg-primary/10 border border-primary/20 text-primary text-[10px] font-bold uppercase tracking-widest hover:bg-primary hover:text-surface transition-all"
+                                  >
+                                    Enroll Now
+                                  </button>
+                                  <div className="flex items-center gap-2 text-primary font-bold text-sm">
+                                    View Details <ChevronRight size={16} />
+                                  </div>
+                                </div>
+                              )}
                             </div>
                           </div>
-                          <div className="flex items-center gap-2 text-primary font-bold text-sm">
-                            {isEnrolled ? 'Continue Learning' : 'View Details'} <ChevronRight size={16} />
-                          </div>
-                        </div>
                       </div>
                     </div>
                   </motion.div>

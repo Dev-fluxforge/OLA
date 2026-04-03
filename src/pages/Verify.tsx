@@ -30,110 +30,232 @@ export const Verify: React.FC = () => {
     if (!ctx) return;
 
     // Wait for fonts
-    await document.fonts.load('1em Amiri');
-    await document.fonts.load('1em "Noto Serif"');
+    await Promise.all([
+      document.fonts.load('1em Amiri'),
+      document.fonts.load('1em "Noto Serif"'),
+      document.fonts.load('1em Cinzel'),
+      document.fonts.load('1em "Playfair Display"'),
+      document.fonts.load('1em "Great Vibes"')
+    ]);
 
     // A4 Landscape dimensions at 300 DPI
     canvas.width = 3508;
     canvas.height = 2480;
 
-    // Background
-    ctx.fillStyle = '#ffffff';
+    const centerX = canvas.width / 2;
+    const centerY = canvas.height / 2;
+
+    // 1. Background: Parchment Texture
+    const bgGradient = ctx.createRadialGradient(centerX, centerY, 0, centerX, centerY, canvas.width / 1.5);
+    bgGradient.addColorStop(0, '#fdfbf7');
+    bgGradient.addColorStop(1, '#f5f0e6');
+    ctx.fillStyle = bgGradient;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-    // Border
-    ctx.strokeStyle = '#98da27';
-    ctx.lineWidth = 40;
-    ctx.strokeRect(60, 60, canvas.width - 120, canvas.height - 120);
+    // Subtle paper texture (noise)
+    for (let i = 0; i < 10000; i++) {
+      const x = Math.random() * canvas.width;
+      const y = Math.random() * canvas.height;
+      const opacity = Math.random() * 0.03;
+      ctx.fillStyle = `rgba(0, 0, 0, ${opacity})`;
+      ctx.fillRect(x, y, 2, 2);
+    }
+
+    // 2. Intricate Islamic Geometric Border
+    const drawIslamicPattern = (x: number, y: number, size: number, color: string) => {
+      ctx.save();
+      ctx.translate(x, y);
+      ctx.strokeStyle = color;
+      ctx.lineWidth = 2;
+      for (let i = 0; i < 8; i++) {
+        ctx.rotate(Math.PI / 4);
+        ctx.strokeRect(-size / 2, -size / 2, size, size);
+      }
+      ctx.restore();
+    };
+
+    // Main Gold Border
+    const goldGradient = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
+    goldGradient.addColorStop(0, '#d4af37'); // Gold
+    goldGradient.addColorStop(0.5, '#f9f295'); // Light Gold
+    goldGradient.addColorStop(1, '#b8860b'); // Dark Gold
+
+    ctx.strokeStyle = goldGradient;
+    ctx.lineWidth = 60;
+    ctx.strokeRect(80, 80, canvas.width - 160, canvas.height - 160);
+
+    // Inner Decorative Border
     ctx.lineWidth = 10;
-    ctx.strokeRect(100, 100, canvas.width - 200, canvas.height - 200);
+    ctx.setLineDash([20, 10]);
+    ctx.strokeRect(130, 130, canvas.width - 260, canvas.height - 260);
+    ctx.setLineDash([]);
 
-    const centerX = canvas.width / 2;
-    const headerY = 350;
+    // Corner Ornaments
+    const cornerSize = 150;
+    const corners = [
+      [130, 130],
+      [canvas.width - 130, 130],
+      [130, canvas.height - 130],
+      [canvas.width - 130, canvas.height - 130]
+    ];
 
-    // Header
-    ctx.fillStyle = '#98da27';
-    ctx.font = 'bold 60px "Noto Serif"';
+    corners.forEach(([cx, cy]) => {
+      drawIslamicPattern(cx, cy, cornerSize, '#d4af37');
+    });
+
+    // 3. Watermark: Large Islamic Pattern
+    ctx.save();
+    ctx.globalAlpha = 0.04;
+    ctx.translate(centerX, centerY);
+    for (let i = 0; i < 12; i++) {
+      ctx.rotate(Math.PI / 6);
+      ctx.strokeStyle = '#000000';
+      ctx.lineWidth = 5;
+      ctx.strokeRect(-600, -600, 1200, 1200);
+    }
+    ctx.restore();
+
+    // 4. Header Section
+    const headerY = 400;
+    
+    // English Name
+    ctx.fillStyle = '#151b2b';
+    ctx.font = 'bold 70px "Cinzel"';
     ctx.textAlign = 'right';
-    ctx.fillText('DAARUL FALAAH', centerX - 150, headerY - 40);
-    ctx.font = 'normal 40px "Noto Serif"';
-    ctx.fillText('Islamic Institution', centerX - 150, headerY + 10);
+    ctx.fillText('DAARUL FALAAH', centerX - 200, headerY - 40);
+    ctx.font = 'normal 45px "Playfair Display"';
+    ctx.fillText('Islamic Institution', centerX - 200, headerY + 20);
 
-    // Logo
+    // Logo / Emblem
+    ctx.save();
+    ctx.translate(centerX, headerY - 20);
     ctx.beginPath();
-    ctx.arc(centerX, headerY - 25, 60, 0, Math.PI * 2);
+    ctx.arc(0, 0, 80, 0, Math.PI * 2);
+    ctx.fillStyle = goldGradient;
     ctx.fill();
-    ctx.fillStyle = '#ffffff';
-    ctx.font = 'bold 60px "Noto Serif"';
+    ctx.strokeStyle = '#151b2b';
+    ctx.lineWidth = 4;
+    ctx.stroke();
+    ctx.fillStyle = '#151b2b';
+    ctx.font = 'bold 80px "Cinzel"';
     ctx.textAlign = 'center';
-    ctx.fillText('D', centerX, headerY - 5);
+    ctx.fillText('D', 0, 25);
+    ctx.restore();
 
-    // Arabic Header
-    ctx.fillStyle = '#98da27';
-    ctx.font = 'bold 80px "Amiri"';
+    // Arabic Name
+    ctx.fillStyle = '#151b2b';
+    ctx.font = 'bold 90px "Amiri"';
     ctx.textAlign = 'left';
-    ctx.fillText('مؤسسة دار الفلاح', centerX + 150, headerY - 20);
-    ctx.font = 'normal 50px "Amiri"';
-    ctx.fillText('الإسلامية', centerX + 150, headerY + 40);
+    ctx.fillText('مؤسسة دار الفلاح', centerX + 200, headerY - 20);
+    ctx.font = 'normal 60px "Amiri"';
+    ctx.fillText('الإسلامية', centerX + 200, headerY + 50);
 
+    // 5. Main Content
     // Title
-    ctx.fillStyle = '#151b2b';
-    ctx.font = 'bold 160px "Noto Serif"';
+    ctx.fillStyle = goldGradient;
+    ctx.font = 'bold 180px "Cinzel"';
     ctx.textAlign = 'center';
-    ctx.fillText('CERTIFICATE OF COMPLETION', centerX, 650);
+    ctx.fillText('CERTIFICATE', centerX, 750);
+    ctx.font = 'bold 100px "Cinzel"';
+    ctx.fillText('OF COMPLETION', centerX, 880);
+    
+    ctx.fillStyle = '#151b2b';
     ctx.font = 'bold 140px "Amiri"';
-    ctx.fillText('شهادة إتمام', centerX, 820);
+    ctx.fillText('شهادة إتمام', centerX, 1050);
 
-    // Certify
-    ctx.font = 'normal 70px "Noto Serif"';
-    ctx.textAlign = 'left';
-    ctx.fillText('This is to certify that', 400, 1050);
-    ctx.font = 'normal 80px "Amiri"';
-    ctx.textAlign = 'right';
-    ctx.fillText('نشهد أن', canvas.width - 400, 1050);
-
-    // Name
-    ctx.fillStyle = '#98da27';
-    ctx.font = 'bold 180px "Amiri"';
+    // Certification Text
+    ctx.font = 'italic 65px "Playfair Display"';
     ctx.textAlign = 'center';
-    ctx.fillText(name.toUpperCase(), centerX, 1300);
-
-    // Completed
-    ctx.fillStyle = '#151b2b';
-    ctx.font = 'normal 70px "Noto Serif"';
-    ctx.textAlign = 'left';
-    ctx.fillText('has successfully completed the course', 400, 1500);
+    ctx.fillText('This is to certify that', centerX, 1200);
     ctx.font = 'normal 80px "Amiri"';
-    ctx.textAlign = 'right';
-    ctx.fillText('قد أكمل بنجاح دورة', canvas.width - 400, 1500);
+    ctx.fillText('نشهد أن', centerX, 1300);
 
-    // Course
+    // Student Name
     ctx.fillStyle = '#151b2b';
-    ctx.font = 'bold 120px "Noto Serif"';
-    ctx.textAlign = 'center';
-    ctx.fillText(course, centerX, 1700);
+    ctx.font = 'bold 220px "Great Vibes"';
+    ctx.fillText(name, centerX, 1550);
+    
+    // Underline for name
+    ctx.strokeStyle = goldGradient;
+    ctx.lineWidth = 4;
+    ctx.beginPath();
+    ctx.moveTo(centerX - 800, 1580);
+    ctx.lineTo(centerX + 800, 1580);
+    ctx.stroke();
 
-    // Dates
-    const dateY = 2000;
+    // Achievement Text
+    ctx.fillStyle = '#151b2b';
+    ctx.font = 'normal 60px "Playfair Display"';
+    ctx.fillText('has successfully completed the prescribed course of study in', centerX, 1720);
+    ctx.font = 'normal 70px "Amiri"';
+    ctx.fillText('قد أكمل بنجاح دورة', centerX, 1820);
+
+    // Course Title
+    ctx.fillStyle = goldGradient;
+    ctx.font = 'bold 130px "Cinzel"';
+    ctx.fillText(course.toUpperCase(), centerX, 2000);
+
+    // 6. Footer Section
+    const footerY = 2250;
+    
+    // Date
     const d = date ? new Date(date) : new Date();
     const gregorianDate = d.toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' });
-    const hijriDateEn = new Intl.DateTimeFormat('en-u-ca-islamic-uma', { day: 'numeric', month: 'long', year: 'numeric' }).format(d);
     const hijriDateAr = new Intl.DateTimeFormat('ar-u-ca-islamic-uma', { day: 'numeric', month: 'long', year: 'numeric' }).format(d);
 
-    ctx.font = 'normal 60px "Noto Serif"';
-    ctx.textAlign = 'left';
-    ctx.fillText(`Date: ${gregorianDate} / ${hijriDateEn}`, 400, dateY);
-    ctx.font = 'normal 70px "Amiri"';
-    ctx.textAlign = 'right';
-    ctx.fillText(`التاريخ: ${hijriDateAr}`, canvas.width - 400, dateY);
-
-    // Motto
     ctx.fillStyle = '#151b2b';
-    ctx.font = 'italic 40px "Noto Serif"';
+    ctx.font = 'normal 45px "Playfair Display"';
+    ctx.textAlign = 'left';
+    ctx.fillText(`Date: ${gregorianDate}`, 400, footerY);
+    ctx.font = 'normal 55px "Amiri"';
+    ctx.textAlign = 'right';
+    ctx.fillText(`التاريخ: ${hijriDateAr}`, canvas.width - 400, footerY);
+
+    // Signatures
+    const sigLineY = 2320;
+    ctx.strokeStyle = '#151b2b';
+    ctx.lineWidth = 2;
+    
+    // Left Signature
+    ctx.beginPath();
+    ctx.moveTo(400, sigLineY);
+    ctx.lineTo(1000, sigLineY);
+    ctx.stroke();
+    ctx.font = 'bold 40px "Cinzel"';
     ctx.textAlign = 'center';
-    ctx.fillText('"When Allah wishes good for anyone, He bestows upon him the fiqh (Comprehension) of the religion."', centerX, 2320);
-    ctx.font = 'italic 50px "Amiri"';
-    ctx.fillText('"مَنْ يُرِدِ اللَّهُ بِهِ خَيْرًا يُفَقِّهْهُ فِي الدِّينِ"', centerX, 2400);
+    ctx.fillText('COURSE INSTRUCTOR', 700, sigLineY + 50);
+
+    // Right Signature
+    ctx.beginPath();
+    ctx.moveTo(canvas.width - 1000, sigLineY);
+    ctx.lineTo(canvas.width - 400, sigLineY);
+    ctx.stroke();
+    ctx.font = 'bold 40px "Cinzel"';
+    ctx.fillText('REGISTRAR', canvas.width - 700, sigLineY + 50);
+
+    // Official Seal (Bottom Center)
+    ctx.save();
+    ctx.translate(centerX, footerY + 50);
+    ctx.beginPath();
+    ctx.arc(0, 0, 120, 0, Math.PI * 2);
+    ctx.fillStyle = goldGradient;
+    ctx.fill();
+    ctx.strokeStyle = '#151b2b';
+    ctx.lineWidth = 3;
+    ctx.stroke();
+    ctx.font = 'bold 40px "Cinzel"';
+    ctx.fillStyle = '#151b2b';
+    ctx.textAlign = 'center';
+    ctx.fillText('DF', 0, 15);
+    ctx.restore();
+
+    // QR Code Placeholder
+    ctx.fillStyle = '#151b2b';
+    ctx.fillRect(canvas.width - 250, canvas.height - 250, 120, 120);
+    ctx.fillStyle = '#ffffff';
+    ctx.font = 'bold 15px "Inter"';
+    ctx.textAlign = 'center';
+    ctx.fillText('VERIFIED', canvas.width - 190, canvas.height - 180);
   };
 
   if (!name || !course) {

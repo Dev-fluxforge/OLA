@@ -59,7 +59,7 @@ export const Contact: React.FC = () => {
               </p>
               <div className="aspect-video rounded-2xl overflow-hidden grayscale opacity-50 hover:opacity-100 transition-opacity">
                 <img 
-                  src="https://picsum.photos/seed/islamic-campus-map/800/450" 
+                  src="https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?auto=format&fit=crop&q=80&w=800&h=450" 
                   alt="Campus Map" 
                   className="w-full h-full object-cover"
                   referrerPolicy="no-referrer"

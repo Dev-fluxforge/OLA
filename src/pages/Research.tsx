@@ -92,58 +92,66 @@ export const Research: React.FC = () => {
             </p>
           </div>
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            {publications.map((pub, i) => (
-              <motion.div 
-                key={i}
-                initial={{ opacity: 0, x: i % 2 === 0 ? -20 : 20 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ delay: i * 0.1 }}
-                className="glass p-8 rounded-[40px] flex flex-col md:flex-row gap-8 group hover:border-primary/30 transition-all"
-              >
-                <div className="md:w-48 h-64 md:h-auto overflow-hidden rounded-2xl shrink-0 relative">
-                  <img 
-                    src={`https://picsum.photos/seed/islamic-${pub.seed}/400/600`} 
-                    alt={pub.title} 
-                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700"
-                    referrerPolicy="no-referrer"
-                  />
-                  <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                    <Download className="text-primary" size={32} />
-                  </div>
-                </div>
-                <div className="space-y-4 flex flex-col justify-between">
-                  <div className="space-y-4">
-                    <div className="flex items-center gap-3">
-                      <span className="px-3 py-1 rounded-full bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-widest border border-primary/20">
-                        {pub.category}
-                      </span>
-                      <span className="text-[10px] uppercase tracking-widest text-on-surface/40 font-bold">
-                        {pub.date}
-                      </span>
-                    </div>
-                    <h3 className="text-xl font-serif font-bold group-hover:text-primary transition-colors">
-                      {pub.title}
-                    </h3>
-                    <p className="text-xs text-on-surface/60 leading-relaxed line-clamp-3">
-                      {pub.desc}
-                    </p>
-                  </div>
-                  <div className="flex items-center gap-4 pt-4 border-t border-white/5">
-                    <div className="text-xs text-on-surface/40">
-                      By <span className="text-primary font-bold">{pub.author}</span>
-                    </div>
-                    <div className="flex items-center gap-3 ml-auto">
-                      <button className="p-2 rounded-xl bg-white/5 text-on-surface/40 hover:bg-primary hover:text-surface transition-all">
-                        <Download size={16} />
-                      </button>
-                      <button className="p-2 rounded-xl bg-white/5 text-on-surface/40 hover:bg-primary hover:text-surface transition-all">
-                        <ExternalLink size={16} />
-                      </button>
+            {publications.map((pub, i) => {
+              const pubImages = [
+                'photo-1609599006341-152768462462',
+                'photo-1564121211835-e88c852648ab',
+                'photo-1583321503611-13f9f03086ee',
+                'photo-1526772662000-3f88f10405ff'
+              ];
+              return (
+                <motion.div 
+                  key={i}
+                  initial={{ opacity: 0, x: i % 2 === 0 ? -20 : 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: i * 0.1 }}
+                  className="glass p-8 rounded-[40px] flex flex-col md:flex-row gap-8 group hover:border-primary/30 transition-all"
+                >
+                  <div className="md:w-48 h-64 md:h-auto overflow-hidden rounded-2xl shrink-0 relative">
+                    <img 
+                      src={`https://images.unsplash.com/${pubImages[i % pubImages.length]}?auto=format&fit=crop&q=80&w=400&h=600`} 
+                      alt={pub.title} 
+                      className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700"
+                      referrerPolicy="no-referrer"
+                    />
+                    <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
+                      <Download className="text-primary" size={32} />
                     </div>
                   </div>
-                </div>
-              </motion.div>
-            ))}
+                  <div className="space-y-4 flex flex-col justify-between">
+                    <div className="space-y-4">
+                      <div className="flex items-center gap-3">
+                        <span className="px-3 py-1 rounded-full bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-widest border border-primary/20">
+                          {pub.category}
+                        </span>
+                        <span className="text-[10px] uppercase tracking-widest text-on-surface/40 font-bold">
+                          {pub.date}
+                        </span>
+                      </div>
+                      <h3 className="text-xl font-serif font-bold group-hover:text-primary transition-colors">
+                        {pub.title}
+                      </h3>
+                      <p className="text-xs text-on-surface/60 leading-relaxed line-clamp-3">
+                        {pub.desc}
+                      </p>
+                    </div>
+                    <div className="flex items-center gap-4 pt-4 border-t border-white/5">
+                      <div className="text-xs text-on-surface/40">
+                        By <span className="text-primary font-bold">{pub.author}</span>
+                      </div>
+                      <div className="flex items-center gap-3 ml-auto">
+                        <button className="p-2 rounded-xl bg-white/5 text-on-surface/40 hover:bg-primary hover:text-surface transition-all">
+                          <Download size={16} />
+                        </button>
+                        <button className="p-2 rounded-xl bg-white/5 text-on-surface/40 hover:bg-primary hover:text-surface transition-all">
+                          <ExternalLink size={16} />
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </motion.div>
+              );
+            })}
           </div>
           <div className="text-center">
             <button className="btn-outline py-4 px-12 text-sm font-bold uppercase tracking-widest">
@@ -169,7 +177,7 @@ export const Research: React.FC = () => {
           <div className="lg:w-1/2 w-full relative">
             <div className="aspect-video rounded-3xl overflow-hidden glass p-4">
               <img 
-                src="https://picsum.photos/seed/islamic-manuscript-research/1200/800" 
+                src="https://images.unsplash.com/photo-1526772662000-3f88f10405ff?auto=format&fit=crop&q=80&w=1200&h=800" 
                 alt="Research Collaboration" 
                 className="w-full h-full object-cover rounded-2xl grayscale"
                 referrerPolicy="no-referrer"

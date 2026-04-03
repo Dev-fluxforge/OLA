@@ -99,7 +99,7 @@ export const LiveQA: React.FC = () => {
             {/* Live Stream Area */}
             <div className="lg:col-span-2 space-y-8">
               <div className="aspect-video glass rounded-[40px] overflow-hidden relative group shadow-2xl shadow-primary/5">
-                <div className="absolute inset-0 bg-[url('https://picsum.photos/seed/islamic-symposium-live/1200/800')] bg-cover bg-center grayscale opacity-20 group-hover:opacity-30 transition-opacity duration-700" />
+                <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1585032226651-759b368d7246?auto=format&fit=crop&q=80&w=1200&h=800')] bg-cover bg-center grayscale opacity-20 group-hover:opacity-30 transition-opacity duration-700" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
                 
                 <div className="absolute inset-0 flex items-center justify-center">
@@ -250,19 +250,25 @@ export const LiveQA: React.FC = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {sessions.map((session) => (
-            <motion.div 
-              key={session.id}
-              whileHover={{ y: -8 }}
-              className="glass p-8 rounded-[40px] space-y-8 group"
-            >
-              <div className="aspect-video rounded-3xl overflow-hidden relative">
-                <img 
-                  src={`https://picsum.photos/seed/${session.id}/600/400`} 
-                  alt={session.title} 
-                  className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
-                  referrerPolicy="no-referrer"
-                />
+          {sessions.map((session, i) => {
+            const sessionImages = [
+              'photo-1591604129939-f1efa4d9f7fa',
+              'photo-1585032226651-759b368d7246',
+              'photo-1542816417-0983c9c9ad53'
+            ];
+            return (
+              <motion.div 
+                key={session.id}
+                whileHover={{ y: -8 }}
+                className="glass p-8 rounded-[40px] space-y-8 group"
+              >
+                <div className="aspect-video rounded-3xl overflow-hidden relative">
+                  <img 
+                    src={`https://images.unsplash.com/${sessionImages[i % sessionImages.length]}?auto=format&fit=crop&q=80&w=600&h=400`} 
+                    alt={session.title} 
+                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+                    referrerPolicy="no-referrer"
+                  />
                 {session.status === 'live' && (
                   <div className="absolute top-4 left-4 px-3 py-1 bg-destructive text-[10px] font-bold uppercase tracking-widest rounded-full animate-pulse">Live Now</div>
                 )}
@@ -286,7 +292,8 @@ export const LiveQA: React.FC = () => {
                 </button>
               </div>
             </motion.div>
-          ))}
+          );
+        })}
         </div>
 
         {/* FAQ Section */}

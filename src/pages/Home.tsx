@@ -74,7 +74,7 @@ export const Home: React.FC<HomeProps> = ({ onPageChange }) => {
           >
             <div className="aspect-square rounded-3xl overflow-hidden glass p-4">
               <img 
-                src="https://picsum.photos/seed/islamic-calligraphy-art/1000/1000" 
+                src="https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?auto=format&fit=crop&q=80&w=1000&h=1000" 
                 alt="Classical Manuscript" 
                 className="w-full h-full object-cover rounded-2xl grayscale hover:grayscale-0 transition-all duration-700"
                 referrerPolicy="no-referrer"
@@ -100,7 +100,7 @@ export const Home: React.FC<HomeProps> = ({ onPageChange }) => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 h-auto md:h-[600px]">
             <div className="md:col-span-2 glass rounded-3xl p-8 flex flex-col justify-end relative overflow-hidden group cursor-pointer">
               <img 
-                src="https://picsum.photos/seed/islamic-jurisprudence/800/600" 
+                src="https://images.unsplash.com/photo-1583321503611-13f9f03086ee?auto=format&fit=crop&q=80&w=800&h=600" 
                 className="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:scale-110 transition-transform duration-700" 
                 alt="Jurisprudence"
                 referrerPolicy="no-referrer"
@@ -121,7 +121,7 @@ export const Home: React.FC<HomeProps> = ({ onPageChange }) => {
 
             <div className="glass rounded-3xl p-8 flex flex-col justify-end relative overflow-hidden group cursor-pointer">
               <img 
-                src="https://picsum.photos/seed/islamic-theology/400/600" 
+                src="https://images.unsplash.com/photo-1585032226651-759b368d7246?auto=format&fit=crop&q=80&w=400&h=600" 
                 className="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:scale-110 transition-transform duration-700" 
                 alt="Theology"
                 referrerPolicy="no-referrer"
@@ -139,7 +139,7 @@ export const Home: React.FC<HomeProps> = ({ onPageChange }) => {
 
             <div className="glass rounded-3xl p-8 flex flex-col justify-end relative overflow-hidden group cursor-pointer">
               <img 
-                src="https://picsum.photos/seed/hadith-manuscript/400/600" 
+                src="https://images.unsplash.com/photo-1542816417-0983c9c9ad53?auto=format&fit=crop&q=80&w=400&h=600" 
                 className="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:scale-110 transition-transform duration-700" 
                 alt="Hadith"
                 referrerPolicy="no-referrer"
@@ -157,7 +157,7 @@ export const Home: React.FC<HomeProps> = ({ onPageChange }) => {
 
             <div className="md:col-span-2 glass rounded-3xl p-8 flex flex-col justify-end relative overflow-hidden group cursor-pointer">
               <img 
-                src="https://picsum.photos/seed/arabic-calligraphy/800/600" 
+                src="https://images.unsplash.com/photo-1564121211835-e88c852648ab?auto=format&fit=crop&q=80&w=800&h=600" 
                 className="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:scale-110 transition-transform duration-700" 
                 alt="Arabic"
                 referrerPolicy="no-referrer"
@@ -210,7 +210,7 @@ export const Home: React.FC<HomeProps> = ({ onPageChange }) => {
             <div className="relative">
               <div className="aspect-[4/5] rounded-3xl overflow-hidden glass p-4">
                 <img 
-                  src="https://picsum.photos/seed/islamic-scholar/800/1000" 
+                  src="https://images.unsplash.com/photo-1584281729155-3c99bb4990ca?auto=format&fit=crop&q=80&w=800&h=1000" 
                   alt="Scholar studying" 
                   className="w-full h-full object-cover rounded-2xl"
                   referrerPolicy="no-referrer"
@@ -228,7 +228,7 @@ export const Home: React.FC<HomeProps> = ({ onPageChange }) => {
             <div className="order-2 lg:order-1 relative">
               <div className="aspect-[4/5] rounded-3xl overflow-hidden glass p-4">
                 <img 
-                  src="https://picsum.photos/seed/islamic-tradition/800/1000" 
+                  src="https://images.unsplash.com/photo-1609599006341-152768462462?auto=format&fit=crop&q=80&w=800&h=1000" 
                   alt="Ancient Manuscripts" 
                   className="w-full h-full object-cover rounded-2xl grayscale"
                   referrerPolicy="no-referrer"
@@ -302,32 +302,39 @@ export const Home: React.FC<HomeProps> = ({ onPageChange }) => {
                 text: 'Mastering the Arabic language was always a dream. The methodology used here made the complex rules of Nahw and Sarf accessible and deeply engaging.',
                 seed: 'student3'
               }
-            ].map((testimonial, i) => (
-              <div key={i} className="glass p-8 rounded-3xl space-y-6 flex flex-col justify-between hover:border-primary/30 transition-all">
-                <div className="space-y-4">
-                  <div className="flex gap-1 text-primary">
-                    {[...Array(5)].map((_, i) => <Star key={i} size={14} fill="currentColor" />)}
+            ].map((testimonial, i) => {
+              const studentImages = [
+                'photo-1507003211169-0a1dd7228f2d',
+                'photo-1544005313-94ddf0286df2',
+                'photo-1500648767791-00dcc994a43e'
+              ];
+              return (
+                <div key={i} className="glass p-8 rounded-3xl space-y-6 flex flex-col justify-between hover:border-primary/30 transition-all">
+                  <div className="space-y-4">
+                    <div className="flex gap-1 text-primary">
+                      {[...Array(5)].map((_, i) => <Star key={i} size={14} fill="currentColor" />)}
+                    </div>
+                    <p className="italic text-on-surface/80 leading-relaxed">
+                      "{testimonial.text}"
+                    </p>
                   </div>
-                  <p className="italic text-on-surface/80 leading-relaxed">
-                    "{testimonial.text}"
-                  </p>
+                  <div className="flex items-center gap-4 pt-6 border-t border-white/5">
+                    <div className="w-12 h-12 rounded-full overflow-hidden bg-primary/20 border border-primary/20">
+                      <img 
+                        src={`https://images.unsplash.com/${studentImages[i % studentImages.length]}?auto=format&fit=crop&q=80&w=100&h=100`} 
+                        alt={testimonial.name} 
+                        className="w-full h-full object-cover grayscale"
+                        referrerPolicy="no-referrer"
+                      />
+                    </div>
+                    <div>
+                      <div className="text-sm font-bold">{testimonial.name}</div>
+                      <div className="text-[10px] uppercase tracking-widest text-on-surface/40">{testimonial.role}</div>
+                    </div>
+                  </div>
                 </div>
-                <div className="flex items-center gap-4 pt-6 border-t border-white/5">
-                  <div className="w-12 h-12 rounded-full overflow-hidden bg-primary/20">
-                    <img 
-                      src={`https://picsum.photos/seed/islamic-student-${i}/100/100`} 
-                      alt={testimonial.name} 
-                      className="w-full h-full object-cover grayscale"
-                      referrerPolicy="no-referrer"
-                    />
-                  </div>
-                  <div>
-                    <div className="text-sm font-bold">{testimonial.name}</div>
-                    <div className="text-[10px] uppercase tracking-widest text-on-surface/40">{testimonial.role}</div>
-                  </div>
-                </div>
-              </div>
-            ))}
+              );
+            })}
           </div>
         </div>
       </section>
@@ -360,7 +367,7 @@ export const Home: React.FC<HomeProps> = ({ onPageChange }) => {
             <div className="lg:w-1/2 w-full relative">
               <div className="aspect-video rounded-3xl overflow-hidden glass p-4">
                 <img 
-                  src="https://picsum.photos/seed/islamic-manuscript-study/1200/800" 
+                  src="https://images.unsplash.com/photo-1526772662000-3f88f10405ff?auto=format&fit=crop&q=80&w=1200&h=800" 
                   alt="Scholarly Research" 
                   className="w-full h-full object-cover rounded-2xl grayscale hover:grayscale-0 transition-all duration-700"
                   referrerPolicy="no-referrer"
@@ -401,7 +408,7 @@ export const Home: React.FC<HomeProps> = ({ onPageChange }) => {
             </div>
             <div className="relative aspect-video rounded-3xl overflow-hidden glass p-4">
               <img 
-                src="https://picsum.photos/seed/islamic-library/1200/800" 
+                src="https://images.unsplash.com/photo-1585032226651-759b368d7246?auto=format&fit=crop&q=80&w=1200&h=800" 
                 alt="Classical Library" 
                 className="w-full h-full object-cover rounded-2xl grayscale"
                 referrerPolicy="no-referrer"

@@ -54,6 +54,15 @@ export const Faculty: React.FC = () => {
     }
   ];
 
+  const scholarImages = [
+    'photo-1507003211169-0a1dd7228f2d',
+    'photo-1544005313-94ddf0286df2',
+    'photo-1500648767791-00dcc994a43e',
+    'photo-1554151228-14d9def656e4',
+    'photo-1472099645785-5658abf4ff4e',
+    'photo-1494790108377-be9c29b29330'
+  ];
+
   return (
     <div className="pt-32 pb-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto space-y-24">
@@ -91,7 +100,7 @@ export const Faculty: React.FC = () => {
             >
               <div className="aspect-[4/5] overflow-hidden relative">
                 <img 
-                  src={`https://picsum.photos/seed/islamic-${member.seed}/800/1000`} 
+                  src={`https://images.unsplash.com/${scholarImages[i % scholarImages.length]}?auto=format&fit=crop&q=80&w=800&h=1000`} 
                   alt={member.name} 
                   className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700"
                   referrerPolicy="no-referrer"

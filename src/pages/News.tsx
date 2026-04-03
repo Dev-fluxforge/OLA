@@ -76,7 +76,7 @@ export const News: React.FC = () => {
           <div className="grid grid-cols-1 lg:grid-cols-2">
             <div className="aspect-video lg:aspect-auto overflow-hidden">
               <img 
-                src="https://picsum.photos/seed/islamic-symposium/1200/800" 
+                src="https://images.unsplash.com/photo-1585032226651-759b368d7246?auto=format&fit=crop&q=80&w=1200&h=800" 
                 alt="Featured News" 
                 className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700"
                 referrerPolicy="no-referrer"
@@ -153,43 +153,52 @@ export const News: React.FC = () => {
 
           {/* News List */}
           <div className="lg:col-span-3 space-y-8">
-            {newsItems.map((news, i) => (
-              <div key={i} className="glass p-8 rounded-3xl flex flex-col md:flex-row gap-8 group cursor-pointer hover:border-primary/30 transition-all">
-                <div className="md:w-64 h-48 md:h-auto overflow-hidden rounded-2xl shrink-0">
-                  <img 
-                    src={`https://picsum.photos/seed/islamic-news-${i}/600/400`} 
-                    alt={news.title} 
-                    className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700"
-                    referrerPolicy="no-referrer"
-                  />
-                </div>
-                <div className="space-y-4 flex-grow">
-                  <div className="flex items-center gap-3">
-                    <span className="px-3 py-1 rounded-full bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-widest border border-primary/20">
-                      {news.category}
-                    </span>
-                    <span className="text-[10px] uppercase tracking-widest text-on-surface/40 font-bold">
-                      {news.date}
-                    </span>
+            {newsItems.map((news, i) => {
+              const newsImages = [
+                'photo-1591604129939-f1efa4d9f7fa',
+                'photo-1585032226651-759b368d7246',
+                'photo-1542816417-0983c9c9ad53',
+                'photo-1518998053574-53ee79b1f914',
+                'photo-1609599006341-152768462462'
+              ];
+              return (
+                <div key={i} className="glass p-8 rounded-3xl flex flex-col md:flex-row gap-8 group cursor-pointer hover:border-primary/30 transition-all">
+                  <div className="md:w-64 h-48 md:h-auto overflow-hidden rounded-2xl shrink-0">
+                    <img 
+                      src={`https://images.unsplash.com/${newsImages[i % newsImages.length]}?auto=format&fit=crop&q=80&w=600&h=400`} 
+                      alt={news.title} 
+                      className="w-full h-full object-cover grayscale group-hover:grayscale-0 group-hover:scale-110 transition-all duration-700"
+                      referrerPolicy="no-referrer"
+                    />
                   </div>
-                  <h3 className="text-2xl font-serif font-bold group-hover:text-primary transition-colors">
-                    {news.title}
-                  </h3>
-                  <p className="text-sm text-on-surface/60 leading-relaxed line-clamp-2">
-                    {news.desc}
-                  </p>
-                  <div className="flex items-center gap-4 pt-4 border-t border-white/5">
-                    <div className="flex items-center gap-2 text-xs text-on-surface/40">
-                      <User size={14} className="text-primary" />
-                      <span>{news.author}</span>
+                  <div className="space-y-4 flex-grow">
+                    <div className="flex items-center gap-3">
+                      <span className="px-3 py-1 rounded-full bg-primary/10 text-primary text-[10px] font-bold uppercase tracking-widest border border-primary/20">
+                        {news.category}
+                      </span>
+                      <span className="text-[10px] uppercase tracking-widest text-on-surface/40 font-bold">
+                        {news.date}
+                      </span>
                     </div>
-                    <div className="flex items-center gap-2 text-primary font-bold text-sm ml-auto">
-                      Read More <ChevronRight size={16} />
+                    <h3 className="text-2xl font-serif font-bold group-hover:text-primary transition-colors">
+                      {news.title}
+                    </h3>
+                    <p className="text-sm text-on-surface/60 leading-relaxed line-clamp-2">
+                      {news.desc}
+                    </p>
+                    <div className="flex items-center gap-4 pt-4 border-t border-white/5">
+                      <div className="flex items-center gap-2 text-xs text-on-surface/40">
+                        <User size={14} className="text-primary" />
+                        <span>{news.author}</span>
+                      </div>
+                      <div className="flex items-center gap-2 text-primary font-bold text-sm ml-auto">
+                        Read More <ChevronRight size={16} />
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              );
+            })}
             
             <button className="btn-outline w-full py-4 text-sm font-bold uppercase tracking-widest">
               Load More Updates
