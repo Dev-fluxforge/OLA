@@ -158,6 +158,41 @@ export const About: React.FC<AboutProps> = ({ onPageChange }) => {
             })}
           </div>
         </div>
+
+        {/* FAQ Section */}
+        <div className="space-y-12">
+          <div className="text-center space-y-4">
+            <h2 className="text-3xl md:text-5xl font-serif font-bold">Frequently Asked Questions</h2>
+            <p className="text-on-surface/60 max-w-2xl mx-auto">
+              Common questions about our institution's history, accreditation, and values.
+            </p>
+          </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            {[
+              {
+                q: "When was the institution founded?",
+                a: "Daarul Falaah was founded in 1998 with the mission to preserve sacred Islamic knowledge and bridge the gap between classical scholarship and the modern world."
+              },
+              {
+                q: "Is the institution accredited?",
+                a: "Yes, we are recognized by several global Islamic educational boards and maintain rigorous academic standards that align with traditional scholarly requirements."
+              },
+              {
+                q: "What are your core values?",
+                a: "Our core values are Authenticity, Excellence, Community, Integrity, Innovation, and Service. These principles guide our curriculum and community interactions."
+              },
+              {
+                q: "Who can apply to your programs?",
+                a: "We welcome dedicated students from all backgrounds who are committed to the pursuit of sacred knowledge. Some advanced courses may have specific prerequisites."
+              }
+            ].map((faq, i) => (
+              <div key={i} className="glass p-8 rounded-3xl space-y-4">
+                <h4 className="text-xl font-serif font-bold text-primary italic">Q: {faq.q}</h4>
+                <p className="text-sm text-on-surface/70 leading-relaxed">{faq.a}</p>
+              </div>
+            ))}
+          </div>
+        </div>
       </div>
     </div>
   );

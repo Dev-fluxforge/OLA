@@ -6,6 +6,16 @@ import { cn } from '../lib/utils';
 export const Apply: React.FC = () => {
   const [step, setStep] = React.useState(1);
   const [isSubmitted, setIsSubmitted] = React.useState(false);
+  const [formData, setFormData] = React.useState({
+    fullName: '',
+    email: '',
+    phone: '',
+    dob: '',
+    address: '',
+    qualification: '',
+    previousEducation: '',
+    statementOfPurpose: '',
+  });
 
   const steps = [
     { id: 1, label: 'Personal Info', icon: User },
@@ -13,10 +23,33 @@ export const Apply: React.FC = () => {
     { id: 3, label: 'Review & Submit', icon: CheckCircle },
   ];
 
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+  };
+
   const handleNext = () => setStep(prev => Math.min(prev + 1, 3));
   const handlePrev = () => setStep(prev => Math.max(prev - 1, 1));
+  
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    
+    const message = `As salaam alaikum warahmatullah wabarkatuhuuuuu, my name is ${formData.fullName}.
+I want to make enquires about Daarul Falaah online Academy.
+
+Application Details:
+- Name: ${formData.fullName}
+- Email: ${formData.email}
+- Phone: ${formData.phone}
+- DOB: ${formData.dob}
+- Address: ${formData.address}
+- Qualification: ${formData.qualification}
+- Previous Education: ${formData.previousEducation}
+- Statement of Purpose: ${formData.statementOfPurpose}`;
+
+    const whatsappUrl = `https://wa.me/2347047594864?text=${encodeURIComponent(message)}`;
+    
+    window.open(whatsappUrl, '_blank');
     setIsSubmitted(true);
   };
 
@@ -40,15 +73,15 @@ export const Apply: React.FC = () => {
           <div className="pt-8 flex flex-col gap-4">
             <div className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 text-left">
               <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary shrink-0">
-                <Mail size={20} />
+                <Phone size={20} />
               </div>
               <div className="space-y-1">
-                <div className="text-xs font-bold uppercase tracking-widest text-on-surface/40">Check your email</div>
-                <div className="text-sm">A confirmation has been sent to your inbox.</div>
+                <div className="text-xs font-bold uppercase tracking-widest text-on-surface/40">WhatsApp Sent</div>
+                <div className="text-sm">Your application details have been sent via WhatsApp.</div>
               </div>
             </div>
             <button 
-              onClick={() => window.location.reload()}
+              onClick={() => window.location.href = '/'}
               className="btn-primary w-full"
             >
               Back to Home
@@ -107,33 +140,72 @@ export const Apply: React.FC = () => {
                         <label className="text-xs font-bold uppercase tracking-widest text-on-surface/40">Full Name</label>
                         <div className="relative">
                           <User className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface/20" size={18} />
-                          <input type="text" placeholder="John Doe" className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-12 pr-6 text-sm focus:outline-none focus:border-primary/50" required />
+                          <input 
+                            type="text" 
+                            name="fullName"
+                            value={formData.fullName}
+                            onChange={handleInputChange}
+                            placeholder="John Doe" 
+                            className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-12 pr-6 text-sm focus:outline-none focus:border-primary/50" 
+                            required 
+                          />
                         </div>
                       </div>
                       <div className="space-y-2">
                         <label className="text-xs font-bold uppercase tracking-widest text-on-surface/40">Email Address</label>
                         <div className="relative">
                           <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface/20" size={18} />
-                          <input type="email" placeholder="john@example.com" className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-12 pr-6 text-sm focus:outline-none focus:border-primary/50" required />
+                          <input 
+                            type="email" 
+                            name="email"
+                            value={formData.email}
+                            onChange={handleInputChange}
+                            placeholder="john@example.com" 
+                            className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-12 pr-6 text-sm focus:outline-none focus:border-primary/50" 
+                            required 
+                          />
                         </div>
                       </div>
                       <div className="space-y-2">
                         <label className="text-xs font-bold uppercase tracking-widest text-on-surface/40">Phone Number</label>
                         <div className="relative">
                           <Phone className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface/20" size={18} />
-                          <input type="tel" placeholder="+234 704 759 4864" className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-12 pr-6 text-sm focus:outline-none focus:border-primary/50" required />
+                          <input 
+                            type="tel" 
+                            name="phone"
+                            value={formData.phone}
+                            onChange={handleInputChange}
+                            placeholder="+234 704 759 4864" 
+                            className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-12 pr-6 text-sm focus:outline-none focus:border-primary/50" 
+                            required 
+                          />
                         </div>
                       </div>
                       <div className="space-y-2">
                         <label className="text-xs font-bold uppercase tracking-widest text-on-surface/40">Date of Birth</label>
-                        <input type="date" className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-6 text-sm focus:outline-none focus:border-primary/50" required />
+                        <input 
+                          type="date" 
+                          name="dob"
+                          value={formData.dob}
+                          onChange={handleInputChange}
+                          className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-6 text-sm focus:outline-none focus:border-primary/50" 
+                          required 
+                        />
                       </div>
                     </div>
                     <div className="space-y-2">
                       <label className="text-xs font-bold uppercase tracking-widest text-on-surface/40">Residential Address</label>
                       <div className="relative">
                         <MapPin className="absolute left-4 top-4 text-on-surface/20" size={18} />
-                        <textarea placeholder="123 Street, City, Country" rows={3} className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-12 pr-6 text-sm focus:outline-none focus:border-primary/50" required />
+                        <textarea 
+                          name="address"
+                          value={formData.address}
+                          onChange={handleInputChange}
+                          placeholder="123 Street, City, Country" 
+                          rows={3} 
+                          className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-12 pr-6 text-sm focus:outline-none focus:border-primary/50" 
+                          required 
+                        />
                       </div>
                     </div>
                   </motion.div>
@@ -149,7 +221,13 @@ export const Apply: React.FC = () => {
                   >
                     <div className="space-y-2">
                       <label className="text-xs font-bold uppercase tracking-widest text-on-surface/40">Highest Qualification</label>
-                      <select className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-6 text-sm focus:outline-none focus:border-primary/50 appearance-none" required>
+                      <select 
+                        name="qualification"
+                        value={formData.qualification}
+                        onChange={handleInputChange}
+                        className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-6 text-sm focus:outline-none focus:border-primary/50 appearance-none" 
+                        required
+                      >
                         <option value="">Select Qualification</option>
                         <option value="high-school">High School Diploma</option>
                         <option value="bachelors">Bachelor's Degree</option>
@@ -159,11 +237,27 @@ export const Apply: React.FC = () => {
                     </div>
                     <div className="space-y-2">
                       <label className="text-xs font-bold uppercase tracking-widest text-on-surface/40">Previous Islamic Education</label>
-                      <textarea placeholder="List any previous Islamic studies or institutions attended..." rows={4} className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-6 text-sm focus:outline-none focus:border-primary/50" required />
+                      <textarea 
+                        name="previousEducation"
+                        value={formData.previousEducation}
+                        onChange={handleInputChange}
+                        placeholder="List any previous Islamic studies or institutions attended..." 
+                        rows={4} 
+                        className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-6 text-sm focus:outline-none focus:border-primary/50" 
+                        required 
+                      />
                     </div>
                     <div className="space-y-2">
                       <label className="text-xs font-bold uppercase tracking-widest text-on-surface/40">Statement of Purpose</label>
-                      <textarea placeholder="Why do you wish to join Daarul Falaah? (Min 200 words)" rows={6} className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-6 text-sm focus:outline-none focus:border-primary/50" required />
+                      <textarea 
+                        name="statementOfPurpose"
+                        value={formData.statementOfPurpose}
+                        onChange={handleInputChange}
+                        placeholder="Why do you wish to join Daarul Falaah? (Min 200 words)" 
+                        rows={6} 
+                        className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-6 text-sm focus:outline-none focus:border-primary/50" 
+                        required 
+                      />
                     </div>
                   </motion.div>
                 )}

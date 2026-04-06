@@ -100,18 +100,18 @@ export const Home: React.FC<HomeProps> = ({ onPageChange }) => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 h-auto md:h-[600px]">
             <div className="md:col-span-2 glass rounded-3xl p-8 flex flex-col justify-end relative overflow-hidden group cursor-pointer">
               <img 
-                src="https://images.unsplash.com/photo-1583321503611-13f9f03086ee?auto=format&fit=crop&q=80&w=800&h=600" 
+                src="https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&q=80&w=800&h=600" 
                 className="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:scale-110 group-hover:brightness-75 transition-all duration-700" 
-                alt="Jurisprudence"
+                alt="Tajweed"
                 referrerPolicy="no-referrer"
               />
               <div className="relative z-10 space-y-4">
                 <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center text-surface">
                   <Shield size={24} />
                 </div>
-                <h3 className="text-2xl font-serif font-bold">Islamic Jurisprudence (Fiqh)</h3>
+                <h3 className="text-2xl font-serif font-bold">Tajweed & Recitation</h3>
                 <p className="text-on-surface/60 max-w-md">
-                  Deep dive into the principles and application of Islamic law across various schools of thought.
+                  Master the art of Quranic phonetics and beautiful recitation through our structured Tajweed programs.
                 </p>
                 <div className="flex items-center gap-2 text-primary font-bold text-sm">
                   Learn More <ChevronRight size={16} />
@@ -121,25 +121,25 @@ export const Home: React.FC<HomeProps> = ({ onPageChange }) => {
 
             <div className="glass rounded-3xl p-8 flex flex-col justify-end relative overflow-hidden group cursor-pointer">
               <img 
-                src="https://images.unsplash.com/photo-1585032226651-759b368d7246?auto=format&fit=crop&q=80&w=400&h=600" 
+                src="https://images.unsplash.com/photo-1506197603052-3cc9c3a201bd?auto=format&fit=crop&q=80&w=400&h=600" 
                 className="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:scale-110 group-hover:brightness-75 transition-all duration-700" 
-                alt="Theology"
+                alt="Memorization"
                 referrerPolicy="no-referrer"
               />
               <div className="relative z-10 space-y-4">
                 <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center text-surface">
                   <Book size={24} />
                 </div>
-                <h3 className="text-2xl font-serif font-bold">Theology & Creed</h3>
+                <h3 className="text-2xl font-serif font-bold">Quran Memorization</h3>
                 <p className="text-on-surface/60">
-                  Exploring the foundational beliefs and theological frameworks of Islam.
+                  A dedicated path for Hifz, providing students with effective techniques and consistent review.
                 </p>
               </div>
             </div>
 
             <div className="glass rounded-3xl p-8 flex flex-col justify-end relative overflow-hidden group cursor-pointer">
               <img 
-                src="https://images.unsplash.com/photo-1542816417-0983c9c9ad53?auto=format&fit=crop&q=80&w=400&h=600" 
+                src="https://images.unsplash.com/photo-1566121317354-69b23183f26f?auto=format&fit=crop&q=80&w=400&h=600" 
                 className="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:scale-110 group-hover:brightness-75 transition-all duration-700" 
                 alt="Hadith"
                 referrerPolicy="no-referrer"
@@ -150,25 +150,25 @@ export const Home: React.FC<HomeProps> = ({ onPageChange }) => {
                 </div>
                 <h3 className="text-2xl font-serif font-bold">Hadith Sciences</h3>
                 <p className="text-on-surface/60">
-                  The study of prophetic traditions and the science of authentication.
+                  The study of prophetic traditions and the rigorous science of authentication.
                 </p>
               </div>
             </div>
 
             <div className="md:col-span-2 glass rounded-3xl p-8 flex flex-col justify-end relative overflow-hidden group cursor-pointer">
               <img 
-                src="https://images.unsplash.com/photo-1564121211835-e88c852648ab?auto=format&fit=crop&q=80&w=800&h=600" 
+                src="https://images.unsplash.com/photo-1597933534024-16492b96324d?auto=format&fit=crop&q=80&w=800&h=600" 
                 className="absolute inset-0 w-full h-full object-cover opacity-20 group-hover:scale-110 group-hover:brightness-75 transition-all duration-700" 
-                alt="Arabic"
+                alt="Tafseer"
                 referrerPolicy="no-referrer"
               />
               <div className="relative z-10 space-y-4">
                 <div className="w-12 h-12 bg-primary rounded-xl flex items-center justify-center text-surface">
                   <Globe size={24} />
                 </div>
-                <h3 className="text-2xl font-serif font-bold">Arabic Linguistics</h3>
+                <h3 className="text-2xl font-serif font-bold">Quranic Exegesis (Tafseer)</h3>
                 <p className="text-on-surface/60 max-w-md">
-                  Mastering the language of the Quran through grammar, morphology, and rhetoric.
+                  Deepening the understanding of the Divine Revelation through classical and linguistic analysis.
                 </p>
               </div>
             </div>

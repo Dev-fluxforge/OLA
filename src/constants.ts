@@ -2,125 +2,121 @@ import { type Course } from './types';
 
 export const COURSES: Course[] = [
   {
-    id: 'fiqh-101',
-    title: 'Foundations of Fiqh',
-    description: 'A comprehensive introduction to the principles of Islamic jurisprudence, focusing on classical methodologies and contemporary applications.',
+    id: 'tajweed-101',
+    title: 'TAJWEED',
+    description: 'Master the rules of Quranic phonetics and articulation (Tajweed) to ensure accurate and beautiful recitation of the Holy Quran.',
     level: 'Beginner',
     duration: '12 Weeks',
     instructor: 'Shaykh Ahmad Al-Farsi',
-    category: 'Jurisprudence',
+    category: 'Quranic Sciences',
     image: 'https://images.unsplash.com/photo-1584551246679-0daf3d275d0f?auto=format&fit=crop&q=80&w=800&h=600',
     syllabus: [
-      'Introduction to Usul al-Fiqh',
-      'Sources of Islamic Law: Quran and Sunnah',
-      'The Concept of Ijtihad',
-      'Rules of Interpretation',
-      'Application of Fiqh in Modern Society'
+      'Introduction to Tajweed Rules',
+      'Makharij al-Huruf (Points of Articulation)',
+      'Sifat al-Huruf (Characteristics of Letters)',
+      'Rules of Noon and Meem Sakinah',
+      'Rules of Madd (Prolongation)'
     ],
     prerequisites: [
-      'Basic understanding of Arabic (recommended)',
-      'Completion of Introductory Islamic Studies'
+      'Ability to read Arabic script'
     ]
   },
   {
-    id: 'arabic-101',
-    title: 'Classical Arabic Linguistics',
-    description: 'Master the foundational rules of Arabic grammar (Nahw) and morphology (Sarf) to unlock the depths of classical Islamic texts.',
-    level: 'Beginner',
-    duration: '16 Weeks',
-    instructor: 'Ustadha Fatima Al-Zahra',
-    category: 'Arabic Linguistics',
-    image: 'https://images.unsplash.com/photo-1519817650390-64a93db51149?auto=format&fit=crop&q=80&w=800&h=600',
-    syllabus: [
-      'Introduction to Arabic Parts of Speech',
-      'The System of I\'rab (Inflection)',
-      'Verb Conjugation and Root Systems',
-      'Sentence Structure and Syntax',
-      'Reading Classical Texts'
-    ],
-    prerequisites: [
-      'Ability to read Arabic script',
-      'Basic vocabulary'
-    ]
-  },
-  {
-    id: 'aqidah-201',
-    title: 'Classical Islamic Creed',
-    description: 'An in-depth study of the essential beliefs of Islam as preserved by the scholarly tradition, addressing theological nuances and historical developments.',
+    id: 'hadith-101',
+    title: 'HADITH',
+    description: 'Study the prophetic traditions, focusing on the methodology of Hadith classification and the implementation of Sunnah in daily life.',
     level: 'Intermediate',
     duration: '16 Weeks',
-    instructor: 'Dr. Maryam Al-Zahra',
-    category: 'Theology',
-    image: 'https://images.unsplash.com/photo-1506197603052-3cc9c3a201bd?auto=format&fit=crop&q=80&w=800&h=600',
+    instructor: 'Shaykh Yusuf Al-Haddad',
+    category: 'Hadith Sciences',
+    image: 'https://images.unsplash.com/photo-1566121317354-69b23183f26f?auto=format&fit=crop&q=80&w=800&h=600',
     syllabus: [
-      'The Attributes of Allah',
-      'Prophethood and Revelation',
-      'The Unseen World (Al-Ghaib)',
-      'Eschatology and the Afterlife',
-      'Comparative Theology'
+      'History of Hadith Compilation',
+      'Introduction to Mustalah al-Hadith',
+      'Study of Arba\'een al-Nawawi',
+      'Biographical Evaluation (Ilm al-Rijal)',
+      'Authenticity and Classification'
     ],
     prerequisites: [
-      'Foundations of Fiqh',
-      'Intermediate Arabic'
+      'Basic Islamic Studies'
     ]
   },
   {
-    id: 'tafsir-201',
-    title: 'Quranic Exegesis (Tafsir)',
-    description: 'Explore the methodologies of Quranic interpretation, studying key verses through the lens of classical commentaries and linguistic analysis.',
+    id: 'recitation-101',
+    title: 'QUR\'AN RECITATION',
+    description: 'A practical course focused on improving the fluency and melody of Quranic recitation while applying the essential rules of Tajweed.',
+    level: 'Beginner',
+    duration: '10 Weeks',
+    instructor: 'Ustadha Fatima Al-Zahra',
+    category: 'Quranic Sciences',
+    image: 'https://images.unsplash.com/photo-1519817650390-64a93db51149?auto=format&fit=crop&q=80&w=800&h=600',
+    syllabus: [
+      'Fluency in Reading',
+      'Practical Application of Tajweed',
+      'Melodic Recitation (Maqamat Basics)',
+      'Correcting Common Mistakes',
+      'Recitation of Selected Surahs'
+    ],
+    prerequisites: [
+      'Completion of Tajweed 101'
+    ]
+  },
+  {
+    id: 'memorization-101',
+    title: 'QUR\'AN MEMORIZATION',
+    description: 'A structured program for Hifz (memorization) of the Holy Quran, providing students with effective techniques and consistent review schedules.',
+    level: 'Advanced',
+    duration: 'Ongoing',
+    instructor: 'Dr. Maryam Al-Zahra',
+    category: 'Quranic Sciences',
+    image: 'https://images.unsplash.com/photo-1506197603052-3cc9c3a201bd?auto=format&fit=crop&q=80&w=800&h=600',
+    syllabus: [
+      'Memorization Techniques',
+      'Daily Revision (Muraja\'ah)',
+      'Retention Strategies',
+      'Spiritual Preparation for Hifz',
+      'Individual Progress Tracking'
+    ],
+    prerequisites: [
+      'Excellent Recitation and Tajweed'
+    ]
+  },
+  {
+    id: 'tafseer-101',
+    title: 'TAFSEER',
+    description: 'Deepen your understanding of the Quran through classical exegesis, exploring the historical context and linguistic nuances of the Divine Revelation.',
     level: 'Intermediate',
     duration: '14 Weeks',
     instructor: 'Shaykh Ibrahim Mansour',
     category: 'Quranic Sciences',
     image: 'https://images.unsplash.com/photo-1597933534024-16492b96324d?auto=format&fit=crop&q=80&w=800&h=600',
     syllabus: [
-      'History of Tafsir Literature',
-      'Principles of Exegesis (Usul al-Tafsir)',
-      'Linguistic Miracles of the Quran',
-      'Thematic Study of Selected Surahs',
-      'Modern Challenges in Interpretation'
+      'Principles of Tafseer (Usul al-Tafseer)',
+      'Asbab al-Nuzul (Reasons for Revelation)',
+      'Linguistic Analysis of Key Verses',
+      'Thematic Study of Selected Chapters',
+      'Contemporary Relevance of Quranic Guidance'
     ],
     prerequisites: [
       'Intermediate Arabic',
-      'Foundations of Fiqh'
+      'Basic Tajweed'
     ]
   },
   {
-    id: 'hadith-301',
-    title: 'Hadith Methodology',
-    description: 'Master the science of Hadith criticism and classification (Mustalah al-Hadith), exploring the rigorous standards of classical scholarship.',
-    level: 'Advanced',
-    duration: '20 Weeks',
-    instructor: 'Shaykh Yusuf Al-Haddad',
-    category: 'Hadith Sciences',
-    image: 'https://images.unsplash.com/photo-1566121317354-69b23183f26f?auto=format&fit=crop&q=80&w=800&h=600',
-    syllabus: [
-      'History of Hadith Compilation',
-      'Classification of Hadith (Sahih, Hasan, Daif)',
-      'Biographical Evaluation (Ilm al-Rijal)',
-      'Hidden Defects (Ilal)',
-      'Contemporary Hadith Criticism'
-    ],
-    prerequisites: [
-      'Advanced Arabic',
-      'Classical Islamic Creed'
-    ]
-  },
-  {
-    id: 'history-101',
-    title: 'Islamic Intellectual History',
-    description: 'A journey through the golden ages of Islamic scholarship, tracing the development of major schools of thought and their impact on the world.',
+    id: 'seeroh-101',
+    title: 'SEEROH',
+    description: 'A comprehensive study of the life and times of Prophet Muhammad (peace be upon him) and the early history of Islam, drawing lessons for the modern era.',
     level: 'Beginner',
-    duration: '10 Weeks',
+    duration: '12 Weeks',
     instructor: 'Dr. Omar Farooq',
-    category: 'History',
-    image: 'https://images.unsplash.com/photo-1542816417-0983c9c9ad53?auto=format&fit=crop&q=80&w=800&h=600',
+    category: 'History & Biography',
+    image: 'https://images.unsplash.com/photo-1591604129939-f1efa4d9f7fa?auto=format&fit=crop&q=80&w=800&h=600',
     syllabus: [
-      'The Prophetic Era and the Rightly Guided Caliphs',
-      'The Rise of the Great Madhahib',
-      'The Translation Movement and Scientific Advancements',
-      'The Mongol Invasion and the Post-Classical Period',
-      'Islamic Thought in the Modern Era'
+      'Pre-Islamic Arabia',
+      'The Birth and Early Life of the Prophet',
+      'The Prophetic Mission in Makkah',
+      'The Hijrah and the Madinan Era',
+      'The Legacy of the Prophet'
     ],
     prerequisites: [
       'None'
