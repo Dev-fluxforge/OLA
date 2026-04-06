@@ -249,23 +249,6 @@ export const Apply: React.FC = () => {
                 </div>
               </div>
             </div>
-
-            <div className="glass p-8 rounded-3xl space-y-6">
-              <h4 className="font-serif font-bold text-xl">Required Documents</h4>
-              <ul className="space-y-4">
-                {[
-                  'Copy of National ID or Passport',
-                  'Previous Academic Transcripts',
-                  'Two Letters of Recommendation',
-                  'Recent Passport-sized Photo',
-                ].map((doc, i) => (
-                  <li key={i} className="flex gap-3 text-sm text-on-surface/60">
-                    <div className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 shrink-0" />
-                    <span>{doc}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
           </aside>
         </div>
       </div>
