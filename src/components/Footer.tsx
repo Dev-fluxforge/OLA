@@ -1,6 +1,7 @@
 import React from 'react';
 import { Mail, Phone, MapPin, Facebook, Twitter, Instagram, Youtube } from 'lucide-react';
 import { type Page } from '../types';
+import { COURSES } from '../constants';
 
 interface FooterProps {
   onPageChange: (page: Page) => void;
@@ -61,13 +62,13 @@ export const Footer: React.FC<FooterProps> = ({ onPageChange }) => {
           <div>
             <h4 className="font-serif font-bold text-lg mb-6">Programs</h4>
             <ul className="space-y-4">
-              {['Islamic Jurisprudence', 'Theology & Creed', 'Hadith Sciences', 'Arabic Linguistics', 'Quranic Exegesis'].map((link) => (
-                <li key={link}>
+              {COURSES.map((course) => (
+                <li key={course.id}>
                   <button 
                     onClick={() => onPageChange('programs')}
                     className="text-on-surface/60 hover:text-primary text-sm transition-colors text-left"
                   >
-                    {link}
+                    {course.title}
                   </button>
                 </li>
               ))}

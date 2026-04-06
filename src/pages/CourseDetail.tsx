@@ -521,13 +521,23 @@ export const CourseDetail: React.FC<CourseDetailProps> = ({ course, onBack, onAp
             </div>
 
             {/* Prerequisites */}
-            <div className="space-y-8">
-              <h2 className="text-3xl font-serif font-bold">Prerequisites</h2>
+            <div className="glass p-10 rounded-[40px] space-y-8">
+              <div className="flex items-center gap-4">
+                <div className="w-12 h-12 rounded-2xl bg-primary/10 flex items-center justify-center text-primary">
+                  <Shield size={24} />
+                </div>
+                <h2 className="text-3xl font-serif font-bold">Prerequisites</h2>
+              </div>
+              <p className="text-on-surface/60 leading-relaxed">
+                To ensure you get the most out of this course, we recommend the following foundational knowledge or experience:
+              </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {course.prerequisites.map((item, i) => (
-                  <div key={i} className="flex gap-4 p-6 rounded-2xl bg-white/5 border border-white/5">
-                    <CheckCircle size={20} className="text-primary shrink-0" />
-                    <span className="text-sm text-on-surface/80">{item}</span>
+                  <div key={i} className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/10 group hover:border-primary/30 transition-all">
+                    <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary shrink-0 group-hover:bg-primary group-hover:text-surface transition-all">
+                      <CheckCircle size={16} />
+                    </div>
+                    <span className="text-sm font-medium text-on-surface/80">{item}</span>
                   </div>
                 ))}
               </div>
