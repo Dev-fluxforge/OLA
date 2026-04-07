@@ -20,7 +20,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage, onPageChange }) => 
   ];
 
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-white/5">
+    <nav className="fixed top-0 left-0 right-0 z-50 glass border-b border-border">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-20">
           <div 
@@ -83,7 +83,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage, onPageChange }) => 
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="md:hidden glass border-t border-white/5 overflow-hidden"
+            className="md:hidden glass border-t border-border overflow-hidden"
           >
             <div className="px-4 pt-2 pb-6 space-y-1">
               {navItems.map((item) => (
@@ -95,7 +95,7 @@ export const Navbar: React.FC<NavbarProps> = ({ currentPage, onPageChange }) => 
                   }}
                   className={cn(
                     "flex items-center gap-4 w-full px-4 py-4 rounded-xl text-base font-medium transition-colors",
-                    currentPage === item.id ? "bg-primary/10 text-primary" : "text-on-surface/70 hover:bg-white/5"
+                    currentPage === item.id ? "bg-primary/10 text-primary" : "text-on-surface/70 hover:bg-on-surface/5"
                   )}
                 >
                   <item.icon size={20} />

@@ -50,7 +50,7 @@ export const Home: React.FC<HomeProps> = ({ onPageChange }) => {
               </button>
             </div>
             
-            <div className="pt-8 flex items-center gap-8 border-t border-white/5">
+            <div className="pt-8 flex items-center gap-8 border-t border-border">
               <div>
                 <div className="text-2xl font-serif font-bold">12+</div>
                 <div className="text-xs text-on-surface/40 uppercase tracking-widest">Disciplines</div>
@@ -318,7 +318,7 @@ export const Home: React.FC<HomeProps> = ({ onPageChange }) => {
                       "{testimonial.text}"
                     </p>
                   </div>
-                  <div className="flex items-center gap-4 pt-6 border-t border-white/5">
+                  <div className="flex items-center gap-4 pt-6 border-t border-border">
                     <div className="w-12 h-12 rounded-full overflow-hidden bg-primary/20 border border-primary/20">
                       <img 
                         src={`https://images.unsplash.com/${studentImages[i % studentImages.length]}?auto=format&fit=crop&q=80&w=100&h=100`} 
@@ -434,7 +434,7 @@ export const Home: React.FC<HomeProps> = ({ onPageChange }) => {
                 <input 
                   type="email" 
                   placeholder="Enter your email address" 
-                  className="flex-grow bg-white/5 border border-white/10 rounded-2xl py-4 px-6 text-sm focus:outline-none focus:border-primary/50"
+                  className="flex-grow bg-on-surface/5 border border-border rounded-2xl py-4 px-6 text-sm focus:outline-none focus:border-primary/50"
                   required
                 />
                 <button type="submit" className="btn-primary whitespace-nowrap">

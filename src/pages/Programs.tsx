@@ -47,25 +47,25 @@ export const Programs: React.FC<ProgramsProps> = ({ onPageChange, onCourseSelect
   const CourseSkeleton = () => (
     <div className="glass rounded-3xl overflow-hidden animate-pulse">
       <div className="flex flex-col md:flex-row">
-        <div className="md:w-64 h-48 md:h-auto bg-white/5 shrink-0" />
+        <div className="md:w-64 h-48 md:h-auto bg-on-surface/5 shrink-0" />
         <div className="p-8 flex flex-col justify-between flex-grow gap-6">
           <div className="space-y-4">
             <div className="flex items-center gap-3">
-              <div className="w-20 h-6 bg-white/5 rounded-full" />
-              <div className="w-24 h-4 bg-white/5 rounded-full" />
+              <div className="w-20 h-6 bg-on-surface/5 rounded-full" />
+              <div className="w-24 h-4 bg-on-surface/5 rounded-full" />
             </div>
-            <div className="w-3/4 h-8 bg-white/5 rounded-lg" />
+            <div className="w-3/4 h-8 bg-on-surface/5 rounded-lg" />
             <div className="space-y-2">
-              <div className="w-full h-4 bg-white/5 rounded" />
-              <div className="w-5/6 h-4 bg-white/5 rounded" />
+              <div className="w-full h-4 bg-on-surface/5 rounded" />
+              <div className="w-5/6 h-4 bg-on-surface/5 rounded" />
             </div>
           </div>
-          <div className="flex items-center justify-between pt-4 border-t border-white/5">
+          <div className="flex items-center justify-between pt-4 border-t border-border">
             <div className="flex gap-6">
-              <div className="w-20 h-4 bg-white/5 rounded" />
-              <div className="w-20 h-4 bg-white/5 rounded" />
+              <div className="w-20 h-4 bg-on-surface/5 rounded" />
+              <div className="w-20 h-4 bg-on-surface/5 rounded" />
             </div>
-            <div className="w-24 h-4 bg-white/5 rounded" />
+            <div className="w-24 h-4 bg-on-surface/5 rounded" />
           </div>
         </div>
       </div>
@@ -90,7 +90,7 @@ export const Programs: React.FC<ProgramsProps> = ({ onPageChange, onCourseSelect
               placeholder="Search courses..." 
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="w-full bg-surface-container-high border border-white/5 rounded-full py-3 pl-12 pr-6 text-sm focus:outline-none focus:border-primary/50 transition-colors"
+              className="w-full bg-surface-container-high border border-border rounded-full py-3 pl-12 pr-6 text-sm focus:outline-none focus:border-primary/50 transition-colors"
             />
           </div>
         </div>
@@ -112,7 +112,7 @@ export const Programs: React.FC<ProgramsProps> = ({ onPageChange, onCourseSelect
                       "flex items-center justify-between px-4 py-3 rounded-xl text-sm font-medium transition-all group",
                       selectedLevel === level 
                         ? "bg-primary text-surface" 
-                        : "bg-surface-container-low text-on-surface/60 hover:bg-white/5"
+                        : "bg-surface-container-low text-on-surface/60 hover:bg-on-surface/5"
                     )}
                   >
                     {level}
@@ -263,7 +263,7 @@ export const Programs: React.FC<ProgramsProps> = ({ onPageChange, onCourseSelect
                           
                           {isEnrolled && (
                             <div className="space-y-2 pt-2">
-                              <div className="h-1.5 bg-white/5 rounded-full overflow-hidden">
+                              <div className="h-1.5 bg-on-surface/5 rounded-full overflow-hidden">
                                 <motion.div 
                                   initial={{ width: 0 }}
                                   animate={{ width: `${progress}%` }}
@@ -277,7 +277,7 @@ export const Programs: React.FC<ProgramsProps> = ({ onPageChange, onCourseSelect
                           )}
                         </div>
 
-                          <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-white/5">
+                          <div className="flex flex-wrap items-center justify-between gap-4 pt-4 border-t border-border">
                             <div className="flex items-center gap-6">
                               <div className="flex items-center gap-2 text-xs text-on-surface/40">
                                 <Clock size={14} className="text-primary" />

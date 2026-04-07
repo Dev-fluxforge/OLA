@@ -83,7 +83,7 @@ export const Faculty: React.FC = () => {
             <input 
               type="text" 
               placeholder="Search faculty..." 
-              className="w-full bg-surface-container-high border border-white/5 rounded-full py-3 pl-12 pr-6 text-sm focus:outline-none focus:border-primary/50 transition-colors"
+              className="w-full bg-surface-container-high border border-border rounded-full py-3 pl-12 pr-6 text-sm focus:outline-none focus:border-primary/50 transition-colors"
             />
           </div>
         </div>
@@ -125,11 +125,11 @@ export const Faculty: React.FC = () => {
                 <p className="text-sm text-on-surface/60 leading-relaxed line-clamp-3">
                   {member.bio}
                 </p>
-                <div className="flex items-center gap-4 pt-4 border-t border-white/5">
-                  <button className="p-2 rounded-xl bg-white/5 text-on-surface/40 hover:bg-primary hover:text-surface transition-all">
+                <div className="flex items-center gap-4 pt-4 border-t border-border">
+                  <button className="p-2 rounded-xl bg-on-surface/5 text-on-surface/40 hover:bg-primary hover:text-surface transition-all">
                     <Mail size={18} />
                   </button>
-                  <button className="p-2 rounded-xl bg-white/5 text-on-surface/40 hover:bg-primary hover:text-surface transition-all">
+                  <button className="p-2 rounded-xl bg-on-surface/5 text-on-surface/40 hover:bg-primary hover:text-surface transition-all">
                     <Globe size={18} />
                   </button>
                   <button className="text-primary text-xs font-bold uppercase tracking-widest ml-auto hover:underline">

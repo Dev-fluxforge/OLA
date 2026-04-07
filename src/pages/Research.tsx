@@ -58,7 +58,7 @@ export const Research: React.FC = () => {
             <input 
               type="text" 
               placeholder="Search publications..." 
-              className="w-full bg-surface-container-high border border-white/5 rounded-full py-3 pl-12 pr-6 text-sm focus:outline-none focus:border-primary/50 transition-colors"
+              className="w-full bg-surface-container-high border border-border rounded-full py-3 pl-12 pr-6 text-sm focus:outline-none focus:border-primary/50 transition-colors"
             />
           </div>
         </div>
@@ -135,15 +135,15 @@ export const Research: React.FC = () => {
                         {pub.desc}
                       </p>
                     </div>
-                    <div className="flex items-center gap-4 pt-4 border-t border-white/5">
+                    <div className="flex items-center gap-4 pt-4 border-t border-border">
                       <div className="text-xs text-on-surface/40">
                         By <span className="text-primary font-bold">{pub.author}</span>
                       </div>
                       <div className="flex items-center gap-3 ml-auto">
-                        <button className="p-2 rounded-xl bg-white/5 text-on-surface/40 hover:bg-primary hover:text-surface transition-all">
+                        <button className="p-2 rounded-xl bg-on-surface/5 text-on-surface/40 hover:bg-primary hover:text-surface transition-all">
                           <Download size={16} />
                         </button>
-                        <button className="p-2 rounded-xl bg-white/5 text-on-surface/40 hover:bg-primary hover:text-surface transition-all">
+                        <button className="p-2 rounded-xl bg-on-surface/5 text-on-surface/40 hover:bg-primary hover:text-surface transition-all">
                           <ExternalLink size={16} />
                         </button>
                       </div>

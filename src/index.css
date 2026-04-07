@@ -6,19 +6,47 @@
   --font-serif: "Noto Serif", serif;
   --font-arabic: "Amiri", serif;
   
-  --color-surface: #0d1322;
-  --color-primary: #98da27;
-  --color-on-surface: #dde2f8;
-  --color-surface-container-low: #151b2b;
-  --color-surface-container-high: #242a3a;
-  --color-surface-container-highest: #2f3445;
-  --color-surface-container-lowest: #080e1d;
-  --color-error: #ffb4ab;
+  --color-surface: var(--surface);
+  --color-primary: var(--primary);
+  --color-on-surface: var(--on-surface);
+  --color-surface-container-low: var(--surface-container-low);
+  --color-surface-container-high: var(--surface-container-high);
+  --color-surface-container-highest: var(--surface-container-highest);
+  --color-surface-container-lowest: var(--surface-container-lowest);
+  --color-error: var(--error);
+  --color-border: var(--border);
+}
+
+:root {
+  --primary: #98da27;
+  
+  /* Light Mode (Default) */
+  --surface: #ffffff;
+  --on-surface: #0d1322;
+  --surface-container-low: #f8f9fa;
+  --surface-container-high: #f1f3f5;
+  --surface-container-highest: #e9ecef;
+  --surface-container-lowest: #ffffff;
+  --error: #ba1a1a;
+  --border: rgba(13, 19, 34, 0.1);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --surface: #0d1322;
+    --on-surface: #dde2f8;
+    --surface-container-low: #151b2b;
+    --surface-container-high: #242a3a;
+    --surface-container-highest: #2f3445;
+    --surface-container-lowest: #080e1d;
+    --error: #ffb4ab;
+    --border: rgba(255, 255, 255, 0.1);
+  }
 }
 
 @layer base {
   body {
-    @apply bg-surface text-on-surface font-sans antialiased;
+    @apply bg-surface text-on-surface font-sans antialiased transition-colors duration-300;
   }
   
   h1, h2, h3, h4, h5, h6 {
@@ -27,7 +55,7 @@
 }
 
 .glass {
-  @apply bg-surface-container-high/50 backdrop-blur-md border border-white/10;
+  @apply bg-surface-container-high/50 backdrop-blur-md border border-border;
 }
 
 .btn-primary {
@@ -35,7 +63,7 @@
 }
 
 .btn-outline {
-  @apply border border-on-surface/20 text-on-surface font-semibold px-6 py-3 rounded-full transition-all hover:bg-white/5;
+  @apply border border-on-surface/20 text-on-surface font-semibold px-6 py-3 rounded-full transition-all hover:bg-on-surface/5;
 }
 
 .text-balance {

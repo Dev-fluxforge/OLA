@@ -18,7 +18,7 @@ export const Footer: React.FC<FooterProps> = ({ onPageChange }) => {
   ];
 
   return (
-    <footer className="bg-surface-container-lowest border-t border-white/5 pt-20 pb-10">
+    <footer className="bg-surface-container-lowest border-t border-border pt-20 pb-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
           <div className="space-y-6">
@@ -36,7 +36,7 @@ export const Footer: React.FC<FooterProps> = ({ onPageChange }) => {
             </p>
             <div className="flex gap-4">
               {[Facebook, Twitter, Instagram, Youtube].map((Icon, i) => (
-                <a key={i} href="#" className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center text-on-surface/40 hover:bg-primary hover:text-surface transition-all">
+                <a key={i} href="#" className="w-10 h-10 rounded-full bg-on-surface/5 flex items-center justify-center text-on-surface/40 hover:bg-primary hover:text-surface transition-all">
                   <Icon size={18} />
                 </a>
               ))}
@@ -104,7 +104,7 @@ export const Footer: React.FC<FooterProps> = ({ onPageChange }) => {
           </div>
         </div>
 
-        <div className="pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
+        <div className="pt-8 border-t border-border flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-on-surface/40 text-xs">
             © 2026 Daarul Falaah Islamic Institution. All rights reserved.
           </p>

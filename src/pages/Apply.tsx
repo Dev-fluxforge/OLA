@@ -71,7 +71,7 @@ Application Details:
             </p>
           </div>
           <div className="pt-8 flex flex-col gap-4">
-            <div className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 text-left">
+            <div className="flex items-center gap-4 p-4 rounded-2xl bg-on-surface/5 text-left">
               <div className="w-10 h-10 rounded-xl bg-primary/10 flex items-center justify-center text-primary shrink-0">
                 <Phone size={20} />
               </div>
@@ -106,12 +106,12 @@ Application Details:
 
             {/* Step Indicator */}
             <div className="flex items-center justify-between relative mb-12">
-              <div className="absolute top-1/2 left-0 right-0 h-0.5 bg-white/5 -translate-y-1/2 z-0" />
+              <div className="absolute top-1/2 left-0 right-0 h-0.5 bg-on-surface/5 -translate-y-1/2 z-0" />
               {steps.map((s, i) => (
                 <div key={s.id} className="relative z-10 flex flex-col items-center gap-3">
                   <div className={cn(
                     "w-12 h-12 rounded-full flex items-center justify-center border-2 transition-all duration-500",
-                    step >= s.id ? "bg-primary border-primary text-surface" : "bg-surface border-white/10 text-on-surface/20"
+                    step >= s.id ? "bg-primary border-primary text-surface" : "bg-surface border-border text-on-surface/20"
                   )}>
                     <s.icon size={20} />
                   </div>
@@ -146,7 +146,7 @@ Application Details:
                             value={formData.fullName}
                             onChange={handleInputChange}
                             placeholder="John Doe" 
-                            className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-12 pr-6 text-sm focus:outline-none focus:border-primary/50" 
+                            className="w-full bg-on-surface/5 border border-border rounded-2xl py-4 pl-12 pr-6 text-sm focus:outline-none focus:border-primary/50" 
                             required 
                           />
                         </div>
@@ -161,7 +161,7 @@ Application Details:
                             value={formData.email}
                             onChange={handleInputChange}
                             placeholder="john@example.com" 
-                            className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-12 pr-6 text-sm focus:outline-none focus:border-primary/50" 
+                            className="w-full bg-on-surface/5 border border-border rounded-2xl py-4 pl-12 pr-6 text-sm focus:outline-none focus:border-primary/50" 
                             required 
                           />
                         </div>
@@ -176,7 +176,7 @@ Application Details:
                             value={formData.phone}
                             onChange={handleInputChange}
                             placeholder="+234 704 759 4864" 
-                            className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-12 pr-6 text-sm focus:outline-none focus:border-primary/50" 
+                            className="w-full bg-on-surface/5 border border-border rounded-2xl py-4 pl-12 pr-6 text-sm focus:outline-none focus:border-primary/50" 
                             required 
                           />
                         </div>
@@ -188,7 +188,7 @@ Application Details:
                           name="dob"
                           value={formData.dob}
                           onChange={handleInputChange}
-                          className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-6 text-sm focus:outline-none focus:border-primary/50" 
+                          className="w-full bg-on-surface/5 border border-border rounded-2xl py-4 px-6 text-sm focus:outline-none focus:border-primary/50" 
                           required 
                         />
                       </div>
@@ -203,7 +203,7 @@ Application Details:
                           onChange={handleInputChange}
                           placeholder="123 Street, City, Country" 
                           rows={3} 
-                          className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 pl-12 pr-6 text-sm focus:outline-none focus:border-primary/50" 
+                          className="w-full bg-on-surface/5 border border-border rounded-2xl py-4 pl-12 pr-6 text-sm focus:outline-none focus:border-primary/50" 
                           required 
                         />
                       </div>
@@ -225,7 +225,7 @@ Application Details:
                         name="qualification"
                         value={formData.qualification}
                         onChange={handleInputChange}
-                        className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-6 text-sm focus:outline-none focus:border-primary/50 appearance-none" 
+                        className="w-full bg-on-surface/5 border border-border rounded-2xl py-4 px-6 text-sm focus:outline-none focus:border-primary/50 appearance-none" 
                         required
                       >
                         <option value="">Select Qualification</option>
@@ -243,7 +243,7 @@ Application Details:
                         onChange={handleInputChange}
                         placeholder="List any previous Islamic studies or institutions attended..." 
                         rows={4} 
-                        className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-6 text-sm focus:outline-none focus:border-primary/50" 
+                        className="w-full bg-on-surface/5 border border-border rounded-2xl py-4 px-6 text-sm focus:outline-none focus:border-primary/50" 
                         required 
                       />
                     </div>
@@ -255,7 +255,7 @@ Application Details:
                         onChange={handleInputChange}
                         placeholder="Why do you wish to join Daarul Falaah? (Min 200 words)" 
                         rows={6} 
-                        className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-6 text-sm focus:outline-none focus:border-primary/50" 
+                        className="w-full bg-on-surface/5 border border-border rounded-2xl py-4 px-6 text-sm focus:outline-none focus:border-primary/50" 
                         required 
                       />
                     </div>
@@ -279,7 +279,7 @@ Application Details:
                         By submitting this application, you confirm that all information provided is accurate and truthful. You agree to abide by the rules and regulations of Daarul Falaah Islamic Institution.
                       </p>
                       <div className="flex items-center gap-4">
-                        <input type="checkbox" id="terms" className="w-5 h-5 rounded border-white/10 bg-white/5 text-primary focus:ring-primary" required />
+                        <input type="checkbox" id="terms" className="w-5 h-5 rounded border-border bg-on-surface/5 text-primary focus:ring-primary" required />
                         <label htmlFor="terms" className="text-sm text-on-surface/80">I agree to the terms and conditions</label>
                       </div>
                     </div>
@@ -287,7 +287,7 @@ Application Details:
                 )}
               </AnimatePresence>
 
-              <div className="flex items-center justify-between pt-8 border-t border-white/5">
+              <div className="flex items-center justify-between pt-8 border-t border-border">
                 <button
                   type="button"
                   onClick={handlePrev}

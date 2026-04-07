@@ -462,7 +462,7 @@ export const CourseDetail: React.FC<CourseDetailProps> = ({ course, onBack, onAp
                       <span>Course Progress</span>
                       <span className="text-primary">{progress}%</span>
                     </div>
-                    <div className="h-2 bg-white/5 rounded-full overflow-hidden">
+                    <div className="h-2 bg-on-surface/5 rounded-full overflow-hidden">
                       <motion.div 
                         initial={{ width: 0 }}
                         animate={{ width: `${progress}%` }}
@@ -504,7 +504,7 @@ export const CourseDetail: React.FC<CourseDetailProps> = ({ course, onBack, onAp
                               "text-[10px] font-bold uppercase tracking-widest px-3 py-1 rounded-full border transition-all",
                               completedModules.includes(i) 
                                 ? "bg-primary/10 border-primary/20 text-primary" 
-                                : "border-white/10 text-on-surface/40 hover:border-primary/30 hover:text-primary"
+                                : "border-border text-on-surface/40 hover:border-primary/30 hover:text-primary"
                             )}
                           >
                             {completedModules.includes(i) ? 'Completed' : 'Mark Complete'}
@@ -533,7 +533,7 @@ export const CourseDetail: React.FC<CourseDetailProps> = ({ course, onBack, onAp
               </p>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 {course.prerequisites.map((item, i) => (
-                  <div key={i} className="flex items-center gap-4 p-4 rounded-2xl bg-white/5 border border-white/10 group hover:border-primary/30 transition-all">
+                  <div key={i} className="flex items-center gap-4 p-4 rounded-2xl bg-on-surface/5 border border-border group hover:border-primary/30 transition-all">
                     <div className="w-8 h-8 rounded-lg bg-primary/10 flex items-center justify-center text-primary shrink-0 group-hover:bg-primary group-hover:text-surface transition-all">
                       <CheckCircle size={16} />
                     </div>
@@ -615,7 +615,7 @@ export const CourseDetail: React.FC<CourseDetailProps> = ({ course, onBack, onAp
                         <div className="space-y-2">
                           <button 
                             onClick={handleUnenroll}
-                            className="flex items-center justify-center gap-2 w-full py-3 rounded-xl border border-white/10 text-xs text-on-surface/40 hover:text-destructive hover:border-destructive/30 transition-all font-bold uppercase tracking-widest"
+                            className="flex items-center justify-center gap-2 w-full py-3 rounded-xl border border-border text-xs text-on-surface/40 hover:text-destructive hover:border-destructive/30 transition-all font-bold uppercase tracking-widest"
                           >
                             <Mail size={14} /> Withdraw from Course
                           </button>
@@ -635,7 +635,7 @@ export const CourseDetail: React.FC<CourseDetailProps> = ({ course, onBack, onAp
                     </button>
                   </div>
 
-                  <div className="space-y-4 pt-6 border-t border-white/5">
+                  <div className="space-y-4 pt-6 border-t border-border">
                     <h4 className="text-xs font-bold uppercase tracking-widest text-on-surface/40">This course includes:</h4>
                     <ul className="space-y-3">
                       {[
@@ -787,7 +787,7 @@ export const CourseDetail: React.FC<CourseDetailProps> = ({ course, onBack, onAp
                       value={studentName}
                       onChange={(e) => setStudentName(e.target.value)}
                       placeholder="e.g. Abdullah Ibn Yusuf"
-                      className="w-full bg-white/5 border border-white/10 rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-primary/50 transition-colors"
+                      className="w-full bg-on-surface/5 border border-border rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-primary/50 transition-colors"
                     />
                   </div>
                 </div>

@@ -80,20 +80,20 @@ export const Contact: React.FC = () => {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <label className="text-xs font-bold uppercase tracking-widest text-on-surface/40">First Name</label>
-                  <input type="text" name="firstName" placeholder="John" className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-6 text-sm focus:outline-none focus:border-primary/50" required />
+                  <input type="text" name="firstName" placeholder="John" className="w-full bg-on-surface/5 border border-border rounded-2xl py-4 px-6 text-sm focus:outline-none focus:border-primary/50" required />
                 </div>
                 <div className="space-y-2">
                   <label className="text-xs font-bold uppercase tracking-widest text-on-surface/40">Last Name</label>
-                  <input type="text" name="lastName" placeholder="Doe" className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-6 text-sm focus:outline-none focus:border-primary/50" required />
+                  <input type="text" name="lastName" placeholder="Doe" className="w-full bg-on-surface/5 border border-border rounded-2xl py-4 px-6 text-sm focus:outline-none focus:border-primary/50" required />
                 </div>
               </div>
               <div className="space-y-2">
                 <label className="text-xs font-bold uppercase tracking-widest text-on-surface/40">Email Address</label>
-                <input type="email" name="email" placeholder="john@example.com" className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-6 text-sm focus:outline-none focus:border-primary/50" required />
+                <input type="email" name="email" placeholder="john@example.com" className="w-full bg-on-surface/5 border border-border rounded-2xl py-4 px-6 text-sm focus:outline-none focus:border-primary/50" required />
               </div>
               <div className="space-y-2">
                 <label className="text-xs font-bold uppercase tracking-widest text-on-surface/40">Subject</label>
-                <select name="subject" className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-6 text-sm focus:outline-none focus:border-primary/50 appearance-none" required>
+                <select name="subject" className="w-full bg-on-surface/5 border border-border rounded-2xl py-4 px-6 text-sm focus:outline-none focus:border-primary/50 appearance-none" required>
                   <option value="">Select Subject</option>
                   <option value="admissions">Admissions Inquiry</option>
                   <option value="programs">Program Information</option>
@@ -103,7 +103,7 @@ export const Contact: React.FC = () => {
               </div>
               <div className="space-y-2">
                 <label className="text-xs font-bold uppercase tracking-widest text-on-surface/40">Message</label>
-                <textarea name="message" placeholder="How can we help you?" rows={6} className="w-full bg-white/5 border border-white/10 rounded-2xl py-4 px-6 text-sm focus:outline-none focus:border-primary/50" required />
+                <textarea name="message" placeholder="How can we help you?" rows={6} className="w-full bg-on-surface/5 border border-border rounded-2xl py-4 px-6 text-sm focus:outline-none focus:border-primary/50" required />
               </div>
               <button type="submit" className="btn-primary w-full flex items-center justify-center gap-2">
                 Send Message <Send size={18} />
