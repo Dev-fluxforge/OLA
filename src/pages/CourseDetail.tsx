@@ -584,7 +584,7 @@ export const CourseDetail: React.FC<CourseDetailProps> = ({ course, onBack, onAp
                 
                 <div className="space-y-6">
                   <div className="flex items-center justify-between">
-                    <div className="text-3xl font-serif font-bold">Free</div>
+                    <div className="text-3xl font-serif font-bold">15,000 Naira</div>
                     <div className="flex items-center gap-1 text-primary">
                       <Star size={16} fill="currentColor" />
                       <span className="text-sm font-bold">4.9 (128 reviews)</span>
@@ -788,6 +788,7 @@ export const CourseDetail: React.FC<CourseDetailProps> = ({ course, onBack, onAp
                       onChange={(e) => setStudentName(e.target.value)}
                       placeholder="e.g. Abdullah Ibn Yusuf"
                       className="w-full bg-on-surface/5 border border-border rounded-xl px-4 py-3 text-sm focus:outline-none focus:border-primary/50 transition-colors"
+                      required
                     />
                   </div>
                 </div>
@@ -795,7 +796,7 @@ export const CourseDetail: React.FC<CourseDetailProps> = ({ course, onBack, onAp
                   <button 
                     onClick={() => {
                       const baseUrl = window.location.origin + window.location.pathname;
-                      const verificationUrl = `${baseUrl}?page=verify&name=${encodeURIComponent(studentName)}&course=${encodeURIComponent(course.title)}&date=${encodeURIComponent(new Date().toISOString())}`;
+                      const verificationUrl = `${baseUrl}?page=verify&name=${encodeURIComponent(studentName)}&course=${encodeURIComponent(course.title)}&date=${encodeURIComponent(new Date().toISOString().split('T')[0])}`;
                       const subject = encodeURIComponent(`Certificate Verification Request: ${studentName}`);
                       const body = encodeURIComponent(`Hello DAARUL FALAAH Islamic Institution,\n\nI have successfully completed the course "${course.title}".\n\nPlease verify my certificate for ${studentName}.\n\nVerification Link: ${verificationUrl}\n\nThank you.`);
                       window.location.href = `mailto:ismailabdulazeez536@gmail.com?subject=${subject}&body=${body}`;

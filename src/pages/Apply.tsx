@@ -28,7 +28,22 @@ export const Apply: React.FC = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
-  const handleNext = () => setStep(prev => Math.min(prev + 1, 3));
+  const isStepValid = () => {
+    if (step === 1) {
+      return formData.fullName && formData.email && formData.phone && formData.dob && formData.address;
+    }
+    if (step === 2) {
+      return formData.qualification && formData.previousEducation && formData.statementOfPurpose;
+    }
+    return true;
+  };
+
+  const handleNext = () => {
+    if (isStepValid()) {
+      setStep(prev => Math.min(prev + 1, 3));
+    }
+  };
+
   const handlePrev = () => setStep(prev => Math.max(prev - 1, 1));
   
   const handleSubmit = (e: React.FormEvent) => {
@@ -135,79 +150,79 @@ Application Details:
                     exit={{ opacity: 0, x: -20 }}
                     className="space-y-8"
                   >
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                      <div className="space-y-2">
-                        <label className="text-xs font-bold uppercase tracking-widest text-on-surface/40">Full Name</label>
-                        <div className="relative">
-                          <User className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface/20" size={18} />
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                        <div className="space-y-2">
+                          <label className="text-xs font-bold uppercase tracking-widest text-on-surface/40">Full Name <span className="text-primary">*</span></label>
+                          <div className="relative">
+                            <User className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface/20" size={18} />
+                            <input 
+                              type="text" 
+                              name="fullName"
+                              value={formData.fullName}
+                              onChange={handleInputChange}
+                              placeholder="John Doe" 
+                              className="w-full bg-on-surface/5 border border-border rounded-2xl py-4 pl-12 pr-6 text-sm focus:outline-none focus:border-primary/50" 
+                              required 
+                            />
+                          </div>
+                        </div>
+                        <div className="space-y-2">
+                          <label className="text-xs font-bold uppercase tracking-widest text-on-surface/40">Email Address <span className="text-primary">*</span></label>
+                          <div className="relative">
+                            <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface/20" size={18} />
+                            <input 
+                              type="email" 
+                              name="email"
+                              value={formData.email}
+                              onChange={handleInputChange}
+                              placeholder="john@example.com" 
+                              className="w-full bg-on-surface/5 border border-border rounded-2xl py-4 pl-12 pr-6 text-sm focus:outline-none focus:border-primary/50" 
+                              required 
+                            />
+                          </div>
+                        </div>
+                        <div className="space-y-2">
+                          <label className="text-xs font-bold uppercase tracking-widest text-on-surface/40">Phone Number <span className="text-primary">*</span></label>
+                          <div className="relative">
+                            <Phone className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface/20" size={18} />
+                            <input 
+                              type="tel" 
+                              name="phone"
+                              value={formData.phone}
+                              onChange={handleInputChange}
+                              placeholder="+234 704 759 4864" 
+                              className="w-full bg-on-surface/5 border border-border rounded-2xl py-4 pl-12 pr-6 text-sm focus:outline-none focus:border-primary/50" 
+                              required 
+                            />
+                          </div>
+                        </div>
+                        <div className="space-y-2">
+                          <label className="text-xs font-bold uppercase tracking-widest text-on-surface/40">Date of Birth <span className="text-primary">*</span></label>
                           <input 
-                            type="text" 
-                            name="fullName"
-                            value={formData.fullName}
+                            type="date" 
+                            name="dob"
+                            value={formData.dob}
                             onChange={handleInputChange}
-                            placeholder="John Doe" 
-                            className="w-full bg-on-surface/5 border border-border rounded-2xl py-4 pl-12 pr-6 text-sm focus:outline-none focus:border-primary/50" 
+                            className="w-full bg-on-surface/5 border border-border rounded-2xl py-4 px-6 text-sm focus:outline-none focus:border-primary/50" 
                             required 
                           />
                         </div>
                       </div>
                       <div className="space-y-2">
-                        <label className="text-xs font-bold uppercase tracking-widest text-on-surface/40">Email Address</label>
+                        <label className="text-xs font-bold uppercase tracking-widest text-on-surface/40">Residential Address <span className="text-primary">*</span></label>
                         <div className="relative">
-                          <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface/20" size={18} />
-                          <input 
-                            type="email" 
-                            name="email"
-                            value={formData.email}
+                          <MapPin className="absolute left-4 top-4 text-on-surface/20" size={18} />
+                          <textarea 
+                            name="address"
+                            value={formData.address}
                             onChange={handleInputChange}
-                            placeholder="john@example.com" 
+                            placeholder="123 Street, City, Country" 
+                            rows={3} 
                             className="w-full bg-on-surface/5 border border-border rounded-2xl py-4 pl-12 pr-6 text-sm focus:outline-none focus:border-primary/50" 
                             required 
                           />
                         </div>
                       </div>
-                      <div className="space-y-2">
-                        <label className="text-xs font-bold uppercase tracking-widest text-on-surface/40">Phone Number</label>
-                        <div className="relative">
-                          <Phone className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface/20" size={18} />
-                          <input 
-                            type="tel" 
-                            name="phone"
-                            value={formData.phone}
-                            onChange={handleInputChange}
-                            placeholder="+234 704 759 4864" 
-                            className="w-full bg-on-surface/5 border border-border rounded-2xl py-4 pl-12 pr-6 text-sm focus:outline-none focus:border-primary/50" 
-                            required 
-                          />
-                        </div>
-                      </div>
-                      <div className="space-y-2">
-                        <label className="text-xs font-bold uppercase tracking-widest text-on-surface/40">Date of Birth</label>
-                        <input 
-                          type="date" 
-                          name="dob"
-                          value={formData.dob}
-                          onChange={handleInputChange}
-                          className="w-full bg-on-surface/5 border border-border rounded-2xl py-4 px-6 text-sm focus:outline-none focus:border-primary/50" 
-                          required 
-                        />
-                      </div>
-                    </div>
-                    <div className="space-y-2">
-                      <label className="text-xs font-bold uppercase tracking-widest text-on-surface/40">Residential Address</label>
-                      <div className="relative">
-                        <MapPin className="absolute left-4 top-4 text-on-surface/20" size={18} />
-                        <textarea 
-                          name="address"
-                          value={formData.address}
-                          onChange={handleInputChange}
-                          placeholder="123 Street, City, Country" 
-                          rows={3} 
-                          className="w-full bg-on-surface/5 border border-border rounded-2xl py-4 pl-12 pr-6 text-sm focus:outline-none focus:border-primary/50" 
-                          required 
-                        />
-                      </div>
-                    </div>
                   </motion.div>
                 )}
 
@@ -220,7 +235,7 @@ Application Details:
                     className="space-y-8"
                   >
                     <div className="space-y-2">
-                      <label className="text-xs font-bold uppercase tracking-widest text-on-surface/40">Highest Qualification</label>
+                      <label className="text-xs font-bold uppercase tracking-widest text-on-surface/40">Highest Qualification <span className="text-primary">*</span></label>
                       <select 
                         name="qualification"
                         value={formData.qualification}
@@ -236,7 +251,7 @@ Application Details:
                       </select>
                     </div>
                     <div className="space-y-2">
-                      <label className="text-xs font-bold uppercase tracking-widest text-on-surface/40">Previous Islamic Education</label>
+                      <label className="text-xs font-bold uppercase tracking-widest text-on-surface/40">Previous Islamic Education <span className="text-primary">*</span></label>
                       <textarea 
                         name="previousEducation"
                         value={formData.previousEducation}
@@ -248,7 +263,7 @@ Application Details:
                       />
                     </div>
                     <div className="space-y-2">
-                      <label className="text-xs font-bold uppercase tracking-widest text-on-surface/40">Statement of Purpose</label>
+                      <label className="text-xs font-bold uppercase tracking-widest text-on-surface/40">Statement of Purpose <span className="text-primary">*</span></label>
                       <textarea 
                         name="statementOfPurpose"
                         value={formData.statementOfPurpose}
@@ -303,7 +318,11 @@ Application Details:
                   <button
                     type="button"
                     onClick={handleNext}
-                    className="btn-primary flex items-center gap-2"
+                    disabled={!isStepValid()}
+                    className={cn(
+                      "btn-primary flex items-center gap-2",
+                      !isStepValid() && "opacity-50 cursor-not-allowed"
+                    )}
                   >
                     Next Step <ChevronRight size={18} />
                   </button>

@@ -3,19 +3,63 @@ import { motion } from 'motion/react';
 import { CheckCircle, Shield, Calendar, Book, User, ExternalLink, Mail } from 'lucide-react';
 
 export const Verify: React.FC = () => {
-  const [params, setParams] = useState<Record<string, string>>({});
+  const [params, setParams] = useState<{ name?: string; course?: string; date?: string; id?: string }>({});
+  const [searchData, setSearchData] = useState({ name: '', course: '', date: '' });
+  const [isSearching, setIsSearching] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+
+  // Deterministic ID generation
+  const generateId = (name: string, course: string, date: string) => {
+    const str = `${name.toLowerCase()}-${course.toLowerCase()}-${date}`;
+    let hash = 0;
+    for (let i = 0; i < str.length; i++) {
+      const char = str.charCodeAt(i);
+      hash = ((hash << 5) - hash) + char;
+      hash = hash & hash; // Convert to 32bit integer
+    }
+    const hex = Math.abs(hash).toString(16).toUpperCase().padStart(8, '0');
+    return `DF-${hex.slice(0, 4)}-${hex.slice(4, 8)}`;
+  };
 
   useEffect(() => {
     const searchParams = new URLSearchParams(window.location.search);
-    const p: Record<string, string> = {};
-    searchParams.forEach((value, key) => {
-      p[key] = value;
-    });
-    setParams(p);
+    const name = searchParams.get('name');
+    const course = searchParams.get('course');
+    const date = searchParams.get('date');
+    const id = searchParams.get('id');
+
+    if (name && course && date) {
+      setParams({ name, course, date, id: id || generateId(name, course, date) });
+    } else if (id) {
+      // If only ID is provided, we'd normally search a DB. 
+      // For this demo, we'll show an error if we can't find it.
+      setError("Direct ID search requires a database connection. Please use the search form below.");
+    }
   }, []);
 
-  const { name, course, date } = params;
+  const handleSearch = (e: React.FormEvent) => {
+    e.preventDefault();
+    setIsSearching(true);
+    setError(null);
+
+    // Simulate search delay
+    setTimeout(() => {
+      if (searchData.name && searchData.course && searchData.date) {
+        setParams({
+          name: searchData.name,
+          course: searchData.course,
+          date: searchData.date,
+          id: generateId(searchData.name, searchData.course, searchData.date)
+        });
+      } else {
+        setError("Please fill in all fields to verify a certificate.");
+      }
+      setIsSearching(false);
+    }, 1500);
+  };
+
+  const { name, course, date, id } = params;
 
   useEffect(() => {
     if (name && course && canvasRef.current) {
@@ -256,16 +300,100 @@ export const Verify: React.FC = () => {
     ctx.font = 'bold 15px "Inter"';
     ctx.textAlign = 'center';
     ctx.fillText('VERIFIED', canvas.width - 190, canvas.height - 180);
+
+    // Add ID to certificate
+    ctx.fillStyle = '#151b2b';
+    ctx.font = 'normal 35px "Inter"';
+    ctx.textAlign = 'right';
+    ctx.fillText(`ID: ${id}`, canvas.width - 400, canvas.height - 130);
   };
 
-  if (!name || !course) {
+  if (!name || !course || !date) {
     return (
-      <div className="pt-32 pb-24 px-4 text-center">
-        <div className="max-w-md mx-auto glass p-12 rounded-3xl space-y-6">
-          <Shield size={64} className="mx-auto text-primary/20" />
-          <h1 className="text-2xl font-serif font-bold">Invalid Verification Link</h1>
-          <p className="text-on-surface/60">The link you followed appears to be incomplete or invalid. Please contact the institution for a valid verification link.</p>
-          <button onClick={() => window.location.href = '/'} className="btn-primary w-full">Go to Home</button>
+      <div className="pt-32 pb-24 px-4 sm:px-6 lg:px-8">
+        <div className="max-w-xl mx-auto space-y-12">
+          <div className="text-center space-y-4">
+            <div className="w-20 h-20 bg-primary/10 rounded-3xl flex items-center justify-center text-primary mx-auto mb-6">
+              <Shield size={40} />
+            </div>
+            <h1 className="text-4xl font-serif font-bold">Verify a Certificate</h1>
+            <p className="text-on-surface/60">Enter the student details exactly as they appear on the certificate to verify its authenticity.</p>
+          </div>
+
+          <form onSubmit={handleSearch} className="glass p-8 md:p-10 rounded-[40px] space-y-6">
+            <div className="space-y-2">
+              <label className="text-xs font-bold uppercase tracking-widest text-on-surface/40 ml-1">Student Full Name</label>
+              <div className="relative">
+                <User className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface/20" size={18} />
+                <input 
+                  type="text" 
+                  required
+                  placeholder="e.g. Abdullah Ibn Yusuf"
+                  value={searchData.name}
+                  onChange={(e) => setSearchData({...searchData, name: e.target.value})}
+                  className="w-full bg-on-surface/5 border border-border rounded-2xl py-4 pl-12 pr-6 text-sm focus:outline-none focus:border-primary/50"
+                />
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-xs font-bold uppercase tracking-widest text-on-surface/40 ml-1">Course Title</label>
+              <div className="relative">
+                <Book className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface/20" size={18} />
+                <input 
+                  type="text" 
+                  required
+                  placeholder="e.g. Tajweed & Quranic Recitation"
+                  value={searchData.course}
+                  onChange={(e) => setSearchData({...searchData, course: e.target.value})}
+                  className="w-full bg-on-surface/5 border border-border rounded-2xl py-4 pl-12 pr-6 text-sm focus:outline-none focus:border-primary/50"
+                />
+              </div>
+            </div>
+
+            <div className="space-y-2">
+              <label className="text-xs font-bold uppercase tracking-widest text-on-surface/40 ml-1">Issue Date</label>
+              <div className="relative">
+                <Calendar className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface/20" size={18} />
+                <input 
+                  type="date" 
+                  required
+                  value={searchData.date}
+                  onChange={(e) => setSearchData({...searchData, date: e.target.value})}
+                  className="w-full bg-on-surface/5 border border-border rounded-2xl py-4 pl-12 pr-6 text-sm focus:outline-none focus:border-primary/50"
+                />
+              </div>
+            </div>
+
+            {error && (
+              <div className="p-4 rounded-xl bg-error/10 border border-error/20 text-error text-sm text-center">
+                {error}
+              </div>
+            )}
+
+            <button 
+              type="submit" 
+              disabled={isSearching}
+              className="btn-primary w-full flex items-center justify-center gap-2"
+            >
+              {isSearching ? (
+                <>
+                  <div className="w-4 h-4 border-2 border-surface/30 border-t-surface rounded-full animate-spin" />
+                  Searching Records...
+                </>
+              ) : (
+                <>
+                  Verify Credential <ExternalLink size={18} />
+                </>
+              )}
+            </button>
+          </form>
+
+          <div className="text-center">
+            <p className="text-xs text-on-surface/40 leading-relaxed">
+              Verification is based on our official records. If you believe there is an error, please contact our registrar's office.
+            </p>
+          </div>
         </div>
       </div>
     );
@@ -292,8 +420,14 @@ export const Verify: React.FC = () => {
               <Shield size={14} />
               <span>Secure Digital Credential</span>
               <span className="w-1 h-1 rounded-full bg-white/10" />
-              <span>ID: {Math.random().toString(36).substr(2, 9).toUpperCase()}</span>
+              <span>ID: {id}</span>
             </div>
+            <button 
+              onClick={() => setParams({})}
+              className="w-full py-3 rounded-xl border border-border text-xs font-bold uppercase tracking-widest text-on-surface/40 hover:text-primary hover:border-primary/30 transition-all"
+            >
+              Search Another Certificate
+            </button>
           </div>
 
           <div className="space-y-6">

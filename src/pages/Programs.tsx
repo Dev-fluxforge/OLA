@@ -65,7 +65,10 @@ export const Programs: React.FC<ProgramsProps> = ({ onPageChange, onCourseSelect
               <div className="w-20 h-4 bg-on-surface/5 rounded" />
               <div className="w-20 h-4 bg-on-surface/5 rounded" />
             </div>
-            <div className="w-24 h-4 bg-on-surface/5 rounded" />
+            <div className="flex items-center gap-3">
+              <div className="w-24 h-6 bg-on-surface/5 rounded-full" />
+              <div className="w-24 h-4 bg-on-surface/5 rounded" />
+            </div>
           </div>
         </div>
       </div>
@@ -289,6 +292,7 @@ export const Programs: React.FC<ProgramsProps> = ({ onPageChange, onCourseSelect
                               </div>
                             </div>
                             <div className="flex items-center gap-3">
+                              <div className="text-lg font-serif font-bold text-primary">15,000 Naira</div>
                               {isEnrolled ? (
                                 <div className="flex items-center gap-3">
                                   <button 
